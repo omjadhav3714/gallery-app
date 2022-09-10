@@ -25,7 +25,7 @@ class _ForgetPageViewState extends State<ForgetPageView> {
         child: Column(
           children: [
             Transform.translate(
-              offset: const Offset(-40.0, 40.0),
+              offset: const Offset(0.0, 50.0),
               child: Image.asset(
                 'assets/forget.png',
                 height: 300,

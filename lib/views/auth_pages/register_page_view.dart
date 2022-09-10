@@ -29,22 +29,28 @@ class _RegisterPageViewState extends State<RegisterPageView> {
         child: Column(
           children: [
             Transform.translate(
-              offset: const Offset(-40.0, 13.0),
+              offset: const Offset(0.0, 50.0),
               child: Image.asset(
                 'assets/signup.png',
                 height: 300,
+                width: 600,
               ),
             ),
             Expanded(
               child: Container(
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
+                    color: white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 200, 200, 200),
+                        blurRadius: 10.0,
+                      ),
+                    ]),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -60,7 +66,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                           style: TextStyle(
                             fontSize: 35,
                             color: black,
-                            letterSpacing: 2,
+                            letterSpacing: 1,
                             fontFamily: "Lobster",
                           ),
                         ),
@@ -69,11 +75,12 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
                           CircleAvatar(
-                            radius: 60,
+                            radius: 40,
                             backgroundColor: grey,
                             child: Icon(
                               Icons.camera_alt,
                               color: primaryColor,
+                              size: 30.0,
                             ),
                           ),
                         ],

@@ -28,7 +28,7 @@ class _LoginPageViewState extends State<LoginPageView> {
         child: Column(
           children: [
             Transform.translate(
-              offset: const Offset(-40.0, 40.0),
+              offset: const Offset(0.0, 50.0),
               child: Image.asset(
                 'assets/signin.png',
                 height: 300,
@@ -38,12 +38,17 @@ class _LoginPageViewState extends State<LoginPageView> {
               child: Container(
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
+                    color: white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 200, 200, 200),
+                        blurRadius: 10.0,
+                      ),
+                    ]),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -59,7 +64,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                           style: TextStyle(
                             fontSize: 35,
                             color: black,
-                            letterSpacing: 2,
+                            letterSpacing: 1,
                             fontFamily: "Lobster",
                           ),
                         ),
