@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/constants/strings.dart';
-import 'package:greetings_app/views/auth_pages/forget_password_page_view.dart';
 import 'package:greetings_app/views/auth_pages/login_page_view.dart';
 import '../widgets/authbutton_widget_view.dart';
 import '../widgets/textfield_widget_view.dart';
@@ -71,19 +70,14 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          CircleAvatar(
-                            radius: 40,
-                            backgroundColor: grey,
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: primaryColor,
-                              size: 30.0,
-                            ),
-                          ),
-                        ],
+                      const CircleAvatar(
+                        radius: 40,
+                        backgroundColor: grey,
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: primaryColor,
+                          size: 30.0,
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
@@ -91,7 +85,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       TextFieldView(
                         ctrl: nameCtrl,
                         labelTxt: name,
-                        placholderTxt: nameP,
+                        placeholderTxt: nameP,
                       ),
                       const SizedBox(
                         height: 20,
@@ -99,7 +93,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       TextFieldView(
                         ctrl: emailCtrl,
                         labelTxt: email,
-                        placholderTxt: emailP,
+                        placeholderTxt: emailP,
                       ),
                       const SizedBox(
                         height: 20,
@@ -107,7 +101,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       TextFieldView(
                         ctrl: phoneCtrl,
                         labelTxt: contact,
-                        placholderTxt: contactP,
+                        placeholderTxt: contactP,
                       ),
                       const SizedBox(
                         height: 20,
@@ -115,7 +109,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       TextFieldView(
                         ctrl: passCtrl,
                         labelTxt: password,
-                        placholderTxt: passwordP,
+                        placeholderTxt: passwordP,
                       ),
                       const SizedBox(
                         height: 40,

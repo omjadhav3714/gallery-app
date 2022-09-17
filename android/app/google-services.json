@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "311515779904",
+    "project_id": "gallery-app-41f69",
+    "storage_bucket": "gallery-app-41f69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311515779904:android:ab0d5985216224de74a0a5",
+        "android_client_info": {
+          "package_name": "com.darkcoders.greetingsapp.greetings_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311515779904-mjtk0i78m7e4jel5a6alj1hrk3ka897v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.darkcoders.greetingsapp.greetings_app",
+            "certificate_hash": "2fc9a68df10589a6a3c81f6332e8673a5c1a5358"
+          }
+        },
+        {
+          "client_id": "311515779904-plqs2oqkqck6vbpqhihqj6b1cp6q4mkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP0QW3mfjy4k5PZ46jLKgseot_w9aai-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311515779904-plqs2oqkqck6vbpqhihqj6b1cp6q4mkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

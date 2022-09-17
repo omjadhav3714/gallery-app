@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greetings_app/controllers/AuthController.dart';
 
 class SocialButtonWidget extends StatelessWidget {
   const SocialButtonWidget({super.key});
@@ -8,24 +9,22 @@ class SocialButtonWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Material(
-          elevation: 5,
-          borderRadius: BorderRadius.circular(50),
+        GestureDetector(
+          onTap: () async {
+            // Trigger Google Sign in
+            await AuthController().loginWithGoogle(context);
+          },
           child: Image.asset(
-            "assets/Facebook.png",
+            "assets/google_logo.png",
             width: 80,
           ),
         ),
         const SizedBox(
           width: 15,
         ),
-        Material(
-          elevation: 5,
-          borderRadius: BorderRadius.circular(50),
-          child: Image.asset(
-            "assets/Facebook.png",
-            width: 80,
-          ),
+        Image.asset(
+          "assets/Facebook.png",
+          width: 80,
         ),
       ],
     );

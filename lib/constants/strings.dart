@@ -6,7 +6,7 @@ const String emailP = "Your email id";
 const String password = "Password";
 const String passwordP = "Your password";
 const String forgetP = "Forget password ?";
-const String orLog = "----------Or Login with----------";
+const String orLoginWith = "or Login with";
 
 //Register Strings
 const String register = "Register";

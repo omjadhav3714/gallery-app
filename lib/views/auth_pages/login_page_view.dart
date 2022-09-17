@@ -21,10 +21,7 @@ class _LoginPageViewState extends State<LoginPageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          color: grey,
-        ),
+        color: grey,
         child: Column(
           children: [
             Transform.translate(
@@ -36,7 +33,6 @@ class _LoginPageViewState extends State<LoginPageView> {
             ),
             Expanded(
               child: Container(
-                width: double.infinity,
                 decoration: const BoxDecoration(
                     color: white,
                     borderRadius: BorderRadius.only(
@@ -73,7 +69,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                       TextFieldView(
                         ctrl: emailCtrl,
                         labelTxt: email,
-                        placholderTxt: emailP,
+                        placeholderTxt: emailP,
                       ),
                       const SizedBox(
                         height: 20,
@@ -81,7 +77,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                       TextFieldView(
                         ctrl: passCtrl,
                         labelTxt: password,
-                        placholderTxt: passwordP,
+                        placeholderTxt: passwordP,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
@@ -155,7 +151,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(top: 10),
                         child: const Text(
-                          orLog,
+                          orLoginWith,
                           style: TextStyle(
                             color: black,
                             fontSize: 15,

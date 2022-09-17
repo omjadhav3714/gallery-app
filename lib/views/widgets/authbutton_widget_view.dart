@@ -15,9 +15,11 @@ class _AuthButtonWidgetState extends State<AuthButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: widget.onPress ?? () {},
+      onPressed: widget.onPress ?? () {
+
+      },
       style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.purpleAccent,
+          primary: Colors.purpleAccent,
           elevation: 18,
           padding: EdgeInsets.zero,
           shape:

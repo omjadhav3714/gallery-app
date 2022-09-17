@@ -4,8 +4,9 @@ import 'package:greetings_app/constants/colors.dart';
 class TextFieldView extends StatefulWidget {
   final TextEditingController? ctrl;
   final String? labelTxt;
-  final String? placholderTxt;
-  const TextFieldView({Key? key, this.ctrl, this.labelTxt, this.placholderTxt})
+  final String? placeholderTxt;
+  final TextInputType? textInputType;
+  const TextFieldView({Key? key, this.ctrl, this.labelTxt, this.placeholderTxt, this.textInputType})
       : super(key: key);
 
   @override
@@ -47,9 +48,10 @@ class _TextFieldViewState extends State<TextFieldView> {
           child: Expanded(
             child: TextFormField(
               maxLines: 1,
+              keyboardType: widget.textInputType ?? TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
-                  widget.placholderTxt ?? "",
+                  widget.placeholderTxt ?? "",
                   style: const TextStyle(
                     fontSize: 12,
                   ),

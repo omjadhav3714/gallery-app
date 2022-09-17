@@ -65,7 +65,7 @@ class _ForgetPageViewState extends State<ForgetPageView> {
                       TextFieldView(
                         ctrl: emailCtrl,
                         labelTxt: email,
-                        placholderTxt: emailP,
+                        placeholderTxt: emailP,
                       ),
                       const SizedBox(
                         height: 40,
