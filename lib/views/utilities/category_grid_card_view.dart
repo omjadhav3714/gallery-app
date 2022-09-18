@@ -1,19 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../constants/colors.dart';
-
 class CategoryGridCardView extends StatelessWidget {
-  const CategoryGridCardView(
-      {Key? key,
-      required this.networkImageUrl,
-      this.onTap,
-      required this.categoryType})
-      : super(key: key);
-  final String networkImageUrl;
+  const CategoryGridCardView({
+    Key? key,
+    required this.data,
+    this.onTap,
+  }) : super(key: key);
+  final QueryDocumentSnapshot? data;
   final Function()? onTap;
-  final String categoryType;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +24,9 @@ class CategoryGridCardView extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(200),
               child: CachedNetworkImage(
-                imageUrl: networkImageUrl,
+                width: 100,
+                height: 100,
+                imageUrl: data!["img"],
                 placeholder: (context, url) => ClipRRect(
                   borderRadius: BorderRadius.circular(200),
                   child: SizedBox(
@@ -49,7 +48,7 @@ class CategoryGridCardView extends StatelessWidget {
             ),
           ),
         ),
-        Text(categoryType),
+        Text(data!['name']),
       ]),
     );
   }

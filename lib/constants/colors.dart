@@ -6,3 +6,5 @@ const Color grey = Color(0xFFEFF1F3);
 const Color greyDark = Color(0xFF64666c);
 const MaterialColor primaryColor = Colors.indigo;
 const Color transparent = Colors.transparent;
+const Color greyLight = Color(0xFFd1d5db);
+ const Color notWhite = Color(0xFFEDF0F2);

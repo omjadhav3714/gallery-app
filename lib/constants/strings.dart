@@ -20,3 +20,10 @@ const String contactP = "Your contact no.";
 //Forget Password
 const String submit = "Submit";
 const String backto = "Back to login";
+
+//stream builder
+const String wentWrong = 'Something went wrong';
+const String noData = 'Oops No data';
+
+// 
+const String edit = 'Edit';

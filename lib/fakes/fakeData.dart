@@ -49,14 +49,14 @@ List<StaggeredGridCardView> gridCardList = [
   ),
 ];
 
-List<CategoryGridCardView> categoryCardsList = [
-  const CategoryGridCardView(networkImageUrl: 'https://thumbs.dreamstime.com/b/flying-helium-bunch-balloon-collection-colored-shiny-transparency-group-ballons-red-green-blue-yellow-orange-spring-balloons-204937103.jpg', categoryType: 'Birthday'),
-  const CategoryGridCardView(networkImageUrl: 'https://static.vecteezy.com/system/resources/previews/003/563/459/original/kids-faces-child-expression-faces-little-boys-girls-cartoon-avatars-collection-free-vector.jpg', categoryType: 'Baby Wish'),
-  const CategoryGridCardView(networkImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkOuc1gnYXVTEJePwdbsZmsXYEtV_jUCV7bQ&usqp=CAU', categoryType: 'Graduation'),
-  const CategoryGridCardView(networkImageUrl: 'https://media.istockphoto.com/vectors/christmas-bells-with-green-tree-branches-vector-id1278465377?k=20&m=1278465377&s=612x612&w=0&h=m0vyxVGU-gqrgyJuPefGzeFV8TZzGNTFJTZCGM6w5hg=', categoryType: 'Christmas'),
-  const CategoryGridCardView(networkImageUrl: 'https://img.freepik.com/premium-vector/valentine-s-day-girl-hugs-guy-couple-love-vector-cartoon-style_313437-42.jpg?w=2000', categoryType: 'Anniversary'),
-  const CategoryGridCardView(networkImageUrl: 'https://www.kindpng.com/picc/m/54-540857_transparent-proposal-clipart-man-proposing-to-a-woman.png', categoryType: 'Proposal'),
-  const CategoryGridCardView(networkImageUrl: 'https://preview.pixlr.com/images/800wm/1288/1/1288102914.jpg', categoryType: 'Thank You'),
-  const CategoryGridCardView(networkImageUrl: 'https://png.pngtree.com/png-vector/20191023/ourlarge/pngtree-diwali-diya-graphic-vector-png-image_1853066.jpg', categoryType: 'Diwali'),
-  const CategoryGridCardView(networkImageUrl: 'https://img.freepik.com/premium-vector/mother-s-day-girl-hugs-her-mother-with-various-plants-flowers-background-vector_432516-1674.jpg?w=2000', categoryType: "Mother's Day"),
-];
+// List<CategoryGridCardView> categoryCardsList = [
+//   const CategoryGridCardView(networkImageUrl: 'https://thumbs.dreamstime.com/b/flying-helium-bunch-balloon-collection-colored-shiny-transparency-group-ballons-red-green-blue-yellow-orange-spring-balloons-204937103.jpg', categoryType: 'Birthday'),
+//   const CategoryGridCardView(networkImageUrl: 'https://static.vecteezy.com/system/resources/previews/003/563/459/original/kids-faces-child-expression-faces-little-boys-girls-cartoon-avatars-collection-free-vector.jpg', categoryType: 'Baby Wish'),
+//   const CategoryGridCardView(networkImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkOuc1gnYXVTEJePwdbsZmsXYEtV_jUCV7bQ&usqp=CAU', categoryType: 'Graduation'),
+//   const CategoryGridCardView(networkImageUrl: 'https://media.istockphoto.com/vectors/christmas-bells-with-green-tree-branches-vector-id1278465377?k=20&m=1278465377&s=612x612&w=0&h=m0vyxVGU-gqrgyJuPefGzeFV8TZzGNTFJTZCGM6w5hg=', categoryType: 'Christmas'),
+//   const CategoryGridCardView(networkImageUrl: 'https://img.freepik.com/premium-vector/valentine-s-day-girl-hugs-guy-couple-love-vector-cartoon-style_313437-42.jpg?w=2000', categoryType: 'Anniversary'),
+//   const CategoryGridCardView(networkImageUrl: 'https://www.kindpng.com/picc/m/54-540857_transparent-proposal-clipart-man-proposing-to-a-woman.png', categoryType: 'Proposal'),
+//   const CategoryGridCardView(networkImageUrl: 'https://preview.pixlr.com/images/800wm/1288/1/1288102914.jpg', categoryType: 'Thank You'),
+//   const CategoryGridCardView(networkImageUrl: 'https://png.pngtree.com/png-vector/20191023/ourlarge/pngtree-diwali-diya-graphic-vector-png-image_1853066.jpg', categoryType: 'Diwali'),
+//   const CategoryGridCardView(networkImageUrl: 'https://img.freepik.com/premium-vector/mother-s-day-girl-hugs-her-mother-with-various-plants-flowers-background-vector_432516-1674.jpg?w=2000', categoryType: "Mother's Day"),
+// ];
