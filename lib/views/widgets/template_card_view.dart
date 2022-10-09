@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
+import '../edit_pages/edit_page_view.dart';
 
 class TemplateCard extends StatelessWidget {
   const TemplateCard(
@@ -78,7 +79,15 @@ class TemplateCard extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.225,
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EditPageView(
+                                selectedImage: data!['img'],
+                              ),
+                            ),
+                          );
+                        },
                         child: const Text(edit),
                       ),
                     ),

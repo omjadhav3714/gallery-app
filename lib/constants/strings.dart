@@ -27,3 +27,12 @@ const String noData = 'Oops No data';
 
 // 
 const String edit = 'Edit';
+
+// Edit image model
+const String savedGallery = 'Image saved to gallery.';
+const String selectStyling = 'Selected For Styling';
+const String removed = 'Removed';
+const String addText = 'Add Text';
+const String enterText = "Enter your text here....";
+const String addTitle = "Add New Text";
+const String back = "Back";
