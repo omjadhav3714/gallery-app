@@ -10,12 +10,12 @@ class CategoriesGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _categoriesStream = FirebaseFirestore.instance
+    final Stream<QuerySnapshot> categoriesStream = FirebaseFirestore.instance
         .collection('categories')
         .snapshots(includeMetadataChanges: true);
 
     return StreamBuilder<QuerySnapshot>(
-        stream: _categoriesStream,
+        stream: categoriesStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return const Text(wentWrong);

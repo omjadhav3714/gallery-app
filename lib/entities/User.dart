@@ -5,22 +5,27 @@ class UserData with ChangeNotifier {
   String? email;
   String? photoUrl;
   String? displayName;
+  String? authStatusMessage;
+  bool? loggedIn;
 
   UserData({
     required this.uid,
     required this.email,
     required this.displayName,
     this.photoUrl,
+    this.authStatusMessage,
+    this.loggedIn,
   }) {
     notifyListeners();
   }
 
-  void updateData({
-    String? uid,
-    String? email,
-    String? photoUrl,
-    String? displayName,
-  }) {
+  void updateData(
+      {String? uid,
+      String? email,
+      String? photoUrl,
+      String? displayName,
+      String? authStatusMessage,
+      bool? loggedIn}) {
     if (uid != null) {
       this.uid = uid;
     }
@@ -33,6 +38,12 @@ class UserData with ChangeNotifier {
     if (displayName != null) {
       this.displayName = displayName;
     }
+    if (authStatusMessage != null) {
+      this.authStatusMessage = authStatusMessage;
+    }
+    if (loggedIn != null) {
+      this.loggedIn = loggedIn;
+    }
     notifyListeners();
   }
 
@@ -41,6 +52,8 @@ class UserData with ChangeNotifier {
     email = user.email;
     photoUrl = user.photoUrl;
     displayName = user.displayName;
+    authStatusMessage = user.authStatusMessage;
+    loggedIn = user.loggedIn;
     notifyListeners();
   }
 }

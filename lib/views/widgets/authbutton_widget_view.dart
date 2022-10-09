@@ -5,7 +5,8 @@ import '../../constants/colors.dart';
 class AuthButtonWidget extends StatefulWidget {
   final String? btnTxt;
   final void Function()? onPress;
-  const AuthButtonWidget({Key? key, this.btnTxt, this.onPress}) : super(key: key);
+  const AuthButtonWidget({Key? key, this.btnTxt, this.onPress})
+      : super(key: key);
 
   @override
   State<AuthButtonWidget> createState() => _AuthButtonWidgetState();
@@ -15,9 +16,7 @@ class _AuthButtonWidgetState extends State<AuthButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: widget.onPress ?? () {
-
-      },
+      onPressed: widget.onPress ?? () {},
       style: ElevatedButton.styleFrom(
           primary: Colors.purpleAccent,
           elevation: 18,

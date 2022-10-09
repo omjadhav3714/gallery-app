@@ -7,11 +7,18 @@ class AuthController {
     await AuthServiceModel().loginWithGoogle(context);
   }
 
-  Future<void> logOutUser() async{
+  Future<void> logOutUser() async {
     await AuthServiceModel().signOutUser();
   }
-  // void updateUserData(BuildContext context, bool isContentCreator) {
-  //   // Update the UserModel with the usertype data
-  //   AuthServiceModel().updateUserData(context, isContentCreator);
-  // }
+
+  Future<void> loginWithEmailPassword(
+      BuildContext context, String email, String password) async {
+    await AuthServiceModel().loginWithEmailPassword(context, email, password);
+  }
+
+  Future<void> registerWithEmailPassword(BuildContext context, String email,
+      String password, String name, String phone) async {
+    await AuthServiceModel()
+        .registerWithEmailPassword(context, email, password, name, phone);
+  }
 }

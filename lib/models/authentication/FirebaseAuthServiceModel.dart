@@ -38,6 +38,8 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
 
   @override
   Stream<UserData?> onAuthStateChanged(BuildContext context) {
+    debugPrint(
+        "*************************** Auth State changed *****************************");
     return _firebaseAuth
         .authStateChanges()
         .map((user) => _userFromFirebase(user, context));
@@ -69,4 +71,41 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
 
   @override
   void dispose() {}
+
+  @override
+  Future<UserData?> signInWithEmailPassword(
+      BuildContext context, String email, String password) async {
+    try {
+      final authResult = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      final user = authResult.user;
+      return _userFromFirebase(user, context);
+    } on FirebaseAuthException catch (error) {
+      debugPrint("Login Failed with error code : ${error.code}");
+      debugPrint(error.message);
+      Provider.of<UserData?>(context, listen: false)!
+          .updateData(authStatusMessage: error.message);
+    }
+    return null;
+  }
+
+  @override
+  Future<UserData?> registerWithEmailPassword(
+      BuildContext context, String email, String password, String name) async {
+    try {
+      final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      await authResult.user!.updateDisplayName(name);
+
+      final user = authResult.user;
+      debugPrint(user!.displayName);
+      return _userFromFirebase(user, context);
+    } on FirebaseAuthException catch (error) {
+      debugPrint("Registration Failed with error code : ${error.code}");
+      debugPrint(error.message);
+      Provider.of<UserData?>(context, listen: false)!
+          .updateData(authStatusMessage: error.message);
+    }
+    return null;
+  }
 }

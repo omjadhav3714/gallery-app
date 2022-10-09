@@ -10,4 +10,8 @@ abstract class IFirebaseAuthServiceModel {
   Future<UserData?> signInWithGoogle(BuildContext context);
   Future signOutUser();
   void dispose();
+  Future<UserData?> signInWithEmailPassword(
+      BuildContext context, String email, String password);
+  Future<UserData?> registerWithEmailPassword(
+      BuildContext context, String email, String password, String name);
 }
