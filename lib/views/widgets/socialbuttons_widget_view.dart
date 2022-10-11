@@ -6,27 +6,17 @@ class SocialButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () async {
-            // Trigger Google Sign in
-            await AuthController().loginWithGoogle(context);
-          },
-          child: Image.asset(
-            "assets/google_logo.png",
-            width: 80,
-          ),
-        ),
-        const SizedBox(
-          width: 15,
-        ),
-        Image.asset(
-          "assets/Facebook.png",
+    return Center(
+      child: GestureDetector(
+        onTap: () async {
+          // Trigger Google Sign in
+          await AuthController().loginWithGoogle(context);
+        },
+        child: Image.asset(
+          "assets/google_logo.png",
           width: 80,
         ),
-      ],
+      ),
     );
   }
 }

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 
-class TextFieldView extends StatefulWidget {
-  final TextEditingController? ctrl;
+class TextFieldView extends StatelessWidget {
+  final TextEditingController controller;
   final String? labelTxt;
   final String? placeholderTxt;
   final TextInputType? textInputType;
-  const TextFieldView({Key? key, this.ctrl, this.labelTxt, this.placeholderTxt, this.textInputType})
+  final String? Function(String?)? validator;
+
+  const TextFieldView(
+      {Key? key,
+      required this.controller,
+      this.labelTxt,
+      this.placeholderTxt,
+      this.textInputType,
+      this.validator})
       : super(key: key);
-
-  @override
-  State<TextFieldView> createState() => _TextFieldViewState();
-}
-
-class _TextFieldViewState extends State<TextFieldView> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +26,7 @@ class _TextFieldViewState extends State<TextFieldView> {
             horizontal: 35,
           ),
           child: Text(
-            widget.labelTxt ?? "",
+            labelTxt ?? "",
             style: const TextStyle(
               fontSize: 20,
             ),
@@ -47,11 +49,13 @@ class _TextFieldViewState extends State<TextFieldView> {
           ),
           child: Expanded(
             child: TextFormField(
+              controller: controller,
+              validator: validator,
               maxLines: 1,
-              keyboardType: widget.textInputType ?? TextInputType.text,
+              keyboardType: textInputType ?? TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
-                  widget.placeholderTxt ?? "",
+                  placeholderTxt ?? "",
                   style: const TextStyle(
                     fontSize: 12,
                   ),

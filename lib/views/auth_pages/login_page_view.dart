@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/constants/strings.dart';
 import 'package:greetings_app/views/auth_pages/forget_password_page_view.dart';
+import 'package:greetings_app/views/utilities/show_error_view.dart';
+import 'package:provider/provider.dart';
+import '../../controllers/AuthController.dart';
+import '../../entities/User.dart';
 import '../widgets/authbutton_widget_view.dart';
 import '../widgets/socialbuttons_widget_view.dart';
 import '../widgets/textfield_widget_view.dart';
@@ -15,8 +19,17 @@ class LoginPageView extends StatefulWidget {
 }
 
 class _LoginPageViewState extends State<LoginPageView> {
-  TextEditingController emailCtrl = TextEditingController();
-  TextEditingController passCtrl = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,123 +59,162 @@ class _LoginPageViewState extends State<LoginPageView> {
                       ),
                     ]),
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        // color: Colors.red,
-                        alignment: Alignment.topLeft,
-                        margin: const EdgeInsets.only(left: 22, bottom: 20),
-                        child: const Text(
-                          login,
-                          style: TextStyle(
-                            fontSize: 35,
-                            color: black,
-                            letterSpacing: 1,
-                            fontFamily: "Lobster",
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          // color: Colors.red,
+                          alignment: Alignment.topLeft,
+                          margin: const EdgeInsets.only(left: 22, bottom: 20),
+                          child: const Text(
+                            login,
+                            style: TextStyle(
+                              fontSize: 35,
+                              color: black,
+                              letterSpacing: 1,
+                              fontFamily: "Lobster",
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFieldView(
-                        ctrl: emailCtrl,
-                        labelTxt: email,
-                        placeholderTxt: emailP,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFieldView(
-                        ctrl: passCtrl,
-                        labelTxt: password,
-                        placeholderTxt: passwordP,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ForgetPageView(),
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                forgetP,
-                                style: TextStyle(color: greyDark),
-                              ),
-                            ),
-                          ],
+                        const SizedBox(height: 20),
+                        TextFieldView(
+                          controller: emailController,
+                          labelTxt: email,
+                          placeholderTxt: emailP,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter email';
+                            }
+                            bool emailValid = RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(value);
+                            if (!emailValid) {
+                              return "Enter a valid email";
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const AuthButtonWidget(
-                        btnTxt: loginB,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 70,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              doA,
-                              style: TextStyle(
-                                color: black,
-                                fontSize: 15,
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFieldView(
+                          controller: passwordController,
+                          labelTxt: password,
+                          placeholderTxt: passwordP,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter password';
+                            }
+                            if (value.length < 6) {
+                              return "Password length should be 6 characters";
+                            }
+                            return null;
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ForgetPageView(),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  forgetP,
+                                  style: TextStyle(color: greyDark),
+                                ),
                               ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        AuthButtonWidget(
+                          btnTxt: loginB,
+                          onPress: () async {
+                            if (_formKey.currentState!.validate()) {
+                              // Trigger Login functionality
+                              await AuthController().loginWithEmailPassword(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegisterPageView(),
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                register,
+                                  emailController.text,
+                                  passwordController.text);
+                              if (mounted) {
+                                var user = Provider.of<UserData?>(context,
+                                    listen: false);
+                                showBottomNotificationMessage(
+                                    context, user!.authStatusMessage!);
+                              }
+                            }
+                          },
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 70,
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                doA,
                                 style: TextStyle(
                                   color: black,
                                   fontSize: 15,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 40,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 10),
-                        child: const Text(
-                          orLoginWith,
-                          style: TextStyle(
-                            color: black,
-                            fontSize: 15,
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegisterPageView(),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  register,
+                                  style: TextStyle(
+                                    color: black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ),
-                      const SocialButtonWidget(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                        Container(
+                          width: double.infinity,
+                          height: 40,
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(top: 10),
+                          child: const Text(
+                            orLoginWith,
+                            style: TextStyle(
+                              color: black,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        const SocialButtonWidget(),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

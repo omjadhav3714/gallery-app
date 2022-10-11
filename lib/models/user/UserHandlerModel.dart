@@ -33,13 +33,14 @@ class UserHandlerModel {
   // }
 
   /// Creates a document in database with the user data
-  Future<void> storeUserDetails(BuildContext context) async {
+  Future<void> storeUserDetails(BuildContext context, {String? phone}) async {
     var user = Provider.of<UserData?>(context, listen: false);
     return await users.doc(user!.email).set({
       "uid": user.uid,
       "email": user.email,
       "name": user.displayName,
       "photoUrl": user.photoUrl,
+      "phone": phone,
       "signUpTime": FieldValue.serverTimestamp(),
     }).catchError((error) =>
         debugPrint("Failed to add user details to database: $error"));
