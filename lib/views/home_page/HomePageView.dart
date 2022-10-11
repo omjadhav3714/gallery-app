@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/controllers/UserController.dart';
 import 'package:greetings_app/views/widgets/appbar_view.dart';
 import 'package:greetings_app/views/widgets/navbar_view.dart';
-import '../../constants/strings.dart';
 import '../../fakes/fakeData.dart';
 import '../widgets/categories_grid_view.dart';
 import '../widgets/staggered_grid_view.dart';

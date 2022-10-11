@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../constants/colors.dart';
 
@@ -13,8 +14,8 @@ class BackButtonWidget extends StatelessWidget {
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: const Icon(
-        Icons.arrow_back_ios_new,
+      icon: const FaIcon(
+        FontAwesomeIcons.backward,
         color: black,
       ),
     );
