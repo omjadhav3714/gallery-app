@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/controllers/UserController.dart';
+import 'package:greetings_app/models/authentication/FirebaseAuthServiceModel.dart';
 import 'package:greetings_app/views/widgets/appbar_view.dart';
 import 'package:greetings_app/views/widgets/navbar_view.dart';
-import '../../constants/strings.dart';
 import '../../fakes/fakeData.dart';
 import '../widgets/categories_grid_view.dart';
 import '../widgets/staggered_grid_view.dart';
@@ -20,7 +19,7 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     var user = UserController().getUserData(context);
-
+    debugPrint("################ ${user.displayName} ################");
     Widget getAppBarTitleForHomePage() {
       return Row(
         children: [

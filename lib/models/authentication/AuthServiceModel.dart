@@ -37,8 +37,10 @@ class AuthServiceModel {
     UserData? userModel = await authServiceProvider.registerWithEmailPassword(
         context, email, password, name);
     if (userModel != null) {
+      debugPrint("*************** YO ************ ${userModel
+          .displayName} *******************");
       await UserHandlerModel().storeUserDetails(context, phone: phone);
     }
-    // return userModel;
+    return userModel;
   }
 }

@@ -37,28 +37,32 @@ class _LoginPageViewState extends State<LoginPageView> {
         color: grey,
         child: Column(
           children: [
-            Transform.translate(
-              offset: const Offset(0.0, 50.0),
-              child: Image.asset(
-                'assets/signin.png',
-                height: 300,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: Transform.translate(
+                offset: const Offset(0.0, 50.0),
+                child: Image.asset(
+                  'assets/signin.png',
+                  height: double.infinity,
+                ),
               ),
             ),
             Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 200, 200, 200),
-                        blurRadius: 10.0,
+              child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  decoration: const BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
                       ),
-                    ]),
-                child: SingleChildScrollView(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 200, 200),
+                          blurRadius: 10.0,
+                        ),
+                      ]),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -180,7 +184,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const RegisterPageView(),
+                                           RegisterPageView(),
                                     ),
                                   );
                                 },

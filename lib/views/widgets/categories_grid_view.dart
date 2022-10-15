@@ -15,47 +15,48 @@ class CategoriesGridView extends StatelessWidget {
         .snapshots(includeMetadataChanges: true);
 
     return StreamBuilder<QuerySnapshot>(
-        stream: categoriesStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return const Text(wentWrong);
-          }
+      stream: categoriesStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text(wentWrong);
+        }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: primaryColor,
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: primaryColor,
+            ),
+          );
+        }
+        if (snapshot.data!.docs.isEmpty) {
+          return const Center(
+            child: Text(noData),
+          );
+        }
+        return GridView.count(
+          childAspectRatio: 4 / 5,
+          crossAxisCount: 3,
+          crossAxisSpacing: 2.0,
+          mainAxisSpacing: 2.0,
+          children: List.generate(snapshot.data!.docs.length, (index) {
+            return Center(
+              child: CategoryGridCardView(
+                data: snapshot.data!.docs[index],
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SubCategoryView(
+                        category: snapshot.data!.docs[index]['name'],
+                      ),
+                    ),
+                  );
+                },
               ),
             );
-          }
-          if (snapshot.data!.docs.isEmpty) {
-            return const Center(
-              child: Text(noData),
-            );
-          }
-          return GridView.count(
-            childAspectRatio: 4 / 5,
-            crossAxisCount: 3,
-            crossAxisSpacing: 2.0,
-            mainAxisSpacing: 2.0,
-            children: List.generate(snapshot.data!.docs.length, (index) {
-              return Center(
-                child: CategoryGridCardView(
-                  data: snapshot.data!.docs[index],
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SubCategoryView(
-                          category: snapshot.data!.docs[index]['name'],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
-            }),
-          );
-        });
+          }),
+        );
+      },
+    );
   }
 }

@@ -26,37 +26,36 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          color: grey,
-        ),
+        color: grey,
         child: Column(
           children: [
-            Transform.translate(
-              offset: const Offset(0.0, 50.0),
-              child: Image.asset(
-                'assets/signup.png',
-                height: 300,
-                width: 600,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: Transform.translate(
+                offset: const Offset(0.0, 50.0),
+                child: Image.asset(
+                  'assets/signup.png',
+                  height: double.infinity,
+                ),
               ),
             ),
             Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromARGB(255, 200, 200, 200),
-                      blurRadius: 10.0,
+              child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  decoration: const BoxDecoration(
+                    color: white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
-                  ],
-                ),
-                child: SingleChildScrollView(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 200, 200, 200),
+                        blurRadius: 10.0,
+                      ),
+                    ],
+                  ),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -162,8 +161,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                           btnTxt: register,
                           onPress: () async {
                             if (_formKey.currentState!.validate()) {
-                              // debugPrint(emailCtrl.text +
-                              //     passCtrl.text + nameCtrl.text + phoneCtrl.text);
                               // Trigger SignUp functionality
                               await AuthController().registerWithEmailPassword(
                                   context,

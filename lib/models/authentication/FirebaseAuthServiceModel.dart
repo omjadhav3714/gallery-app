@@ -93,15 +93,22 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
   Future<UserData?> registerWithEmailPassword(
       BuildContext context, String email, String password, String name) async {
     try {
-      final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      await authResult.user!.updateDisplayName(name);
-
+      debugPrint("***************${email + password + name}");
+      final authResult = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      //     .then((authUser) async {
+      //
+      //   return authUser;
+      // });
       final user = authResult.user;
-      debugPrint(user!.displayName);
+      // await authResult.user!.updateDisplayName(name);
+      await user!.updateDisplayName(name);
+      await user.reload();
+      debugPrint(user.displayName);
       return _userFromFirebase(user, context);
     } on FirebaseAuthException catch (error) {
-      debugPrint("Registration Failed with error code : ${error.code}");
+      debugPrint(
+          "********************************Registration Failed with error code : ${error.code}");
       debugPrint(error.message);
       Provider.of<UserData?>(context, listen: false)!
           .updateData(authStatusMessage: error.message);
