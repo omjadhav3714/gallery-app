@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../widgets/backbutton_widget_view.dart';
@@ -41,6 +42,7 @@ class _SubCategoryViewState extends State<SubCategoryView> {
           return DefaultTabController(
             length: 10,
             child: Scaffold(
+              bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 1),
               appBar: AppBar(
                 leading: const BackButtonWidget(),
                 elevation: 0,

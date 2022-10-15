@@ -37,7 +37,7 @@ class AuthRedirectController extends StatelessWidget {
           final user = snapshot.data;
           debugPrint(
               "**************** YO2 ${user?.displayName} ******* ${user?.email}");
-          if (user != null && user.displayName != null) {
+          if (user != null) {
             debugPrint("*************** HELLO HOMEPAGE *****************");
             // Go to HomePage
             return const HomePageView();

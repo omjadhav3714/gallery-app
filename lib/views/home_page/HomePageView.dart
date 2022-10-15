@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/controllers/UserController.dart';
-import 'package:greetings_app/models/authentication/FirebaseAuthServiceModel.dart';
 import 'package:greetings_app/views/widgets/appbar_view.dart';
 import 'package:greetings_app/views/widgets/navbar_view.dart';
 import '../../fakes/fakeData.dart';
+import '../utilities/bottom_navigation_bar.dart';
 import '../widgets/categories_grid_view.dart';
 import '../widgets/staggered_grid_view.dart';
 
@@ -30,7 +30,8 @@ class _HomePageViewState extends State<HomePageView> {
     }
 
     return Scaffold(
-        endDrawer: const NavBarView(),
+        // endDrawer: const NavBarView(),
+        bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 0),
         appBar:
             AppBarView().getCustomAppBar(title: getAppBarTitleForHomePage()),
         body: Column(

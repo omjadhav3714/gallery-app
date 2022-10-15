@@ -219,7 +219,7 @@ abstract class EditImageViewModel extends State<EditPageView> {
             onPressed: () => Navigator.of(context).pop(),
             color: white,
             textColor: black,
-            child: const Text(back),
+            child: const Text(back, style: TextStyle(color: black)),
           ),
           DefaultButton(
             onPressed: () => addNewText(context),
