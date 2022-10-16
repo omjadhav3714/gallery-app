@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/controllers/UserController.dart';
+import 'package:greetings_app/models/authentication/FirebaseAuthServiceModel.dart';
 import 'package:greetings_app/views/widgets/appbar_view.dart';
-import 'package:greetings_app/views/widgets/navbar_view.dart';
+import 'package:provider/provider.dart';
+import '../../entities/User.dart';
 import '../../fakes/fakeData.dart';
 import '../utilities/bottom_navigation_bar.dart';
 import '../widgets/categories_grid_view.dart';
 import '../widgets/staggered_grid_view.dart';
 
 class HomePageView extends StatefulWidget {
-  const HomePageView({Key? key}) : super(key: key);
-
+  const HomePageView({Key? key, this.userInfo}) : super(key: key);
+  final UserData? userInfo;
   @override
   State<HomePageView> createState() => _HomePageViewState();
 }
@@ -18,16 +20,25 @@ class HomePageView extends StatefulWidget {
 class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
-    var user = UserController().getUserData(context);
-    debugPrint("################ ${user.displayName} ################");
+    if (widget.userInfo != null) {
+      // Update the UserData provider
+      // Provider.of<UserData?>(context)
+      //     !.updateUserUsingObject(widget.userInfo!);
+    }
+
+    var user = FirebaseAuthServiceModel().getUserDetails();
+    debugPrint("################ ${user!.displayName} ################");
     Widget getAppBarTitleForHomePage() {
       return Row(
         children: [
           const Text("Welcome ", style: TextStyle(color: Colors.black)),
-          Text(user.displayName!, style: const TextStyle(color: primaryColor)),
+          Text(user.displayName ?? "Test User",
+              style: const TextStyle(color: primaryColor)),
         ],
       );
     }
+
+    Provider.of<UserData?>(context, listen: false)?.updateUserUsingObject(user);
 
     return Scaffold(
         // endDrawer: const NavBarView(),

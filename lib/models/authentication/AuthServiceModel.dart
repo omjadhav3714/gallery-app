@@ -6,15 +6,10 @@ import '../user/UserHandlerModel.dart';
 import 'FirebaseAuthServiceModel.dart';
 
 class AuthServiceModel {
-  Future<UserData?> loginWithGoogle(BuildContext context) async {
-    final authServiceProvider =
-        Provider.of<FirebaseAuthServiceModel>(context, listen: false);
-    UserData? userModel = await authServiceProvider.signInWithGoogle(context);
+  Future<UserData?> loginWithGoogle() async {
+    final authServiceProvider = FirebaseAuthServiceModel();
+    UserData? userModel = await authServiceProvider.signInWithGoogle();
     return userModel;
-  }
-
-  UserData? getCurrentUser(BuildContext context) {
-    return Provider.of<UserData?>(context, listen: false);
   }
 
   Future<void> signOutUser() async {
@@ -22,24 +17,28 @@ class AuthServiceModel {
   }
 
   Future<UserData?> loginWithEmailPassword(
-      BuildContext context, String email, String password) async {
-    final authServiceProvider =
-        Provider.of<FirebaseAuthServiceModel>(context, listen: false);
+      String email, String password) async {
+    final authServiceProvider = FirebaseAuthServiceModel();
     UserData? userModel = await authServiceProvider.signInWithEmailPassword(
-        context, email, password);
+      email,
+      password,
+    );
     return userModel;
   }
 
-  Future<UserData?> registerWithEmailPassword(BuildContext context,
+  Future<UserData?> registerWithEmailPassword(
       String email, String password, String name, String phone) async {
-    final authServiceProvider =
-        Provider.of<FirebaseAuthServiceModel>(context, listen: false);
+    final authServiceProvider = FirebaseAuthServiceModel();
     UserData? userModel = await authServiceProvider.registerWithEmailPassword(
-        context, email, password, name);
+      email,
+      password,
+      name,
+      phone
+    );
     if (userModel != null) {
-      debugPrint("*************** YO ************ ${userModel
-          .displayName} *******************");
-      await UserHandlerModel().storeUserDetails(context, phone: phone);
+      debugPrint(
+          "*************** YO ************ ${userModel.displayName} *******************");
+      await UserHandlerModel().storeUserDetails(userModel);
     }
     return userModel;
   }

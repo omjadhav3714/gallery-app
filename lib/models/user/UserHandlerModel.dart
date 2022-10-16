@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 import '../../entities/User.dart';
 
@@ -33,14 +32,13 @@ class UserHandlerModel {
   // }
 
   /// Creates a document in database with the user data
-  Future<void> storeUserDetails(BuildContext context, {String? phone}) async {
-    var user = Provider.of<UserData?>(context, listen: false);
+  Future<void> storeUserDetails(UserData? user) async {
     return await users.doc(user!.email).set({
       "uid": user.uid,
       "email": user.email,
       "name": user.displayName,
       "photoUrl": user.photoUrl,
-      "phone": phone,
+      "phone": user.phone,
       "signUpTime": FieldValue.serverTimestamp(),
     }).catchError((error) =>
         debugPrint("Failed to add user details to database: $error"));

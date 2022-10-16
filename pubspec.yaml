@@ -19,6 +19,7 @@ dependencies:
   provider: ^6.0.3
   google_sign_in: ^5.4.1
   fluttertoast: ^8.0.9
+  path_provider: ^2.0.11
 
   # Utility Packages
   cached_network_image: ^3.2.2
@@ -29,10 +30,13 @@ dependencies:
   google_nav_bar: ^5.0.6
   carbon_icons: ^0.0.1+2
 
+  font_awesome_flutter: ^10.2.1
+
   #To save edit images
   screenshot: ^1.2.3
   image_gallery_saver: ^1.7.1
   permission_handler: ^10.1.0
+  share: ^2.0.1 
 
 
 dev_dependencies:

@@ -1,6 +1,12 @@
+// ignore_for_file: file_names
+
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share/share.dart';
 import '../constants/colors.dart';
 import '../constants/strings.dart';
 import '../utils/utils.dart';
@@ -23,16 +29,31 @@ abstract class EditImageViewModel extends State<EditPageView> {
   /// Args:
   ///   context (BuildContext): The context of the widget that calls the function.
   saveToGallery(BuildContext context) {
-    if (texts.isNotEmpty) {
-      screenshotController.capture().then((Uint8List? image) {
-        saveImage(image!);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(savedGallery),
-          ),
-        );
-      }).catchError((err) => debugPrint(err));
-    }
+    // if (texts.isNotEmpty) {
+    screenshotController.capture().then((Uint8List? image) {
+      saveImage(image!);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(savedGallery),
+        ),
+      );
+    }).catchError((err) => debugPrint(err));
+    // }
+  }
+
+  /// It takes a screenshot of the current screen, saves it to the device's local storage, and then
+  /// shares it
+  ///
+  /// Args:
+  ///   context (BuildContext): The context of the widget that is calling the shareImage function.
+  shareImage(BuildContext context) async {
+    screenshotController.capture().then((Uint8List? image) async {
+      final directory = (await getApplicationDocumentsDirectory()).path;
+      Uint8List pngBytes = image!.buffer.asUint8List();
+      File imgFile = File('$directory/photo.png');
+      await imgFile.writeAsBytes(pngBytes);
+      Share.shareFiles([imgFile.path]);
+    });
   }
 
   /// It takes a Uint8List of bytes, converts it to a PNG image, and saves it to the device's gallery
@@ -209,7 +230,7 @@ abstract class EditImageViewModel extends State<EditPageView> {
           controller: textEditingController,
           maxLines: 5,
           decoration: const InputDecoration(
-            suffixIcon: Icon(Icons.edit),
+            suffixIcon: FaIcon(FontAwesomeIcons.pencil),
             filled: true,
             hintText: enterText,
           ),

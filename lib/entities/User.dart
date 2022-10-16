@@ -1,31 +1,34 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class UserData with ChangeNotifier {
+class UserData {
   String? uid;
   String? email;
   String? photoUrl;
   String? displayName;
   String? authStatusMessage;
   bool? loggedIn;
+  String? phone;
 
-  UserData({
-    required this.uid,
-    required this.email,
-    required this.displayName,
-    this.photoUrl,
-    this.authStatusMessage,
-    this.loggedIn,
-  }) {
-    notifyListeners();
+  UserData(
+      {required this.uid,
+      required this.email,
+      required this.displayName,
+      this.photoUrl,
+      this.authStatusMessage,
+      this.loggedIn,
+      this.phone}) {
+    // notifyListeners();
   }
 
-  void updateData(
-      {String? uid,
-      String? email,
-      String? photoUrl,
-      String? displayName,
-      String? authStatusMessage,
-      bool? loggedIn}) {
+  void updateData({
+    String? uid,
+    String? email,
+    String? photoUrl,
+    String? displayName,
+    String? authStatusMessage,
+    bool? loggedIn,
+    String? phone,
+  }) {
     if (uid != null) {
       this.uid = uid;
     }
@@ -44,7 +47,10 @@ class UserData with ChangeNotifier {
     if (loggedIn != null) {
       this.loggedIn = loggedIn;
     }
-    notifyListeners();
+    if (phone != null) {
+      this.phone = phone;
+    }
+    // notifyListeners();
   }
 
   void updateUserUsingObject(UserData user) {
@@ -54,6 +60,8 @@ class UserData with ChangeNotifier {
     displayName = user.displayName;
     authStatusMessage = user.authStatusMessage;
     loggedIn = user.loggedIn;
-    notifyListeners();
+    phone = user.phone;
+    // notifyListeners();
   }
+
 }

@@ -10,7 +10,7 @@ class SocialButtonWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           // Trigger Google Sign in
-          await AuthController().loginWithGoogle(context);
+          await AuthController().loginWithGoogle();
         },
         child: Image.asset(
           "assets/google_logo.png",

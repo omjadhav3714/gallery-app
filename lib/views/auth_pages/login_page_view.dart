@@ -148,17 +148,22 @@ class _LoginPageViewState extends State<LoginPageView> {
                         AuthButtonWidget(
                           btnTxt: loginB,
                           onPress: () async {
+                            // Act only after the form fields are validated
                             if (_formKey.currentState!.validate()) {
                               // Trigger Login functionality
-                              await AuthController().loginWithEmailPassword(
-                                  context,
-                                  emailController.text,
-                                  passwordController.text);
+                              var userResult =
+                                  await AuthController().loginWithEmailPassword(
+                                emailController.text.trim(),
+                                passwordController.text.trim(),
+                              );
+                              // Show error messages if any
                               if (mounted) {
-                                var user = Provider.of<UserData?>(context,
-                                    listen: false);
-                                showBottomNotificationMessage(
-                                    context, user!.authStatusMessage!);
+                                if (userResult!.authStatusMessage != null) {
+                                  showBottomNotificationMessage(
+                                    context,
+                                    userResult.authStatusMessage!,
+                                  );
+                                }
                               }
                             }
                           },
@@ -184,7 +189,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                           RegisterPageView(),
+                                          const RegisterPageView(),
                                     ),
                                   );
                                 },

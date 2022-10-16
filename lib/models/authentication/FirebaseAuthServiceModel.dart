@@ -5,7 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../entities/User.dart';
 import '../user/UserHandlerModel.dart';
 import 'IFirebaseAuthService.dart';
-import 'package:provider/provider.dart';
 
 class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -15,20 +14,35 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
 
   // UserModel is a custom Class which we made in user.dart
   // User is a firebase Auth class which comes inbuilt with firebase_auth package.
-  UserData? _userFromFirebase(User? user, BuildContext context) {
-    var userModel = Provider.of<UserData?>(context, listen: false);
-    userModel?.updateData(
-      uid: user!.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoUrl: user.photoURL,
-    );
-    return userModel;
+  UserData? _userFromFirebase(User? user, {String? phone, String? name}) {
+    if (user != null) {
+      return UserData(
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName ?? name,
+        photoUrl: user.photoURL,
+        phone: phone,
+      );
+    }
+    return null;
   }
 
   @override
   User? getFirebaseUser() {
     return _firebaseAuth.currentUser;
+  }
+
+  UserData? getUserDetails() {
+    User? firebaseUser = _firebaseAuth.currentUser;
+    if (firebaseUser != null) {
+      return UserData(
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        displayName: firebaseUser.displayName,
+        photoUrl: firebaseUser.photoURL,
+      );
+    }
+    return null;
   }
 
   @override
@@ -37,16 +51,14 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
   }
 
   @override
-  Stream<UserData?> onAuthStateChanged(BuildContext context) {
+  Stream<UserData?> onAuthStateChanged() {
     debugPrint(
         "*************************** Auth State changed *****************************");
-    return _firebaseAuth
-        .authStateChanges()
-        .map((user) => _userFromFirebase(user, context));
+    return _firebaseAuth.authStateChanges().map(_userFromFirebase);
   }
 
   @override
-  Future<UserData?> signInWithGoogle(BuildContext context) async {
+  Future<UserData?> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
@@ -57,11 +69,13 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
     final authResult = await _firebaseAuth.signInWithCredential(credential);
     final user = authResult.user;
 
+    var userData = _userFromFirebase(user);
+
     if (authResult.additionalUserInfo!.isNewUser) {
-      await UserHandlerModel().storeUserDetails(context);
+      await UserHandlerModel().storeUserDetails(userData);
     }
 
-    return _userFromFirebase(user, context);
+    return userData;
   }
 
   @override
@@ -74,44 +88,33 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
 
   @override
   Future<UserData?> signInWithEmailPassword(
-      BuildContext context, String email, String password) async {
+      String email, String password) async {
     try {
       final authResult = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       final user = authResult.user;
-      return _userFromFirebase(user, context);
+      return _userFromFirebase(user);
     } on FirebaseAuthException catch (error) {
       debugPrint("Login Failed with error code : ${error.code}");
       debugPrint(error.message);
-      Provider.of<UserData?>(context, listen: false)!
-          .updateData(authStatusMessage: error.message);
     }
     return null;
   }
 
   @override
   Future<UserData?> registerWithEmailPassword(
-      BuildContext context, String email, String password, String name) async {
+      String email, String password, String name, String phone) async {
     try {
-      debugPrint("***************${email + password + name}");
-      final authResult = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      //     .then((authUser) async {
-      //
-      //   return authUser;
-      // });
+      debugPrint("************** $email $password $name $phone *************");
+      final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
       final user = authResult.user;
-      // await authResult.user!.updateDisplayName(name);
       await user!.updateDisplayName(name);
-      await user.reload();
-      debugPrint(user.displayName);
-      return _userFromFirebase(user, context);
+      return _userFromFirebase(user, phone: phone, name: name);
     } on FirebaseAuthException catch (error) {
       debugPrint(
           "********************************Registration Failed with error code : ${error.code}");
       debugPrint(error.message);
-      Provider.of<UserData?>(context, listen: false)!
-          .updateData(authStatusMessage: error.message);
     }
     return null;
   }

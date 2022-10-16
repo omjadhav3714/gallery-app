@@ -162,18 +162,21 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                           onPress: () async {
                             if (_formKey.currentState!.validate()) {
                               // Trigger SignUp functionality
-                              await AuthController().registerWithEmailPassword(
-                                  context,
-                                  emailCtrl.text,
-                                  passCtrl.text,
-                                  nameCtrl.text,
-                                  phoneCtrl.text);
+                              var userResult = await AuthController()
+                                  .registerWithEmailPassword(
+                                emailCtrl.text.trim(),
+                                passCtrl.text.trim(),
+                                nameCtrl.text.trim(),
+                                phoneCtrl.text.trim(),
+                              );
+
+                              // Show error messages if any
                               if (mounted) {
-                                var user = Provider.of<UserData?>(context,
-                                    listen: false);
-                                if (user!.authStatusMessage != null) {
+                                if (userResult?.authStatusMessage != null) {
                                   showBottomNotificationMessage(
-                                      context, user.authStatusMessage!);
+                                    context,
+                                    userResult!.authStatusMessage!,
+                                  );
                                 }
                               }
                             }
