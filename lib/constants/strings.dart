@@ -2,9 +2,9 @@
 const String login = "Log-in";
 const String loginB = "Login";
 const String email = "Email";
-const String emailP = "Your email id";
+const String emailP = "example@email.com";
 const String password = "Password";
-const String passwordP = "Your password";
+const String passwordP = "***********";
 const String forgetP = "Forget password ?";
 const String orLoginWith = "or Login with";
 

@@ -22,36 +22,29 @@ class TextFieldView extends StatelessWidget {
         children: [
           Flexible(
             flex: 1,
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(
-                horizontal: 35,
-              ),
+              
               child: Text(
                 labelTxt ?? "",
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                 ),
               ),
             ),
           ),
           Flexible(
             flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 35,
-              ),
-              child: TextFormField(
-                controller: controller,
-                validator: validator,
-                maxLines: 1,
-                keyboardType: textInputType ?? TextInputType.text,
-                style: const TextStyle(fontSize: 15),
-                decoration: InputDecoration(
-                  // labelStyle:TextStyle(fontSize:14),
-                  hintText: placeholderTxt,
-                  hintStyle: const TextStyle(fontSize: 14),
-                ),
+            child: TextFormField(
+              controller: controller,
+              validator: validator,
+              maxLines: 1,
+              keyboardType: textInputType ?? TextInputType.text,
+              style: const TextStyle(fontSize: 15),
+              decoration: InputDecoration(
+                // labelStyle:TextStyle(fontSize:14),
+                hintText: placeholderTxt,
+                hintStyle: const TextStyle(fontSize: 12),
               ),
             ),
           ),
