@@ -6,17 +6,19 @@ import '../../constants/colors.dart';
 class BackButtonWidget extends StatelessWidget {
   const BackButtonWidget({
     Key? key,
+    this.iconColor,
   }) : super(key: key);
 
+  final Color? iconColor;
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: const FaIcon(
-        FontAwesomeIcons.backward,
-        color: black,
+      icon: Icon(
+        Icons.arrow_back,
+        color: iconColor ?? black,
       ),
     );
   }

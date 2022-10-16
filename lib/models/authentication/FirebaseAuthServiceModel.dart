@@ -35,25 +35,13 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
   UserData? getUserDetails() {
     User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser != null) {
-      return UserData(
-        uid: firebaseUser.uid,
-        email: firebaseUser.email,
-        displayName: firebaseUser.displayName,
-        photoUrl: firebaseUser.photoURL,
-      );
+      return _userFromFirebase(firebaseUser);
     }
     return null;
   }
 
   @override
-  FirebaseAuthServiceModel getCurrentInstance() {
-    return this;
-  }
-
-  @override
   Stream<UserData?> onAuthStateChanged() {
-    debugPrint(
-        "*************************** Auth State changed *****************************");
     return _firebaseAuth.authStateChanges().map(_userFromFirebase);
   }
 
@@ -97,6 +85,12 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
     } on FirebaseAuthException catch (error) {
       debugPrint("Login Failed with error code : ${error.code}");
       debugPrint(error.message);
+      return UserData(
+        uid: null,
+        email: null,
+        displayName: null,
+        authStatusMessage: error.message,
+      );
     }
     return null;
   }
@@ -105,7 +99,6 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
   Future<UserData?> registerWithEmailPassword(
       String email, String password, String name, String phone) async {
     try {
-      debugPrint("************** $email $password $name $phone *************");
       final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       final user = authResult.user;
@@ -115,6 +108,12 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
       debugPrint(
           "********************************Registration Failed with error code : ${error.code}");
       debugPrint(error.message);
+      return UserData(
+        uid: null,
+        email: null,
+        displayName: null,
+        authStatusMessage: error.message,
+      );
     }
     return null;
   }

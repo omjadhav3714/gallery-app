@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
+import 'package:greetings_app/views/widgets/round_edge_filled_button.dart';
 import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
 import '../../controllers/AuthController.dart';
@@ -27,7 +28,7 @@ class _UserProfileViewState extends State<UserProfileView> {
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 35, 0, 0),
+              padding: const EdgeInsets.fromLTRB(10, 35, 10, 0),
               child: Column(
                 children: [
                   user.photoUrl != null
@@ -92,58 +93,29 @@ class _UserProfileViewState extends State<UserProfileView> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 90.0),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await Provider.of<FirebaseAuthServiceModel>(context, listen: false).signOutUser();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purpleAccent,
-                      elevation: 18,
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Ink(
-                      decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.86,
-                        height: 50,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "LogOut",
-                          style: TextStyle(
-                            fontSize: 25,
-                            letterSpacing: 2,
-                            color: white,
-                          ),
-                        ),
-                      ),
-                    ),
+                  const SizedBox(height: 40.0),
+                  RoundEdgeFilledButton(
+                    buttonText: "Business Profile",
+                    onPressed: () {},
                   ),
-                  // SizedBox(
-                  //   width: MediaQuery.of(context).size.width * 0.8,
-                  //   // ignore: deprecated_member_use
-                  //   child: RaisedButton(
-                  //     padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                  //     child: const Text(
-                  //       "Logout",
-                  //       style: TextStyle(
-                  //           fontSize: 20.0, fontWeight: FontWeight.bold),
-                  //     ),
-                  //     color: Theme.of(context).primaryColor,
-                  //     textColor: Colors.white,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(20.0),
-                  //     ),
-                  //     onPressed: () async {
-                  //       await AuthController().logOutUser();
-                  //     },
-                  //   ),
-                  // ),
+                  const SizedBox(height: 40),
+                  RoundEdgeFilledButton(
+                    buttonText: "Edit Profile",
+                    onPressed: () {},
+                  ),
+                  const SizedBox(height: 40),
+                  RoundEdgeFilledButton(
+                    buttonText: "LogOut",
+                    onPressed: () async {
+                      await Provider.of<FirebaseAuthServiceModel>(context,
+                              listen: false)
+                          .signOutUser();
+                      if (mounted) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "/", (route) => false);
+                      }
+                    },
+                  ),
                   const SizedBox(
                     height: 15,
                   ),

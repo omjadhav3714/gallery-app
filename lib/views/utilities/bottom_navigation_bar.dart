@@ -8,11 +8,17 @@ import 'package:provider/provider.dart';
 
 import '../category_pages/subcategory_view.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({Key? key, required this.selectedIndex})
       : super(key: key);
   final int selectedIndex;
 
+  @override
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,11 +49,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
             text: 'LogOut',
           )
         ],
-        selectedIndex: selectedIndex,
+        selectedIndex: widget.selectedIndex,
         onTabChange: (index) async {
-          if (index != selectedIndex) {
+          if (index != widget.selectedIndex) {
             if (index == 0) {
-              Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/home", (route) => false);
             } else if (index == 1) {
               Navigator.push(
                 context,
@@ -60,7 +67,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
             } else if (index == 2) {
               Navigator.pushNamed(context, "/userProfile");
             } else if (index == 3) {
-              await Provider.of<FirebaseAuthServiceModel>(context, listen: false).signOutUser();
+              await Provider.of<FirebaseAuthServiceModel>(context,
+                      listen: false)
+                  .signOutUser();
+              if (mounted) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, "/", (route) => false);
+              }
             }
           }
         },

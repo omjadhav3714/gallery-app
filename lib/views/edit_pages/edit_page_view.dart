@@ -23,23 +23,19 @@ class _EditPageViewState extends EditImageViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: darkbg,
       appBar: AppBar(
         centerTitle: true,
-        leading: const BackButtonWidget(),
+        leading: const BackButtonWidget(iconColor: white),
         elevation: 0,
         title: const Text(
           edit,
-          style: TextStyle(
-            color: primaryColor,
-          ),
         ),
-        backgroundColor: white,
+        backgroundColor: darkbg,
         actions: [
           IconButton(
             icon: const FaIcon(
-              FontAwesomeIcons.share,
-              color: primaryColor,
+              Icons.share_outlined,
               size: 25,
             ),
             onPressed: () => shareImage(context),
@@ -48,7 +44,7 @@ class _EditPageViewState extends EditImageViewModel {
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Screenshot(
             controller: screenshotController,
@@ -56,7 +52,7 @@ class _EditPageViewState extends EditImageViewModel {
               child: Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.5,
+                    width: MediaQuery.of(context).size.width,
                     child: Stack(
                       children: [
                         selectedImage,
@@ -111,6 +107,7 @@ class _EditPageViewState extends EditImageViewModel {
           Column(
             children: [
               editPart,
+              Container(height: 10, color: primaryColor.withOpacity(0.5)),
               getColorPart,
             ],
           )
@@ -149,7 +146,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.solidFloppyDisk,
-                  color: primaryColor,
+                  color: white,
                   size: 25,
                 ),
                 onPressed: () => saveToGallery(context),
@@ -158,7 +155,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.plus,
-                  color: primaryColor,
+                  color: white,
                   size: 25,
                 ),
                 onPressed: increaseFontSize,
@@ -167,7 +164,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.minus,
-                  color: primaryColor,
+                  color: white,
                   size: 25,
                 ),
                 onPressed: decreaseFontSize,
@@ -176,7 +173,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.alignLeft,
-                  color: primaryColor,
+                  color: white,
                   size: 25,
                 ),
                 onPressed: alignLeft,
@@ -185,7 +182,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.alignCenter,
-                  color: primaryColor,
+                  color: white,
                   size: 25,
                 ),
                 onPressed: alignCenter,
@@ -194,7 +191,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.alignRight,
-                  color: primaryColor,
+                  color: white,
                   size: 25,
                 ),
                 onPressed: alignRight,
@@ -203,7 +200,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.bold,
-                  color: primaryColor,
+                  color: white,
                   size: 25,
                 ),
                 onPressed: boldText,
@@ -212,7 +209,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.italic,
-                  color: primaryColor,
+                  color: white,
                   size: 25,
                 ),
                 onPressed: italicText,
@@ -221,7 +218,7 @@ class _EditPageViewState extends EditImageViewModel {
               IconButton(
                 icon: const Icon(
                   Icons.space_bar,
-                  color: primaryColor,
+                  color: white,
                   size: 32,
                 ),
                 onPressed: addLinesToText,
@@ -233,7 +230,7 @@ class _EditPageViewState extends EditImageViewModel {
       );
 
   Widget get getColorPart => Container(
-        color: primaryColor.withOpacity(.5),
+        color: primaryColor.withOpacity(0.5),
         child: SizedBox(
           height: 50,
           child: ListView(
@@ -248,7 +245,7 @@ class _EditPageViewState extends EditImageViewModel {
                     )),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
               Tooltip(
                 message: 'White',
@@ -259,7 +256,7 @@ class _EditPageViewState extends EditImageViewModel {
                     )),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
               Tooltip(
                 message: 'Black',
@@ -270,7 +267,7 @@ class _EditPageViewState extends EditImageViewModel {
                     )),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
               Tooltip(
                 message: 'Blue',
@@ -281,7 +278,7 @@ class _EditPageViewState extends EditImageViewModel {
                     )),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
               Tooltip(
                 message: 'Yellow',
@@ -292,7 +289,7 @@ class _EditPageViewState extends EditImageViewModel {
                     )),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
               Tooltip(
                 message: 'Green',
@@ -303,7 +300,7 @@ class _EditPageViewState extends EditImageViewModel {
                     )),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
               Tooltip(
                 message: 'Orange',
@@ -314,7 +311,7 @@ class _EditPageViewState extends EditImageViewModel {
                     )),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
               Tooltip(
                 message: 'Pink',
@@ -325,7 +322,7 @@ class _EditPageViewState extends EditImageViewModel {
                     )),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
             ],
           ),

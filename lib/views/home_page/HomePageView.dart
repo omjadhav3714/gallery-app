@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
-import 'package:greetings_app/controllers/UserController.dart';
 import 'package:greetings_app/models/authentication/FirebaseAuthServiceModel.dart';
 import 'package:greetings_app/views/widgets/appbar_view.dart';
-import 'package:provider/provider.dart';
 import '../../entities/User.dart';
 import '../../fakes/fakeData.dart';
 import '../utilities/bottom_navigation_bar.dart';
@@ -20,11 +18,11 @@ class HomePageView extends StatefulWidget {
 class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
-    if (widget.userInfo != null) {
-      // Update the UserData provider
-      // Provider.of<UserData?>(context)
-      //     !.updateUserUsingObject(widget.userInfo!);
-    }
+    // if (widget.userInfo != null) {
+    //   // Update the UserData provider
+    //   // Provider.of<UserData?>(context)
+    //   //     !.updateUserUsingObject(widget.userInfo!);
+    // }
 
     var user = FirebaseAuthServiceModel().getUserDetails();
     debugPrint("################ ${user!.displayName} ################");
@@ -32,13 +30,13 @@ class _HomePageViewState extends State<HomePageView> {
       return Row(
         children: [
           const Text("Welcome ", style: TextStyle(color: Colors.black)),
-          Text(user.displayName ?? "Test User",
+          Text(user.displayName ?? "to Gallery App!",
               style: const TextStyle(color: primaryColor)),
         ],
       );
     }
 
-    Provider.of<UserData?>(context, listen: false)?.updateUserUsingObject(user);
+    // Provider.of<UserData?>(context, listen: false)?.updateUserUsingObject(user);
 
     return Scaffold(
         // endDrawer: const NavBarView(),

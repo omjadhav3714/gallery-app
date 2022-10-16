@@ -36,8 +36,6 @@ class AuthServiceModel {
       phone
     );
     if (userModel != null) {
-      debugPrint(
-          "*************** YO ************ ${userModel.displayName} *******************");
       await UserHandlerModel().storeUserDetails(userModel);
     }
     return userModel;

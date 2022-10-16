@@ -3,9 +3,7 @@ import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/constants/strings.dart';
 import 'package:greetings_app/views/auth_pages/forget_password_page_view.dart';
 import 'package:greetings_app/views/utilities/show_error_view.dart';
-import 'package:provider/provider.dart';
 import '../../controllers/AuthController.dart';
-import '../../entities/User.dart';
 import '../widgets/authbutton_widget_view.dart';
 import '../widgets/socialbuttons_widget_view.dart';
 import '../widgets/textfield_widget_view.dart';
@@ -158,12 +156,14 @@ class _LoginPageViewState extends State<LoginPageView> {
                               );
                               // Show error messages if any
                               if (mounted) {
+                                debugPrint(userResult.toString());
                                 if (userResult!.authStatusMessage != null) {
                                   showBottomNotificationMessage(
                                     context,
                                     userResult.authStatusMessage!,
                                   );
                                 }
+                                Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
                               }
                             }
                           },

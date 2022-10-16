@@ -178,6 +178,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                                     userResult!.authStatusMessage!,
                                   );
                                 }
+                                Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
                               }
                             }
                           },

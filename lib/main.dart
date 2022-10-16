@@ -31,13 +31,7 @@ class MyApp extends StatelessWidget {
         ),
         // Provider for instance of UserModel
         Provider<UserData?>(
-          create: (_) => UserData(
-            uid: null,
-            email: null,
-            displayName: null,
-            photoUrl: null,
-            phone: null
-          ),
+          create: (_) => FirebaseAuthServiceModel().getUserDetails(),
         ),
       ],
       child: MaterialApp(

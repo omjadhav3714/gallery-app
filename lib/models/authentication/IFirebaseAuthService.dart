@@ -3,7 +3,6 @@ import 'package:greetings_app/entities/User.dart';
 import 'FirebaseAuthServiceModel.dart';
 
 abstract class IFirebaseAuthServiceModel {
-  FirebaseAuthServiceModel getCurrentInstance();
   User? getFirebaseUser();
   Stream<UserData?> onAuthStateChanged();
   Future<UserData?> signInWithGoogle();

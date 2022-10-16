@@ -1,13 +1,17 @@
-// ignore_for_file: avoid_unnecessary_containers
+
+import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:greetings_app/models/EditImageViewModel.dart';
+import 'package:image_editor/image_editor.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../edit_pages/edit_page_view.dart';
 
-class TemplateCard extends StatelessWidget {
+class TemplateCard extends StatefulWidget {
   const TemplateCard(
       {Key? key, this.animationController, this.animation, this.data})
       : super(key: key);
@@ -17,87 +21,137 @@ class TemplateCard extends StatelessWidget {
   final Animation<double>? animation;
 
   @override
+  State<TemplateCard> createState() => _TemplateCardState();
+}
+
+class _TemplateCardState extends State<TemplateCard> {
+  bool isLoading = false;
+
+  /// Converts the network image to Uint8List format for image_editor_plus processing
+  Future<Uint8List> getImageData(String url) async {
+    Uint8List bytes = (await NetworkAssetBundle(Uri.parse(url)).load(url))
+        .buffer
+        .asUint8List();
+    return bytes;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: animationController!,
-      builder: (BuildContext context, Widget? child) {
-        return FadeTransition(
-          opacity: animation!,
-          child: Transform(
-            transform: Matrix4.translationValues(
-                0.0, 50 * (1.0 - animation!.value), 0.0),
-            child: InkWell(
-              splashColor: transparent,
-              onTap: () {
-                //
-              },
-              child: SizedBox(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
+    return Stack(
+      children: [
+        AnimatedBuilder(
+          animation: widget.animationController!,
+          builder: (BuildContext context, Widget? child) {
+            return FadeTransition(
+              opacity: widget.animation!,
+              child: Transform(
+                transform: Matrix4.translationValues(
+                    0.0, 50 * (1.0 - widget.animation!.value), 0.0),
+                child: InkWell(
+                  splashColor: transparent,
+                  onTap: () {
+                    //
+                  },
+                  child: SizedBox(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16.0),
+                            ),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color: notWhite,
+                                  offset: Offset(0.0, 0.0),
+                                  blurRadius: 6.0),
+                            ],
                           ),
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: notWhite,
-                                offset: Offset(0.0, 0.0),
-                                blurRadius: 6.0),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(16.0)),
-                          child: AspectRatio(
-                            aspectRatio: 1.28,
-                            child: CachedNetworkImage(
-                              imageUrl: data!["img"],
-                              placeholder: (context, url) => SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.225,
-                                height:
-                                    MediaQuery.of(context).size.width * 0.225,
-                                child: Shimmer.fromColors(
-                                  baseColor: Colors.grey[400]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    color: Colors.white,
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16.0)),
+                            child: AspectRatio(
+                              aspectRatio: 1.28,
+                              child: CachedNetworkImage(
+                                imageUrl: widget.data!["img"],
+                                placeholder: (context, url) => SizedBox(
+                                  width: MediaQuery.of(context).size.width *
+                                      0.225,
+                                  height: MediaQuery.of(context).size.width *
+                                      0.225,
+                                  child: Shimmer.fromColors(
+                                    baseColor: Colors.grey[400]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
                             ),
                           ),
                         ),
-                      ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.225,
+                          child: OutlinedButton(
+                            onPressed: () async {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              var imageData =
+                                  await getImageData(widget.data!["img"]);
+                              if (mounted) {
+                                // var editedImage = ImageEditor.editImage(image: imageData, imageEditorOption: null);
+                                // ImageEditor.editFileImage();
+                                // ImageEditor.editFileImageAndGetFile();
+                                // ImageEditor.editImageAndGetFile();
+                                var editedImage = await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => EditPageView(selectedImage: widget.data!["img"]),
+                                  ),
+                                );
+                                // if(editedImage != null){
+                                //   debugPrint("Image Edited Successfully");
+                                // }
+                              }
+                              setState(() {
+                                isLoading = false;
+                              });
+                            },
+                            child: const Text(edit),
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.225,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => EditPageView(
-                                selectedImage: data!['img'],
-                              ),
-                            ),
-                          );
-                        },
-                        child: const Text(edit),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-        );
-      },
+            );
+          },
+        ),
+        isLoading
+            ? Center(
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200.withOpacity(0.5)),
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox(),
+      ],
     );
   }
 }

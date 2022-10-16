@@ -6,17 +6,16 @@ class UserData {
   String? photoUrl;
   String? displayName;
   String? authStatusMessage;
-  bool? loggedIn;
   String? phone;
 
-  UserData(
-      {required this.uid,
-      required this.email,
-      required this.displayName,
-      this.photoUrl,
-      this.authStatusMessage,
-      this.loggedIn,
-      this.phone}) {
+  UserData({
+    required this.uid,
+    required this.email,
+    required this.displayName,
+    this.photoUrl,
+    this.authStatusMessage,
+    this.phone,
+  }) {
     // notifyListeners();
   }
 
@@ -44,9 +43,6 @@ class UserData {
     if (authStatusMessage != null) {
       this.authStatusMessage = authStatusMessage;
     }
-    if (loggedIn != null) {
-      this.loggedIn = loggedIn;
-    }
     if (phone != null) {
       this.phone = phone;
     }
@@ -59,9 +55,7 @@ class UserData {
     photoUrl = user.photoUrl;
     displayName = user.displayName;
     authStatusMessage = user.authStatusMessage;
-    loggedIn = user.loggedIn;
     phone = user.phone;
     // notifyListeners();
   }
-
 }
