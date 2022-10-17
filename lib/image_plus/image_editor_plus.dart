@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:colorfilter_generator/colorfilter_generator.dart';
 import 'package:colorfilter_generator/presets.dart';
 import 'package:extended_image/extended_image.dart';
@@ -111,7 +110,7 @@ class ImageEditor extends StatelessWidget {
   );
 }
 
-/// Show multiple image carousel to edit multple images at one and allow more images to be added
+/// Show multiple image carousel to edit multiple images at one and allow more images to be added
 class MultiImageEditor extends StatefulWidget {
   final Directory? savePath;
   final List images;
@@ -219,13 +218,6 @@ class _MultiImageEditorState extends State<MultiImageEditor> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: InkWell(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: Image.memory(
-                                image.image,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
                             onTap:(() async {
                           var img = await Navigator.push(
                             context,
@@ -241,6 +233,13 @@ class _MultiImageEditorState extends State<MultiImageEditor> {
                             setState(() {});
                           }
                         }),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Image.memory(
+                                image.image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                           
                         ),

@@ -1,3 +1,52 @@
+const String appName = "Greetings App";
+
+// ------------ Authentication Page Strings ------------
+const String introTagline = "Welcome, we are glad to see you!";
+const String introNextButton = "Get Started";
+
+// Login
+const String loginPageHeading = "Login To Continue";
+const String loginButtonText = "Login";
+
+// Email TextField
+const String emailHintText = "Email";
+const String emailFieldEmpty = "Email Required";
+const String invalidEmailFormat = "Enter valid email address";
+
+// Password TextField
+const String passwordHintText = "Password";
+const String passwordFieldEmpty = "Enter Password";
+const String passwordLengthWarning = "Password should be at least 6 characters!";
+
+// Forgot Password
+const String forgotPasswordText = "FORGOT PASSWORD?";
+
+// Google Login
+const String googleLoginButtonText = "Continue with Google";
+
+// SignUp redirect text
+const String signUpRedirectText = "Create New Account";
+const String loginRedirectText = "Have an account?";
+// SignUp
+const String signUpPageHeading = "Create a New Account";
+
+const String signUpButtonText = "Create Account";
+
+// Name TextField
+const String nameHintText = "Full Name";
+const String nameEmptyWarning = "Name Required";
+const String invalidNameWarning = "Format: first-name space last-name";
+
+// Phone TextField
+const String phoneHintText = "Phone";
+const String phoneEmptyWarning = 'Phone Required';
+const String invalidPhoneWarning = 'Please enter valid mobile number';
+
+// Confirm Password TextField
+const String confirmPasswordHintText = "Confirm Password";
+const String confirmPasswordFieldEmpty = "Enter Confirm Password";
+const String confirmPasswordNotMatchingText = "Passwords do not match";
+
 //Login Strings
 const String login = "Log-in";
 const String loginB = "Login";
