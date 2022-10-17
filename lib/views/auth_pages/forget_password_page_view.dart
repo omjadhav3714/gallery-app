@@ -86,7 +86,7 @@ class _ForgetPageViewState extends State<ForgetPageView> {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const LoginPageView(),
+                                    builder: (context) => LoginPageView(),
                                   ),
                                 );
                               },

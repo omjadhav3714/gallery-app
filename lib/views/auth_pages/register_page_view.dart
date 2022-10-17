@@ -204,7 +204,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const LoginPageView(),
+                                           LoginPageView(),
                                     ),
                                   );
                                 },

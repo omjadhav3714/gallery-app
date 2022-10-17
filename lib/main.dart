@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           "/": (context) => const AuthRedirectController(),
-          "/login": (context) => const LoginPageView(),
+          "/login": (context) => LoginPageView(),
           "/signup":(context) =>  const RegisterPageView(),
           "/home": (context) => const HomePageView(),
           "/userProfile" : (context) => const UserProfileView(),
