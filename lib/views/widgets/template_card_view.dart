@@ -4,12 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:greetings_app/models/EditImageViewModel.dart';
-import 'package:image_editor/image_editor.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
-import '../edit_pages/edit_page_view.dart';
+import '../../image_plus/image_editor_plus.dart';
 
 class TemplateCard extends StatefulWidget {
   const TemplateCard(
@@ -111,7 +109,7 @@ class _TemplateCardState extends State<TemplateCard> {
                                 // ImageEditor.editImageAndGetFile();
                                 var editedImage = await Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => EditPageView(selectedImage: widget.data!["img"]),
+                                    builder: (context) => ImageEditor(image:imageData),
                                   ),
                                 );
                                 // if(editedImage != null){
