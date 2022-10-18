@@ -28,10 +28,12 @@ class _TextEditorImageState extends State<TextEditorImage> {
         appBar: AppBar(
           actions: <Widget>[
             IconButton(
-              icon: Icon(FontAwesomeIcons.alignLeft,
-                  color: align == TextAlign.left
-                      ? Colors.white
-                      : Colors.white.withAlpha(80)),
+              icon: Icon(
+                FontAwesomeIcons.alignLeft,
+                color: align == TextAlign.left
+                    ? Colors.white
+                    : Colors.white.withAlpha(80),
+              ),
               onPressed: () {
                 setState(() {
                   align = TextAlign.left;
@@ -74,7 +76,7 @@ class _TextEditorImageState extends State<TextEditorImage> {
                   ),
                 );
               },
-              color: Colors.black,
+              color: Colors.white,
               padding: const EdgeInsets.all(15),
             )
           ],

@@ -731,7 +731,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
                           builder: (context, setS) {
                             return Container(
                               decoration: const BoxDecoration(
-                                color: Colors.black87,
+                                color: darkBackgroundColor,
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(10),
                                     topLeft: Radius.circular(10)),
@@ -741,48 +741,54 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
                               child: Column(
                                 children: [
                                   Center(
-                                      child: Text(
-                                    i18n('Slider Filter Color').toUpperCase(),
-                                  )),
+                                    child: Text(
+                                      i18n('Slider Filter Color').toUpperCase(),
+                                      style: const TextStyle(color: white),
+                                    ),
+                                  ),
                                   const Divider(),
                                   const SizedBox(height: 20.0),
                                   Text(
                                     i18n('Slider Color'),
+                                    style: const TextStyle(color: white),
                                   ),
                                   const SizedBox(height: 10),
-                                  Row(children: [
-                                    Expanded(
-                                      child: BarColorPicker(
-                                        width: 300,
-                                        thumbColor: white,
-                                        cornerRadius: 10,
-                                        pickMode: PickMode.color,
-                                        colorListener: (int value) {
-                                          setS(() {
-                                            setState(() {
-                                              blurLayer.color = Color(value);
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: BarColorPicker(
+                                          width: 300,
+                                          thumbColor: white,
+                                          cornerRadius: 10,
+                                          pickMode: PickMode.color,
+                                          colorListener: (int value) {
+                                            setS(() {
+                                              setState(() {
+                                                blurLayer.color = Color(value);
+                                              });
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      TextButton(
+                                        child: Text(
+                                          i18n('Reset'),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            setS(() {
+                                              blurLayer.color =
+                                                  Colors.transparent;
                                             });
                                           });
                                         },
-                                      ),
-                                    ),
-                                    TextButton(
-                                      child: Text(
-                                        i18n('Reset'),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          setS(() {
-                                            blurLayer.color =
-                                                Colors.transparent;
-                                          });
-                                        });
-                                      },
-                                    )
-                                  ]),
+                                      )
+                                    ],
+                                  ),
                                   const SizedBox(height: 5.0),
                                   Text(
                                     i18n('Blur Radius'),
+                                    style: const TextStyle(color: white),
                                   ),
                                   const SizedBox(height: 10.0),
                                   Row(children: [
@@ -818,6 +824,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
                                   const SizedBox(height: 5.0),
                                   Text(
                                     i18n('Color Opacity'),
+                                    style: const TextStyle(color: white),
                                   ),
                                   const SizedBox(height: 10.0),
                                   Row(children: [

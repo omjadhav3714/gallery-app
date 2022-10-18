@@ -4,9 +4,9 @@ import '../../constants/colors.dart';
 
 class RoundEdgeFilledButton extends StatelessWidget {
   const RoundEdgeFilledButton(
-      {Key? key, required this.buttonText, this.onPressed})
+      {Key? key, required this.buttonText, this.onPressed, this.backgroundColor})
       : super(key: key);
-
+  final Color? backgroundColor;
   final String buttonText;
   final void Function()? onPressed;
   @override
@@ -14,7 +14,7 @@ class RoundEdgeFilledButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        // backgroundColor: Colors.purpleAccent,
+        backgroundColor: backgroundColor,
         elevation: 18,
         padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(

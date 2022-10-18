@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:greetings_app/models/EditImageViewModel.dart';
+import 'package:greetings_app/views/edit_pages/edit_page_view.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
@@ -112,17 +113,14 @@ class _TemplateCardState extends State<TemplateCard> {
                                   ),
                                 );
 
-                                // if (editedImage != null) {
-                                //   Navigator.of(context).push(
-                                //     MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           EditImageViewModel(image: editedImage),
-                                //     ),
-                                //   );
-                                // }
-                                // if(editedImage != null){
-                                //   debugPrint("Image Edited Successfully");
-                                // }
+                                if (editedImage != null) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                           EditPageView(editedImage: editedImage),
+                                    ),
+                                  );
+                                }
                               }
                               setState(() {
                                 isLoading = false;
