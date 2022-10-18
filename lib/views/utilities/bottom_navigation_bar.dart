@@ -1,4 +1,3 @@
-import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -26,6 +25,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       child: GNav(
         gap: 8,
         color: Colors.grey[800],
+        backgroundColor: white,
         activeColor: primaryColor,
         iconSize: 24,
         tabBackgroundColor: primaryColor.withOpacity(0.1),

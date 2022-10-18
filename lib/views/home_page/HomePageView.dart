@@ -9,8 +9,7 @@ import '../widgets/categories_grid_view.dart';
 import '../widgets/staggered_grid_view.dart';
 
 class HomePageView extends StatefulWidget {
-  const HomePageView({Key? key, this.userInfo}) : super(key: key);
-  final UserData? userInfo;
+  const HomePageView({Key? key}) : super(key: key);
   @override
   State<HomePageView> createState() => _HomePageViewState();
 }
@@ -18,11 +17,6 @@ class HomePageView extends StatefulWidget {
 class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
-    // if (widget.userInfo != null) {
-    //   // Update the UserData provider
-    //   // Provider.of<UserData?>(context)
-    //   //     !.updateUserUsingObject(widget.userInfo!);
-    // }
 
     var user = FirebaseAuthServiceModel().getUserDetails();
     debugPrint("################ ${user!.displayName} ################");

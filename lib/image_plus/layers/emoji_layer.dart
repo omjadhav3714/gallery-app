@@ -15,7 +15,7 @@ class EmojiLayer extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EmojiLayerState createState() => _EmojiLayerState();
+  State<EmojiLayer> createState() => _EmojiLayerState();
 }
 
 class _EmojiLayerState extends State<EmojiLayer> {

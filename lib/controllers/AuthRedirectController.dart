@@ -42,9 +42,9 @@ class AuthRedirectController extends StatelessWidget {
           if (user != null) {
             debugPrint("*************** HELLO HOMEPAGE *****************");
             // Go to HomePage
-            return HomePageView(userInfo: user);
+            return const HomePageView();
           }
-          return  LoginPageView();
+          return  const LoginPageView();
         }
       },
     );

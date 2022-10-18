@@ -1,9 +1,9 @@
-
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:greetings_app/models/EditImageViewModel.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
@@ -73,13 +73,13 @@ class _TemplateCardState extends State<TemplateCard> {
                               child: CachedNetworkImage(
                                 imageUrl: widget.data!["img"],
                                 placeholder: (context, url) => SizedBox(
-                                  width: MediaQuery.of(context).size.width *
-                                      0.225,
-                                  height: MediaQuery.of(context).size.width *
-                                      0.225,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.225,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.225,
                                   child: Shimmer.fromColors(
-                                    baseColor: Colors.grey[400]!,
-                                    highlightColor: Colors.grey[100]!,
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[200]!,
                                     child: Container(
                                       width: double.infinity,
                                       height: double.infinity,
@@ -103,15 +103,23 @@ class _TemplateCardState extends State<TemplateCard> {
                               var imageData =
                                   await getImageData(widget.data!["img"]);
                               if (mounted) {
-                                // var editedImage = ImageEditor.editImage(image: imageData, imageEditorOption: null);
-                                // ImageEditor.editFileImage();
-                                // ImageEditor.editFileImageAndGetFile();
-                                // ImageEditor.editImageAndGetFile();
-                                var editedImage = await Navigator.of(context).push(
+                                // Getting the edited image and passing it to the next screen for adding business profile
+                                var editedImage =
+                                    await Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => ImageEditor(image:imageData),
+                                    builder: (context) =>
+                                        ImageEditor(image: imageData),
                                   ),
                                 );
+
+                                // if (editedImage != null) {
+                                //   Navigator.of(context).push(
+                                //     MaterialPageRoute(
+                                //       builder: (context) =>
+                                //           EditImageViewModel(image: editedImage),
+                                //     ),
+                                //   );
+                                // }
                                 // if(editedImage != null){
                                 //   debugPrint("Image Edited Successfully");
                                 // }
