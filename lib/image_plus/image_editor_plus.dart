@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:io';
 import 'package:colorfilter_generator/colorfilter_generator.dart';
@@ -1661,21 +1663,22 @@ class ColorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        child: Container(
-          height: 34,
-          width: 34,
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 23),
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: isSelected ? Colors.white : Colors.white54,
-              width: isSelected ? 2 : 1,
-            ),
+      onTap: (() {
+        onTap(color);
+      }),
+      child: Container(
+        height: 34,
+        width: 34,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 23),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? Colors.white : Colors.white54,
+            width: isSelected ? 2 : 1,
           ),
         ),
-        onTap: (() {
-          onTap(color);
-        }));
+      ),
+    );
   }
 }

@@ -20,6 +20,7 @@ class StaggeredGridCardView extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: networkImageUrl,
             placeholder: (context, url) => Shimmer.fromColors(
+              period: const Duration(milliseconds:500),
               baseColor: Colors.grey[400]!,
               highlightColor: Colors.grey[100]!,
               child: Container(

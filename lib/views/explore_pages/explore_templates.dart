@@ -7,17 +7,15 @@ import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../widgets/template_card_view.dart';
 
-class TemplateView extends StatefulWidget {
-  final String cat;
-  final String subCat;
-  const TemplateView({Key? key, required this.cat, required this.subCat})
+class ExploreTemplateView extends StatefulWidget {
+  const ExploreTemplateView({Key? key})
       : super(key: key);
 
   @override
-  _TemplateViewState createState() => _TemplateViewState();
+  _ExploreTemplateViewState createState() => _ExploreTemplateViewState();
 }
 
-class _TemplateViewState extends State<TemplateView>
+class _ExploreTemplateViewState extends State<ExploreTemplateView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
   @override
@@ -31,13 +29,12 @@ class _TemplateViewState extends State<TemplateView>
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _templateStream = FirebaseFirestore.instance
         .collection('templates')
-        .where('category', isEqualTo: widget.cat)
-        .where('sub_category', isEqualTo: widget.subCat)
         .snapshots(includeMetadataChanges: true);
+        
     return StreamBuilder<QuerySnapshot>(
       stream: _templateStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
+       if (snapshot.hasError) {
           return const Text(wentWrong, style: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w500),);
         }
 

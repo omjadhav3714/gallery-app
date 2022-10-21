@@ -46,6 +46,7 @@ class _InputWithIconState extends State<InputWithIcon> {
                 decoration: InputDecoration(
                     errorStyle: const TextStyle(
                       fontSize: 9,
+                      fontFamily: "Poppins"
                     ),
                     contentPadding: const EdgeInsets.symmetric(vertical: 10),
                     border: InputBorder.none,

@@ -30,23 +30,31 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         iconSize: 24,
         tabBackgroundColor: primaryColor.withOpacity(0.1),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        duration: const Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 500),
         tabs: const [
           GButton(
             icon: FontAwesomeIcons.houseChimneyUser,
             text: 'Home',
+            textStyle: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w600),
+            textColor: primaryColor,
           ),
           GButton(
             icon: FontAwesomeIcons.boxesStacked,
-            text: 'Festivals',
+            text: 'Categories',
+             textStyle: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w600),
+            textColor: primaryColor,
+          ),
+          GButton(
+            icon: FontAwesomeIcons.wandSparkles,
+            text: 'Explore',
+             textStyle: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w600),
+            textColor: primaryColor,
           ),
           GButton(
             icon: FontAwesomeIcons.user,
-            text: 'Search',
-          ),
-          GButton(
-            icon: FontAwesomeIcons.rightFromBracket,
-            text: 'LogOut',
+            text: 'My Profile',
+             textStyle: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w600),
+            textColor: primaryColor,
           )
         ],
         selectedIndex: widget.selectedIndex,
@@ -56,24 +64,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               Navigator.pushNamedAndRemoveUntil(
                   context, "/home", (route) => false);
             } else if (index == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SubCategoryView(
-                    category: "Festivals",
-                  ),
-                ),
-              );
+               Navigator.pushNamedAndRemoveUntil(
+                  context, "/allCategories", (route) => false);
             } else if (index == 2) {
-              Navigator.pushNamed(context, "/userProfile");
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/explore", (route) => false);
             } else if (index == 3) {
-              await Provider.of<FirebaseAuthServiceModel>(context,
-                      listen: false)
-                  .signOutUser();
-              if (mounted) {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, "/", (route) => false);
-              }
+                  context, "/userProfile", (route) => false);
             }
           }
         },

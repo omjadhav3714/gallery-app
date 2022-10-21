@@ -49,7 +49,7 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                 title: Text(
                   widget.category,
                   style: const TextStyle(
-                    color: primaryColor,
+                    color: primaryColor,fontFamily: "Poppins", fontWeight: FontWeight.w600
                   ),
                 ),
                 backgroundColor: white,
@@ -62,7 +62,7 @@ class _SubCategoryViewState extends State<SubCategoryView> {
                     (index) => Tab(
                       child: Text(
                         snapshot.data!['sub_category'][index]['text'],
-                        style: const TextStyle(color: black),
+                        style: const TextStyle(color: black,fontFamily: "Poppins", fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),

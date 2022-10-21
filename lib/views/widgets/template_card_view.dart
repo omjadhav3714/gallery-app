@@ -79,6 +79,7 @@ class _TemplateCardState extends State<TemplateCard> {
                                   height:
                                       MediaQuery.of(context).size.width * 0.225,
                                   child: Shimmer.fromColors(
+                                    period: const Duration(milliseconds: 500),
                                     baseColor: Colors.grey[300]!,
                                     highlightColor: Colors.grey[200]!,
                                     child: Container(
@@ -126,7 +127,7 @@ class _TemplateCardState extends State<TemplateCard> {
                                 isLoading = false;
                               });
                             },
-                            child: const Text(edit),
+                            child: const Text(edit, style: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w500),),
                           ),
                         ),
                       ],

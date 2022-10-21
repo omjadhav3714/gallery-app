@@ -30,6 +30,7 @@ class RoundEdgeFilledButton extends StatelessWidget {
             fontSize: 16,
             letterSpacing: 2,
             color: white,
+            fontFamily: "Poppins"
           ),
         ),
       ),

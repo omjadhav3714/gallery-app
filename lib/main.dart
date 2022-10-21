@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 
 import 'entities/User.dart';
 import 'models/authentication/FirebaseAuthServiceModel.dart';
+import 'views/all_category_pages/all_categories_view.dart';
+import 'views/explore_pages/explore_page_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +49,8 @@ class MyApp extends StatelessWidget {
           "/signup":(context) =>  const RegisterPageView(),
           "/home": (context) => const HomePageView(),
           "/userProfile" : (context) => const UserProfileView(),
+          "/allCategories" : (context) => const AllCategoriesGridView(),
+          "/explore" : (context) => const ExplorePageView(),
         },
       ),
     );

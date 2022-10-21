@@ -23,9 +23,9 @@ class _HomePageViewState extends State<HomePageView> {
     Widget getAppBarTitleForHomePage() {
       return Row(
         children: [
-          const Text("Welcome ", style: TextStyle(color: Colors.black)),
+          const Text("Welcome ", style: TextStyle(color: Colors.black,fontFamily: "Poppins", fontWeight: FontWeight.w600)),
           Text(user.displayName ?? "to Gallery App!",
-              style: const TextStyle(color: primaryColor)),
+              style: const TextStyle(color: primaryColor,fontFamily: "Poppins", fontWeight: FontWeight.w600)),
         ],
       );
     }
@@ -47,7 +47,7 @@ class _HomePageViewState extends State<HomePageView> {
             const Text(
               "Categories",
               textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20,fontFamily: "Poppins", fontWeight: FontWeight.w600 ),
             ),
             const Expanded(
               child: CategoriesGridView(),

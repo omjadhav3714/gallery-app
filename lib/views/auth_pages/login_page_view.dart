@@ -173,7 +173,7 @@ class _LoginPageViewState extends State<LoginPageView> {
               ],
             ),
           ),
-
+        
           // Login Section
           Form(
             key: loginFormKey,
@@ -371,7 +371,7 @@ class _LoginPageViewState extends State<LoginPageView> {
               ),
             ),
           ),
-
+        
           // SignUp Section
           Form(
             key: signUpFormKey,

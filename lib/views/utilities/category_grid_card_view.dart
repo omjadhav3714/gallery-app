@@ -33,6 +33,7 @@ class CategoryGridCardView extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.225,
                     height: MediaQuery.of(context).size.width * 0.225,
                     child: Shimmer.fromColors(
+                      period: const Duration(milliseconds: 500),
                       baseColor: Colors.grey[400]!,
                       highlightColor: Colors.grey[100]!,
                       child: Container(
@@ -48,7 +49,7 @@ class CategoryGridCardView extends StatelessWidget {
             ),
           ),
         ),
-        Text(data!['name']),
+        Text(data!['name'], style: const TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w500), ),
       ]),
     );
   }

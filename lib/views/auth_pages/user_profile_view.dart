@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
-import 'package:greetings_app/views/widgets/round_edge_filled_button.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import '../../constants/constants.dart';
+import '../../constants/profile_list_items.dart';
 import '../../entities/User.dart';
 import '../../models/authentication/FirebaseAuthServiceModel.dart';
 
@@ -17,137 +19,213 @@ class _UserProfileViewState extends State<UserProfileView> {
   Widget build(BuildContext context) {
     var user = Provider.of<UserData?>(context)!;
     return Scaffold(
-      bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 2),
+      bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 3),
       body: Stack(
         children: <Widget>[
-          ClipPath(
-            clipper: GetClipper(),
-            child: Container(color: Theme.of(context).primaryColor),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 35, 10, 0),
-              child: Column(
-                children: [
-                  user.photoUrl != null
-                      ? ClipOval(
-                          child: Container(
-                            height: 150.0,
-                            width: 150.0,
-                            decoration: BoxDecoration(
-                                image: user.photoUrl != null
-                                    ? DecorationImage(
-                                        image: NetworkImage(user.photoUrl!),
-                                        fit: BoxFit.cover)
-                                    : null,
-                                boxShadow: const [
-                                  BoxShadow(
-                                      blurRadius: 20.0, color: Colors.white)
-                                ]),
-                          ),
-                        )
-                      : ClipOval(
-                          child: Material(
-                            // color: CustomColors.firebaseGrey.withOpacity(0.3),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Icon(
-                                Icons.person,
-                                size: 60,
-                                color: Colors.grey.shade600,
-                              ),
-                            ),
-                          ),
-                        ),
-                  const SizedBox(height: 30.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.person, color: Colors.black54),
-                      Text(
-                        " ${user.displayName!}",
-                        style: const TextStyle(fontSize: 16.0),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15.0),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 18.0, left: 18.0),
-                    child: SizedBox(
-                      height: 1.0,
-                      child: Container(
-                        color: Colors.black,
-                      ),
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    AppBarButton(
+                      icon: Icons.arrow_back,
                     ),
-                  ),
-                  const SizedBox(height: 15.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.email, color: Colors.black54),
-                      Text(
-                        user.email!,
-                        style: const TextStyle(fontSize: 16.0),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 40.0),
-                  RoundEdgeFilledButton(
-                    buttonText: "Business Profile",
-                    onPressed: () {},
-                  ),
-                  const SizedBox(height: 40),
-                  RoundEdgeFilledButton(
-                    buttonText: "Edit Profile",
-                    onPressed: () {},
-                  ),
-                  const SizedBox(height: 40),
-                  RoundEdgeFilledButton(
-                    buttonText: "LogOut",
-                    onPressed: () async {
-                      await Provider.of<FirebaseAuthServiceModel>(context,
-                              listen: false)
-                          .signOutUser();
-                      if (mounted) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, "/", (route) => false);
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "Once you Logout, you won't be able to use any of the feature, You have to Login again to continue with the app.",
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
+                    // SvgPicture.asset("assets/icons/menu.svg"),
+                  ],
+                ),
               ),
-            ),
-          ),
+              AvatarImage(
+                image: user.photoUrl ?? "",
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const SocialIcons(),
+              const SizedBox(height: 30),
+              Text(
+                user.displayName ?? "",
+                style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: "Poppins"),
+              ),
+              Text(
+                user.email ?? "",
+                style: const TextStyle(fontWeight: FontWeight.w300),
+              ),
+              const ProfileListItems(),
+            ],
+          )
         ],
       ),
     );
   }
 }
 
-class GetClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
+class AppBarButton extends StatelessWidget {
+  final IconData? icon;
 
-    path.lineTo(0.0, size.height / 4);
-    path.lineTo(size.width + 200, 0.0);
-    path.close();
-    return path;
+  const AppBarButton({Key? key, this.icon}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 55,
+      height: 55,
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: kAppPrimaryColor,
+          boxShadow: [
+            BoxShadow(
+              color: kLightBlack,
+              offset: const Offset(1, 1),
+              blurRadius: 10,
+            ),
+            BoxShadow(
+              color: kWhite,
+              offset: const Offset(-1, -1),
+              blurRadius: 10,
+            ),
+          ]),
+      child: Icon(
+        icon,
+        color: fCL,
+      ),
+    );
   }
+}
+
+class AvatarImage extends StatelessWidget {
+  final String image;
+  const AvatarImage({Key? key, required this.image}) : super(key: key);
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return true;
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      padding: const EdgeInsets.all(8),
+      decoration: avatarDecoration,
+      child: Container(
+        decoration: avatarDecoration,
+        padding: const EdgeInsets.all(3),
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(image),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SocialIcons extends StatelessWidget {
+  const SocialIcons({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        SocialIcon(
+          color: const Color(0xFF102397),
+          iconData: facebook,
+          onPressed: () {},
+        ),
+        SocialIcon(
+          color: const Color(0xFFff4f38),
+          iconData: googlePlus,
+          onPressed: () {},
+        ),
+        SocialIcon(
+          color: const Color(0xFF38A1F3),
+          iconData: twitter,
+          onPressed: () {},
+        ),
+        SocialIcon(
+          color: const Color(0xFF2867B2),
+          iconData: linkedin,
+          onPressed: () {},
+        )
+      ],
+    );
+  }
+}
+
+class SocialIcon extends StatelessWidget {
+  final Color? color;
+  final IconData? iconData;
+  final void Function()? onPressed;
+
+  const SocialIcon({Key? key, this.color, this.iconData, this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: unnecessary_new
+    return new Padding(
+      padding: const EdgeInsets.only(left: 20.0),
+      child: Container(
+        width: 45.0,
+        height: 45.0,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+        child: RawMaterialButton(
+          shape: const CircleBorder(),
+          onPressed: onPressed,
+          child: Icon(iconData, color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileListItems extends StatelessWidget {
+  const ProfileListItems({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView(
+        children: <Widget>[
+          const ProfileListItem(
+            icon: LineAwesomeIcons.user_shield,
+            text: 'My Business Profile',
+          ),
+          const ProfileListItem(
+            icon: LineAwesomeIcons.edit_1,
+            text: 'Edit Profile',
+          ),
+          const ProfileListItem(
+            icon: LineAwesomeIcons.history,
+            text: 'Forget Password',
+          ),
+          const ProfileListItem(
+            icon: LineAwesomeIcons.cog,
+            text: 'Settings',
+          ),
+          const ProfileListItem(
+            icon: LineAwesomeIcons.user_plus,
+            text: 'Invite a Friend',
+          ),
+          ProfileListItem(
+            icon: LineAwesomeIcons.alternate_sign_out,
+            text: 'Logout',
+            onTapFunction: () async {
+              await Provider.of<FirebaseAuthServiceModel>(context,
+                      listen: false)
+                  .signOutUser()
+                  .then((value) => Navigator.pushNamedAndRemoveUntil(
+                      context, "/", (route) => false));
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
