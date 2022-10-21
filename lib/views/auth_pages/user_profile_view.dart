@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
 import 'package:greetings_app/views/widgets/round_edge_filled_button.dart';
 import 'package:provider/provider.dart';
-import '../../constants/colors.dart';
-import '../../controllers/AuthController.dart';
 import '../../entities/User.dart';
 import '../../models/authentication/FirebaseAuthServiceModel.dart';
 
@@ -68,7 +66,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                       const Icon(Icons.person, color: Colors.black54),
                       Text(
                         " ${user.displayName!}",
-                        style: const TextStyle(fontSize: 20.0),
+                        style: const TextStyle(fontSize: 16.0),
                       ),
                     ],
                   ),
@@ -89,7 +87,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                       const Icon(Icons.email, color: Colors.black54),
                       Text(
                         user.email!,
-                        style: const TextStyle(fontSize: 20.0),
+                        style: const TextStyle(fontSize: 16.0),
                       ),
                     ],
                   ),
@@ -123,7 +121,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                     padding: EdgeInsets.all(15.0),
                     child: Text(
                       "Once you Logout, you won't be able to use any of the feature, You have to Login again to continue with the app.",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 16),
                       textAlign: TextAlign.center,
                     ),
                   ),

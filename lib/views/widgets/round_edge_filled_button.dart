@@ -27,7 +27,7 @@ class RoundEdgeFilledButton extends StatelessWidget {
         child: Text(
           buttonText,
           style: const TextStyle(
-            fontSize: 18,
+            fontSize: 16,
             letterSpacing: 2,
             color: white,
           ),

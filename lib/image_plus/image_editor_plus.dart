@@ -974,25 +974,18 @@ class BottomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       onLongPress: onLongPress,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: const Color(0xffA2A9AE),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            children: [
-              Icon(
-                icon,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                i18n(text),
-              ),
-            ],
-          ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              i18n(text),
+            ),
+          ],
         ),
       ),
     );
