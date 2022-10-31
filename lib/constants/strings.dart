@@ -27,10 +27,16 @@ const String googleLoginButtonText = "Continue with Google";
 // SignUp redirect text
 const String signUpRedirectText = "Create New Account";
 const String loginRedirectText = "Have an account?";
+
 // SignUp
 const String signUpPageHeading = "Create a New Account";
-
 const String signUpButtonText = "Create Account";
+
+const String editProfileText = "Edit your Profile";
+const String editProfileButtonText = "Edit Profile";
+
+const String businessProfileText = "Complete your Business Profile";
+const String businessProfileButtonText = "Complete Business Profile";
 
 // Name TextField
 const String nameHintText = "Full Name";
@@ -85,3 +91,8 @@ const String addText = 'Add Text';
 const String enterText = "Enter your text here....";
 const String addTitle = "Add New Text";
 const String back = "Back";
+
+const String businessEmail = "Business Email";
+const String businessName = "Business name";
+const String businessPhone = "Business Phone";
+const String businessWebsite = "Business Webiste";

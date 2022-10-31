@@ -193,13 +193,22 @@ class ProfileListItems extends StatelessWidget {
     return Expanded(
       child: ListView(
         children: <Widget>[
-          const ProfileListItem(
+          ProfileListItem(
             icon: LineAwesomeIcons.user_shield,
             text: 'My Business Profile',
+            onTapFunction: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/completeprofile", (route) => false);
+            },
           ),
-          const ProfileListItem(
+
+          ProfileListItem(
             icon: LineAwesomeIcons.edit_1,
             text: 'Edit Profile',
+            onTapFunction: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/editprofile", (route) => false);
+            },
           ),
           const ProfileListItem(
             icon: LineAwesomeIcons.history,
