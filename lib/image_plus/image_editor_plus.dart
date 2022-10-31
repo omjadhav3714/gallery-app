@@ -527,30 +527,30 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
           actions: filterActions,
         ),
         body: GestureDetector(
-          onScaleUpdate: (details) {
-            // print(details);
-
-            // move
-            if (details.pointerCount == 1) {
-              // print(details.focalPointDelta);
-              x += details.focalPointDelta.dx;
-              y += details.focalPointDelta.dy;
-              setState(() {});
-            }
-
-            // scale
-            if (details.pointerCount == 2) {
-              // print([details.horizontalScale, details.verticalScale]);
-              if (details.horizontalScale != 1) {
-                scaleFactor = lastScaleFactor *
-                    math.min(details.horizontalScale, details.verticalScale);
-                setState(() {});
-              }
-            }
-          },
-          onScaleEnd: (details) {
-            lastScaleFactor = scaleFactor;
-          },
+          // onScaleUpdate: (details) {
+          //   // print(details);
+          //
+          //   // move
+          //   if (details.pointerCount == 1) {
+          //     // print(details.focalPointDelta);
+          //     x += details.focalPointDelta.dx;
+          //     y += details.focalPointDelta.dy;
+          //     setState(() {});
+          //   }
+          //
+          //   // scale
+          //   if (details.pointerCount == 2) {
+          //     // print([details.horizontalScale, details.verticalScale]);
+          //     if (details.horizontalScale != 1) {
+          //       scaleFactor = lastScaleFactor *
+          //           math.min(details.horizontalScale, details.verticalScale);
+          //       setState(() {});
+          //     }
+          //   }
+          // },
+          // onScaleEnd: (details) {
+          //   lastScaleFactor = scaleFactor;
+          // },
           child: Center(
             child: SizedBox(
               height: currentImage.height / pixelRatio,

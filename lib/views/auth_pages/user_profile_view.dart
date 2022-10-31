@@ -205,14 +205,14 @@ class ProfileListItems extends StatelessWidget {
             icon: LineAwesomeIcons.history,
             text: 'Forget Password',
           ),
-          const ProfileListItem(
-            icon: LineAwesomeIcons.cog,
-            text: 'Settings',
-          ),
-          const ProfileListItem(
-            icon: LineAwesomeIcons.user_plus,
-            text: 'Invite a Friend',
-          ),
+          // const ProfileListItem(
+          //   icon: LineAwesomeIcons.cog,
+          //   text: 'Settings',
+          // ),
+          // const ProfileListItem(
+          //   icon: LineAwesomeIcons.user_plus,
+          //   text: 'Invite a Friend',
+          // ),
           ProfileListItem(
             icon: LineAwesomeIcons.alternate_sign_out,
             text: 'Logout',
