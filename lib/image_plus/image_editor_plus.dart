@@ -973,9 +973,11 @@ class BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      onLongPress: onLongPress,
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+      ),
+      onPressed: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
@@ -1365,6 +1367,10 @@ class _ImageFiltersState extends State<ImageFilters> {
 
   Widget filterPreviewButton({required filter, required String name}) {
     return InkWell(
+        onTap: (() {
+          selectedFilter = filter;
+          setState(() {});
+        }),
         child: Column(children: [
           Container(
             height: 64,
@@ -1390,11 +1396,7 @@ class _ImageFiltersState extends State<ImageFilters> {
             i18n(name),
             style: const TextStyle(fontSize: 12),
           ),
-        ]),
-        onTap: (() {
-          selectedFilter = filter;
-          setState(() {});
-        }));
+        ]));
   }
 }
 
