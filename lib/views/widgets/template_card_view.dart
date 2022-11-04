@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:greetings_app/models/EditImageViewModel.dart';
 import 'package:greetings_app/views/edit_pages/edit_page_view.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';

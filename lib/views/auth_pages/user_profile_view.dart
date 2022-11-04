@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import '../../constants/colors.dart';
 import '../../constants/constants.dart';
 import '../../constants/profile_list_items.dart';
+import '../../constants/strings.dart';
 import '../../entities/User.dart';
 import '../../models/authentication/FirebaseAuthServiceModel.dart';
+import 'profile_list_items.dart';
 
 class UserProfileView extends StatefulWidget {
   const UserProfileView({Key? key}) : super(key: key);
@@ -18,48 +22,54 @@ class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserData?>(context)!;
+      final Stream<DocumentSnapshot> _userStream = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user.email)
+        .snapshots(includeMetadataChanges: true);
     return Scaffold(
       bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 3),
-      body: Stack(
-        children: <Widget>[
-          Column(
+      body:Stack(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    AppBarButton(
-                      icon: Icons.arrow_back,
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        AppBarButton(
+                          icon: Icons.arrow_back,
+                        ),
+                        // SvgPicture.asset("assets/icons/menu.svg"),
+                      ],
                     ),
-                    // SvgPicture.asset("assets/icons/menu.svg"),
-                  ],
-                ),
-              ),
-              AvatarImage(
-                image: user.photoUrl ?? "",
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const SocialIcons(),
-              const SizedBox(height: 30),
-              Text(
-                user.displayName ?? "",
-                style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "Poppins"),
-              ),
-              Text(
-                user.email ?? "",
-                style: const TextStyle(fontWeight: FontWeight.w300),
-              ),
-              const ProfileListItems(),
+                  ),
+                  AvatarImage(
+                    image: user.photoUrl ?? "",
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const SocialIcons(),
+                  const SizedBox(height: 30),
+                  Text(
+                    user.displayName ?? "",
+                    style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: "Poppins"),
+                  ),
+                  Text(
+                    user.email ?? "",
+                    style: const TextStyle(fontWeight: FontWeight.w300),
+                  ),
+                  
+                  const ProfileListItems(),
+                ],
+              )
             ],
-          )
-        ],
-      ),
+          ),
+
     );
   }
 }
@@ -185,56 +195,3 @@ class SocialIcon extends StatelessWidget {
   }
 }
 
-class ProfileListItems extends StatelessWidget {
-  const ProfileListItems({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: <Widget>[
-          ProfileListItem(
-            icon: LineAwesomeIcons.user_shield,
-            text: 'My Business Profile',
-            onTapFunction: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, "/completeprofile", (route) => false);
-            },
-          ),
-
-          ProfileListItem(
-            icon: LineAwesomeIcons.edit_1,
-            text: 'Edit Profile',
-            onTapFunction: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, "/editprofile", (route) => false);
-            },
-          ),
-          const ProfileListItem(
-            icon: LineAwesomeIcons.history,
-            text: 'Forget Password',
-          ),
-          // const ProfileListItem(
-          //   icon: LineAwesomeIcons.cog,
-          //   text: 'Settings',
-          // ),
-          // const ProfileListItem(
-          //   icon: LineAwesomeIcons.user_plus,
-          //   text: 'Invite a Friend',
-          // ),
-          ProfileListItem(
-            icon: LineAwesomeIcons.alternate_sign_out,
-            text: 'Logout',
-            onTapFunction: () async {
-              await Provider.of<FirebaseAuthServiceModel>(context,
-                      listen: false)
-                  .signOutUser()
-                  .then((value) => Navigator.pushNamedAndRemoveUntil(
-                      context, "/", (route) => false));
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}

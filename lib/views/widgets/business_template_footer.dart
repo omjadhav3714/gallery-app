@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +21,14 @@ class _BusinessTemplateFooterState extends State<BusinessTemplateFooter> {
   Widget build(BuildContext context) {
     var user = Provider.of<UserData?>(context);
 
-    final Stream<DocumentSnapshot> _userStream = FirebaseFirestore.instance
+    final Stream<DocumentSnapshot<Map>> _userStream = FirebaseFirestore.instance
         .collection('Users')
         .doc(user!.email)
         .snapshots(includeMetadataChanges: true);
-    return StreamBuilder<DocumentSnapshot>(
+    return StreamBuilder<DocumentSnapshot<Map>>(
       stream: _userStream,
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+      builder: (BuildContext context,
+          AsyncSnapshot<DocumentSnapshot<Map>> snapshot) {
         if (snapshot.hasError) {
           return const Text(wentWrong);
         }
@@ -47,10 +47,26 @@ class _BusinessTemplateFooterState extends State<BusinessTemplateFooter> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ListTile(
-                  title: Text("${snapshot.data!['businessName']}"),
+                  title: Text("Name : " +
+                      (snapshot.data!.data()!.containsKey('businessName')
+                          ? snapshot.data!['businessName']
+                          : '')),
                   isThreeLine: true,
-                  subtitle:  Text(
-                    "${snapshot.data!['businessPhone']} ${snapshot.data!['businessEmail']} ${snapshot.data!['businessWebsite']}",
+                  subtitle: Text(
+                    "Phone : " +
+                        (snapshot.data!.data()!.containsKey('businessPhone')
+                            ? snapshot.data!['businessPhone']
+                            : '') +
+                        "\n" +
+                        "Website : " +
+                        (snapshot.data!.data()!.containsKey('businessWebsite')
+                            ? snapshot.data!['businessWebsite']
+                            : '') +
+                        "\n" +
+                        "Email : " +
+                        (snapshot.data!.data()!.containsKey('businessEmail')
+                            ? snapshot.data!['businessEmail']
+                            : ''),
                     style: const TextStyle(fontSize: 12),
                   ),
                 ),

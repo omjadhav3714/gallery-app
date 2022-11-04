@@ -975,7 +975,7 @@ class BottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+        backgroundColor: MaterialStateProperty.all(darkBackgroundColor),
       ),
       onPressed: onTap,
       child: Padding(

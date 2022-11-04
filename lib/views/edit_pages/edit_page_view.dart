@@ -48,8 +48,7 @@ class _EditPageViewState extends EditImageViewModel {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -73,6 +72,7 @@ class _EditPageViewState extends EditImageViewModel {
                 onPressed: () {
                   setState(() {
                     showProfile = !showProfile;
+                    showBusinessProfile = false;
                   });
                 },
               ),
@@ -86,7 +86,7 @@ class _EditPageViewState extends EditImageViewModel {
                 onPressed: () {
                   setState(() {
                     showBusinessProfile = !showBusinessProfile;
-
+                    showProfile = false;
                   });
                 },
               ),

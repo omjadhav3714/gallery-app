@@ -2,17 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/controllers/AuthRedirectController.dart';
-import 'package:greetings_app/views/auth_pages/complete_business_profile_view.dart';
 import 'package:greetings_app/views/auth_pages/login_page_view.dart';
 import 'package:greetings_app/views/auth_pages/register_page_view.dart';
 import 'package:greetings_app/views/auth_pages/user_profile_view.dart';
 import 'package:greetings_app/views/home_page/HomePageView.dart';
 import 'package:provider/provider.dart';
-
 import 'entities/User.dart';
 import 'models/authentication/FirebaseAuthServiceModel.dart';
 import 'views/all_category_pages/all_categories_view.dart';
-import 'views/auth_pages/edit_profile_view.dart';
 import 'views/explore_pages/explore_page_view.dart';
 
 void main() async {
@@ -47,14 +44,12 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           "/": (context) => const AuthRedirectController(),
-          "/login": (context) => LoginPageView(),
+          "/login": (context) => const LoginPageView(),
           "/signup":(context) =>  const RegisterPageView(),
           "/home": (context) => const HomePageView(),
           "/userProfile" : (context) => const UserProfileView(),
           "/allCategories" : (context) => const AllCategoriesGridView(),
           "/explore" : (context) => const ExplorePageView(),
-          "/editprofile" : (context) => const EditProfileView(),
-          "/completeprofile" : (context) => const CompleteBusinessProfile()
         },
       ),
     );
