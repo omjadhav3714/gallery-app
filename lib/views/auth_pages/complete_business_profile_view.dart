@@ -108,116 +108,120 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
           backgroundColor: white,
           elevation: 0,
         ),
-        resizeToAvoidBottomInset: false,
         backgroundColor: white,
-        body: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: SafeArea(
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    AvatarImage(image: user!.photoUrl ?? ""),
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: const Text(
-                        businessProfileButtonText,
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                    )
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        AvatarImage(image: user!.photoUrl ?? ""),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 0, vertical: 10),
+                          child: const Text(
+                            businessProfileButtonText,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InputWithIcon(
+                      obscure: false,
+                      btnIcon: Icons.account_circle_rounded,
+                      hintText: businessName,
+                      myController: businessNameController,
+                      keyboardType: TextInputType.name,
+                      validateFunc: (val) {
+                        String pattern = r'^[a-zA-Z]+[\s]+[a-zA-Z]+$';
+                        RegExp regExp = RegExp(pattern);
+                        if (val!.isEmpty) {
+                          return nameEmptyWarning;
+                        } else if (!regExp.hasMatch(val)) {
+                          return invalidNameWarning;
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InputWithIcon(
+                      btnIcon: Icons.phone,
+                      hintText: businessPhone,
+                      myController: businessPhoneController,
+                      keyboardType: TextInputType.phone,
+                      validateFunc: (value) {
+                        String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                        RegExp regExp = RegExp(pattern);
+                        if (value!.isEmpty) {
+                          return phoneEmptyWarning;
+                        } else if (!regExp.hasMatch(value)) {
+                          return invalidPhoneWarning;
+                        }
+                        return null;
+                      },
+                      obscure: false,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InputWithIcon(
+                      btnIcon: Icons.email_outlined,
+                      hintText: businessEmail,
+                      myController: businessEmailController,
+                      validateFunc: (value) {
+                        if (value!.isEmpty) {
+                          return emailFieldEmpty;
+                        } else if (!value.contains(RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
+                          return invalidEmailFormat;
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.name,
+                      obscure: false,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InputWithIcon(
+                      btnIcon: Icons.web,
+                      hintText: businessWebsite,
+                      myController: businessWebsiteController,
+                      validateFunc: (val) {
+                        if (val!.isEmpty) {
+                          return nameEmptyWarning;
+                        } 
+                        return null;
+                      },
+                      keyboardType: TextInputType.name,
+                      obscure: false,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    AuthButtonWidget(
+                      btnTxt: businessProfileButtonText,
+                      onPress: () {
+                        completeBusinessProfile();
+                      },
+                    ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                InputWithIcon(
-                  obscure: false,
-                  btnIcon: Icons.account_circle_rounded,
-                  hintText: businessName,
-                  myController: businessNameController,
-                  keyboardType: TextInputType.name,
-                  validateFunc: (val) {
-                    String pattern = r'^[a-zA-Z]+[\s]+[a-zA-Z]+$';
-                    RegExp regExp = RegExp(pattern);
-                    if (val!.isEmpty) {
-                      return nameEmptyWarning;
-                    } else if (!regExp.hasMatch(val)) {
-                      return invalidNameWarning;
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                InputWithIcon(
-                  btnIcon: Icons.phone,
-                  hintText: businessPhone,
-                  myController: businessPhoneController,
-                  keyboardType: TextInputType.phone,
-                  validateFunc: (value) {
-                    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                    RegExp regExp = RegExp(pattern);
-                    if (value!.isEmpty) {
-                      return phoneEmptyWarning;
-                    } else if (!regExp.hasMatch(value)) {
-                      return invalidPhoneWarning;
-                    }
-                    return null;
-                  },
-                  obscure: false,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                InputWithIcon(
-                  btnIcon: Icons.email_outlined,
-                  hintText: businessEmail,
-                  myController: businessEmailController,
-                  validateFunc: (value) {
-                    if (value!.isEmpty) {
-                      return emailFieldEmpty;
-                    } else if (!value.contains(RegExp(
-                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
-                      return invalidEmailFormat;
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.name,
-                  obscure: false,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                InputWithIcon(
-                  btnIcon: Icons.web,
-                  hintText: businessWebsite,
-                  myController: businessWebsiteController,
-                  validateFunc: (val) {
-                    if (val!.isEmpty) {
-                      return nameEmptyWarning;
-                    } 
-                    return null;
-                  },
-                  keyboardType: TextInputType.name,
-                  obscure: false,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                AuthButtonWidget(
-                  btnTxt: businessProfileButtonText,
-                  onPress: () {
-                    completeBusinessProfile();
-                  },
-                ),
-              ],
+              ),
             ),
           ),
         ),

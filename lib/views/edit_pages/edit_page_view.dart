@@ -48,50 +48,62 @@ class _EditPageViewState extends EditImageViewModel {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Screenshot(
-              controller: screenshotController,
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    selectedImage,
-                    showProfile ? const TemplateFooter(): const SizedBox(),
-                    showBusinessProfile ? const BusinessTemplateFooter(): const SizedBox(),
-                  ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              Screenshot(
+                controller: screenshotController,
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      selectedImage,
+                      showProfile ? const TemplateFooter() : const SizedBox(),
+                      showBusinessProfile
+                          ? const BusinessTemplateFooter()
+                          : const SizedBox(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RoundEdgeFilledButton(
-                backgroundColor: primaryColor,
-                buttonText: showProfile ? "Remove Profile" : "Add Profile",
-                onPressed: () {
-                  setState(() {
-                    showProfile = !showProfile;
-                    showBusinessProfile = false;
-                  });
-                },
+              const SizedBox(
+                height: 20,
               ),
-            ),
-      
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RoundEdgeFilledButton(
-                backgroundColor: primaryColor,
-                buttonText: showBusinessProfile ? "Remove Business Profile" : "Add Business Profile",
-                onPressed: () {
-                  setState(() {
-                    showBusinessProfile = !showBusinessProfile;
-                    showProfile = false;
-                  });
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RoundEdgeFilledButton(
+                  backgroundColor: primaryColor,
+                  buttonText: showProfile ? "Remove Profile" : "Add Profile",
+                  onPressed: () {
+                    setState(() {
+                      showProfile = !showProfile;
+                      showBusinessProfile = false;
+                    });
+                  },
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RoundEdgeFilledButton(
+                  backgroundColor: primaryColor,
+                  buttonText: showBusinessProfile
+                      ? "Remove Business Profile"
+                      : "Add Business Profile",
+                  onPressed: () {
+                    setState(() {
+                      showBusinessProfile = !showBusinessProfile;
+                      showProfile = false;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
