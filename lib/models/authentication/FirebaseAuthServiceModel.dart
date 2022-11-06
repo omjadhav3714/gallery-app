@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../constants/constants.dart';
 import '../../entities/User.dart';
 import '../user/UserHandlerModel.dart';
 import 'IFirebaseAuthService.dart';
@@ -20,7 +21,7 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName ?? name,
-        photoUrl: user.photoURL,
+        photoUrl: user.photoURL ?? defaultProfileImageURL,
         phone: phone,
       );
     }

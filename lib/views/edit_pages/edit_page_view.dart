@@ -34,7 +34,7 @@ class _EditPageViewState extends EditImageViewModel {
         leading: const BackButtonWidget(iconColor: white),
         elevation: 0,
         title: const Text(
-          edit,
+          shareImageText,
         ),
         backgroundColor: darkBackgroundColor,
         actions: [
@@ -48,62 +48,46 @@ class _EditPageViewState extends EditImageViewModel {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(
-                height: 30,
+      body: SafeArea(
+        minimum: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Screenshot(
+              controller: screenshotController,
+              child: Column(
+                children: [
+                  selectedImage,
+                  showProfile ? const TemplateFooter() : const SizedBox(),
+                  showBusinessProfile
+                      ? const BusinessTemplateFooter()
+                      : const SizedBox(),
+                ],
               ),
-              Screenshot(
-                controller: screenshotController,
-                child: SafeArea(
-                  child: Column(
-                    children: [
-                      selectedImage,
-                      showProfile ? const TemplateFooter() : const SizedBox(),
-                      showBusinessProfile
-                          ? const BusinessTemplateFooter()
-                          : const SizedBox(),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RoundEdgeFilledButton(
-                  backgroundColor: primaryColor,
-                  buttonText: showProfile ? "Remove Profile" : "Add Profile",
-                  onPressed: () {
-                    setState(() {
-                      showProfile = !showProfile;
-                      showBusinessProfile = false;
-                    });
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RoundEdgeFilledButton(
-                  backgroundColor: primaryColor,
-                  buttonText: showBusinessProfile
-                      ? "Remove Business Profile"
-                      : "Add Business Profile",
-                  onPressed: () {
-                    setState(() {
-                      showBusinessProfile = !showBusinessProfile;
-                      showProfile = false;
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
+            ),
+            RoundEdgeFilledButton(
+              backgroundColor: primaryColor,
+              buttonText: showProfile ? "Remove Profile" : "Add Profile",
+              onPressed: () {
+                setState(() {
+                  showProfile = !showProfile;
+                  showBusinessProfile = false;
+                });
+              },
+            ),
+            RoundEdgeFilledButton(
+              backgroundColor: primaryColor,
+              buttonText: showBusinessProfile
+                  ? "Remove Business Profile"
+                  : "Add Business Profile",
+              onPressed: () {
+                setState(() {
+                  showBusinessProfile = !showBusinessProfile;
+                  showProfile = false;
+                });
+              },
+            ),
+          ],
         ),
       ),
     );

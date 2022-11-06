@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:greetings_app/entities/User.dart';
 import 'package:greetings_app/models/authentication/FirebaseAuthServiceModel.dart';
+import 'package:greetings_app/views/auth_pages/add_profile_image_view.dart';
 import 'package:greetings_app/views/auth_pages/login_page_view.dart';
 import 'package:greetings_app/views/home_page/HomePageView.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,6 @@ class AuthRedirectController extends StatelessWidget {
           debugPrint(snapshot.error.toString());
           return const Center(child: Text("Something went wrong!"));
         } else {
-
           final user = snapshot.data;
           debugPrint("****** YO2 ${user?.displayName} - ${user?.email}");
           if (user != null) {
@@ -44,7 +44,8 @@ class AuthRedirectController extends StatelessWidget {
             // Go to HomePage
             return const HomePageView();
           }
-          return  const LoginPageView();
+          // return  const LoginPageView();
+          return  const AddProfileImageView();
         }
       },
     );

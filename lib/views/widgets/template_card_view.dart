@@ -126,7 +126,7 @@ class _TemplateCardState extends State<TemplateCard> {
                                 isLoading = false;
                               });
                             },
-                            child: const Text(edit, style: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w500),),
+                            child: const Text(editImageText, style: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w500),),
                           ),
                         ),
                       ],

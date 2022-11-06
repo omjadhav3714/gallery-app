@@ -83,7 +83,8 @@ const String wentWrong = 'Something went wrong';
 const String noData = 'Oops No data';
 
 // 
-const String edit = 'Edit';
+const String editImageText = 'Edit';
+const String shareImageText = "Share";
 
 // Edit image model
 const String savedGallery = 'Image saved to gallery.';
