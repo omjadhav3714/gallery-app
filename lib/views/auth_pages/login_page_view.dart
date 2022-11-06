@@ -81,6 +81,29 @@ class _LoginPageViewState extends State<LoginPageView> {
         break;
     }
 
+    // Future showDialogBoxWithOkButton(String title, String content) async {
+    //   return await showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         title: Text(title),
+    //         content: Text(content),
+    //         actions: [
+    //           Padding(
+    //             padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+    //             child: TextButton(
+    //               child: const Text("OK"),
+    //               onPressed: () {
+    //                 Navigator.of(context).pop();
+    //               },
+    //             ),
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    // }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -173,7 +196,7 @@ class _LoginPageViewState extends State<LoginPageView> {
               ],
             ),
           ),
-        
+
           // Login Section
           Form(
             key: loginFormKey,
@@ -243,60 +266,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                       ),
                       TextButton(
                         onPressed: () async {
-                          /*
-                           final authServiceProvider =
-                          Provider.of<AuthService>(context, listen: false);
-                          try {
-                            await authServiceProvider
-                                .sendPasswordResetEmail(emailController.text);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Reset Password Email"),
-                                  content: Text(
-                                      "Reset password email has been sent to your email."),
-                                  actions: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 10, 15, 10),
-                                      child: TextButton(
-                                        child: Text("Got it"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          } catch (e) {
-                            print(e);
-                            print('error sending email');
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Error"),
-                                  content: Text("Error sending reset email."),
-                                  actions: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 10, 15, 10),
-                                      child: TextButton(
-                                        child: Text("Try Again"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                          */
+                          Navigator.pushNamed(context, "/forgotPassword");
                         },
                         child: Text(
                           forgotPasswordText,
@@ -371,7 +341,7 @@ class _LoginPageViewState extends State<LoginPageView> {
               ),
             ),
           ),
-        
+
           // SignUp Section
           Form(
             key: signUpFormKey,

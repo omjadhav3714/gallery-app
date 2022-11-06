@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/controllers/AuthRedirectController.dart';
 import 'package:greetings_app/views/auth_pages/login_page_view.dart';
-import 'package:greetings_app/views/auth_pages/register_page_view.dart';
+import 'package:greetings_app/views/auth_pages/forgot_password_page_view.dart';
 import 'package:greetings_app/views/auth_pages/user_profile_view.dart';
 import 'package:greetings_app/views/home_page/HomePageView.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) => const AuthRedirectController(),
           "/login": (context) => const LoginPageView(),
-          "/signup":(context) =>  const RegisterPageView(),
+          "/forgotPassword":(context) =>  const ForgotPasswordView(),
           "/home": (context) => const HomePageView(),
           "/userProfile" : (context) => const UserProfileView(),
           "/allCategories" : (context) => const AllCategoriesGridView(),

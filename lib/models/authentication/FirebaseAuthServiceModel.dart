@@ -92,7 +92,6 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
         authStatusMessage: error.message,
       );
     }
-    return null;
   }
 
   @override
@@ -115,6 +114,17 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
         authStatusMessage: error.message,
       );
     }
-    return null;
+  }
+
+  @override
+  Future sendForgotPasswordEmail(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (error) {
+      debugPrint(
+          "******************************** Send password reset link failed with error code : ${error.code}");
+      debugPrint(error.message);
+      throw Exception(error.message);
+    }
   }
 }

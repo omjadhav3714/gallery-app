@@ -40,4 +40,8 @@ class AuthServiceModel {
     }
     return userModel;
   }
+
+  Future forgotPassword(String email) async {
+    await FirebaseAuthServiceModel().sendForgotPasswordEmail(email);
+  }
 }

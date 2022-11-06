@@ -12,13 +12,18 @@ class AuthController {
     await AuthServiceModel().signOutUser();
   }
 
-  Future<UserData?> loginWithEmailPassword(String email, String password) async {
-    return await AuthServiceModel().loginWithEmailPassword( email, password);
+  Future<UserData?> loginWithEmailPassword(
+      String email, String password) async {
+    return await AuthServiceModel().loginWithEmailPassword(email, password);
   }
 
-  Future<UserData?> registerWithEmailPassword(String email,
-      String password, String name, String phone) async {
+  Future<UserData?> registerWithEmailPassword(
+      String email, String password, String name, String phone) async {
     return await AuthServiceModel()
         .registerWithEmailPassword(email, password, name, phone);
+  }
+
+  Future forgotPassword(String email) async {
+    return await AuthServiceModel().forgotPassword(email);
   }
 }

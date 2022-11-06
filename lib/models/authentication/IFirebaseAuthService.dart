@@ -18,4 +18,5 @@ abstract class IFirebaseAuthServiceModel {
     String name,
     String phone,
   );
+  Future sendForgotPasswordEmail(String email);
 }

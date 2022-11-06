@@ -20,6 +20,8 @@ const String passwordLengthWarning = "Password should be at least 6 characters!"
 
 // Forgot Password
 const String forgotPasswordText = "FORGOT PASSWORD?";
+const String forgotPasswordDescription = "An email with a password reset link would be sent to this mail address!";
+const String passwordResetSendEmailButtonText = "Send Email";
 
 // Google Login
 const String googleLoginButtonText = "Continue with Google";

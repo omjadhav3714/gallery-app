@@ -43,6 +43,7 @@ class _InputWithIconState extends State<InputWithIcon> {
             child: SizedBox(
               height: 50,
               child: TextFormField(
+                key: widget.key,
                 decoration: InputDecoration(
                     errorStyle: const TextStyle(
                       fontSize: 9,
