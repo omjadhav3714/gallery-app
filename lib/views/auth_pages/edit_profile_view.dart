@@ -1,15 +1,17 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
-import 'package:greetings_app/entities/ProfileImage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:greetings_app/utils/scafffold_message_handler.dart';
-import 'package:greetings_app/views/auth_pages/user_profile_view.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import '../../constants/constants.dart';
 import '../../constants/strings.dart';
-import '../../entities/User.dart';
 import '../../models/authentication/FirebaseAuthServiceModel.dart';
 import '../widgets/authbutton_widget_view.dart';
+import '../widgets/custom_image_picker_widget_view.dart';
 import '../widgets/input_with_icon.dart';
 
 class EditProfileView extends StatefulWidget {
@@ -30,6 +32,9 @@ class _EditProfileViewState extends State<EditProfileView> {
       GlobalKey<ScaffoldMessengerState>();
   double windowWidth = 0;
   double windowHeight = 0;
+  XFile? _imageFile;
+  String? profileImg;
+  late String _id;
 
   var user = FirebaseAuthServiceModel().getUserDetails();
   CollectionReference users = FirebaseFirestore.instance.collection("Users");
@@ -57,9 +62,18 @@ class _EditProfileViewState extends State<EditProfileView> {
   void editProfile() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      _id = FirebaseAuth.instance.currentUser!.uid;
+      if (_imageFile != null) {
+        // upload profile pic to firebase storage
+        firebase_storage.Reference ref =
+            firebase_storage.FirebaseStorage.instance.ref('users/$_id.jpg');
+        await ref.putFile(File(_imageFile!.path));
+        profileImg = await ref.getDownloadURL();
+      }
       users.doc(user!.email).update({
         "name": nameController.text.trim(),
-        "phone": phoneController.text.trim()
+        "phone": phoneController.text.trim(),
+        "photoUrl": profileImg ?? user?.photoUrl,
       }).then((value) async {
         await Provider.of<FirebaseAuthServiceModel?>(context, listen: false)
             ?.updateUserData(name: nameController.text.trim());
@@ -67,15 +81,48 @@ class _EditProfileViewState extends State<EditProfileView> {
         setState((() {
           nameController.clear();
           phoneController.clear();
+          _imageFile = null;
         }));
       });
     }
   }
 
+  void _pickImageFromCamera() async {
+    try {
+      final pickImage = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        maxHeight: 300,
+        maxWidth: 300,
+        imageQuality: 95,
+      );
+      setState(() {
+        _imageFile = pickImage;
+      });
+    } catch (e) {
+      setState(() {});
+    }
+  }
+
+  void _pickImageFromGallery() async {
+    try {
+      final pickImage = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 300,
+        maxWidth: 300,
+        imageQuality: 95,
+      );
+      setState(() {
+        _imageFile = pickImage;
+      });
+    } catch (e) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final String? profileImage =
-        Provider.of<ProfileImage?>(context)?.getProfileImage;
+    // final String? profileImage =
+    //     Provider.of<ProfileImage?>(context)?.getProfileImage;
 
     // Size of the Screen
     windowHeight = MediaQuery.of(context).size.height;
@@ -111,16 +158,41 @@ class _EditProfileViewState extends State<EditProfileView> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        (profileImage != null)
-                            ? AvatarImage(
-                                image: profileImage,
-                                isNetworkImage: true,
-                              )
-                            : AvatarImage(
-                                image: user?.photoUrl ?? defaultProfileImageURL,
-                                isNetworkImage:
-                                    user?.photoUrl != null ? true : false,
-                              ),
+                        // (profileImage != null)
+                        //     ? AvatarImage(
+                        //         image: profileImage,
+                        //         isNetworkImage: true,
+                        //       )
+                        //     : AvatarImage(
+                        //         image: user?.photoUrl ?? defaultProfileImageURL,
+                        //         isNetworkImage:
+                        //             user?.photoUrl != null ? true : false,
+                        //       ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _imageFile == null
+                                ? CircleAvatar(
+                                    radius: 60,
+                                    backgroundColor: primaryColor,
+                                    backgroundImage: NetworkImage(widget.data!['photoUrl']),
+                                  )
+                                : CircleAvatar(
+                                    radius: 60,
+                                    backgroundColor: primaryColor,
+                                    backgroundImage: FileImage(
+                                            File(_imageFile!.path),
+                                          ),
+                                  ),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            CustomImagePickerWidget(
+                              pickCamera: _pickImageFromCamera,
+                              pickGallery: _pickImageFromGallery,
+                            ),
+                          ],
+                        ),
                         Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 0, vertical: 10),

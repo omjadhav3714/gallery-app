@@ -1,15 +1,19 @@
 // ignore_for_file: must_be_immutable
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../constants/constants.dart';
 import '../../constants/strings.dart';
 import '../../models/authentication/FirebaseAuthServiceModel.dart';
 import '../../utils/scafffold_message_handler.dart';
 import '../widgets/authbutton_widget_view.dart';
+import '../widgets/custom_image_picker_widget_view.dart';
 import '../widgets/input_with_icon.dart';
-import 'user_profile_view.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class CompleteBusinessProfile extends StatefulWidget {
   const CompleteBusinessProfile({Key? key, required this.data})
@@ -33,6 +37,9 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
       GlobalKey<ScaffoldMessengerState>();
   double windowWidth = 0;
   double windowHeight = 0;
+  XFile? _imageFile;
+  String? profileImg;
+  late String _id;
 
   var user = FirebaseAuthServiceModel().getUserDetails();
   CollectionReference users = FirebaseFirestore.instance.collection("Users");
@@ -48,11 +55,23 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
   void completeBusinessProfile() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      _id = FirebaseAuth.instance.currentUser!.uid;
+      if (_imageFile != null) {
+        // upload profile pic to firebase storage
+        firebase_storage.Reference ref =
+            firebase_storage.FirebaseStorage.instance.ref('users/$_id.jpg');
+        await ref.putFile(File(_imageFile!.path));
+        profileImg = await ref.getDownloadURL();
+      }
       users.doc(user!.email).update({
         "businessEmail": businessEmailController.text,
         "businessName": businessNameController.text,
         "businessPhone": businessPhoneController.text,
-        "businessWebsite": businessWebsiteController.text
+        "businessWebsite": businessWebsiteController.text,
+        "businessLogo": profileImg ??
+            (widget.data!.data()!.containsKey('businessLogo')
+                ? widget.data!['businessLogo']
+                : ""),
       }).then((value) => {
             MessageHandler.showSnackBar(
                 _scaffoldKey, "Business Profile Updated"),
@@ -61,8 +80,41 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
               businessPhoneController.clear();
               businessEmailController.clear();
               businessWebsiteController.clear();
+              _imageFile = null;
             }))
           });
+    }
+  }
+
+  void _pickImageFromCamera() async {
+    try {
+      final pickImage = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        maxHeight: 300,
+        maxWidth: 300,
+        imageQuality: 95,
+      );
+      setState(() {
+        _imageFile = pickImage;
+      });
+    } catch (e) {
+      setState(() {});
+    }
+  }
+
+  void _pickImageFromGallery() async {
+    try {
+      final pickImage = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 300,
+        maxWidth: 300,
+        imageQuality: 95,
+      );
+      setState(() {
+        _imageFile = pickImage;
+      });
+    } catch (e) {
+      setState(() {});
     }
   }
 
@@ -123,9 +175,35 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        AvatarImage(
-                          image: user?.photoUrl ?? defaultProfileImageURL,
-                          isNetworkImage: user?.photoUrl != null ? true : false,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _imageFile == null
+                                ? CircleAvatar(
+                                    radius: 60,
+                                    backgroundColor: primaryColor,
+                                    backgroundImage: widget.data!
+                                            .data()!
+                                            .containsKey('businessLogo')
+                                        ? NetworkImage(
+                                            widget.data!['businessLogo'])
+                                        : null,
+                                  )
+                                : CircleAvatar(
+                                    radius: 60,
+                                    backgroundColor: primaryColor,
+                                    backgroundImage: FileImage(
+                                      File(_imageFile!.path),
+                                    ),
+                                  ),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            CustomImagePickerWidget(
+                              pickCamera: _pickImageFromCamera,
+                              pickGallery: _pickImageFromGallery,
+                            ),
+                          ],
                         ),
                         Container(
                           margin: const EdgeInsets.symmetric(
@@ -151,7 +229,7 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
                       validateFunc: (val) {
                         if (val!.isEmpty) {
                           return nameEmptyWarning;
-                        } 
+                        }
                         return null;
                       },
                     ),
