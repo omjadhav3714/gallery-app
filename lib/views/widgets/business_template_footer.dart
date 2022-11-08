@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../../entities/User.dart';
@@ -71,6 +72,18 @@ class _BusinessTemplateFooterState extends State<BusinessTemplateFooter> {
                   ),
                 ),
               ),
+              snapshot.data!.data()!.containsKey('businessLogo')
+                  ? ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(100.0),
+                      ),
+                      child: Image.network(
+                        snapshot.data!['businessLogo'],
+                        fit: BoxFit.contain,
+                        width: 80,
+                      ),
+                    )
+                  : const SizedBox()
             ],
           ),
         );
