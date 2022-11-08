@@ -149,13 +149,9 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
                       myController: businessNameController,
                       keyboardType: TextInputType.name,
                       validateFunc: (val) {
-                        String pattern = r'^[a-zA-Z]+[\s]+[a-zA-Z]+$';
-                        RegExp regExp = RegExp(pattern);
                         if (val!.isEmpty) {
                           return nameEmptyWarning;
-                        } else if (!regExp.hasMatch(val)) {
-                          return invalidNameWarning;
-                        }
+                        } 
                         return null;
                       },
                     ),
