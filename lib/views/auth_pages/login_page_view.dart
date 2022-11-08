@@ -60,13 +60,13 @@ class _LoginPageViewState extends State<LoginPageView> {
         _headingColor = primaryColor;
         _loginYOffset = windowHeight;
         _registerYOffset = windowHeight;
-        _headingTop = 60;
+        _headingTop = 55;
         _arrowColor = white;
         break;
       case 1:
         _backgroundColor = primaryColor;
         _headingColor = white;
-        _loginYOffset = 200;
+        _loginYOffset = windowHeight * 0.268;
         _registerYOffset = windowHeight;
         _headingTop = 30;
         _arrowColor = white;
@@ -74,7 +74,7 @@ class _LoginPageViewState extends State<LoginPageView> {
       case 2:
         _backgroundColor = white;
         _headingColor = primaryColor;
-        _loginYOffset = 200;
+        _loginYOffset = windowHeight * 0.3;
         _registerYOffset = 0;
         _headingTop = 30;
         _arrowColor = Colors.white;
@@ -200,144 +200,146 @@ class _LoginPageViewState extends State<LoginPageView> {
           // Login Section
           Form(
             key: loginFormKey,
-            child: AnimatedContainer(
-              padding: const EdgeInsets.all(32),
-              curve: Curves.fastLinearToSlowEaseIn,
-              duration: const Duration(milliseconds: 1000),
-              transform: Matrix4.translationValues(0, _loginYOffset, 1),
-              decoration: const BoxDecoration(
-                color: white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
-                ),
-              ),
-              child: Column(
-                children: [
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 20),
-                        child: const Text(
-                          loginPageHeading,
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      )
-                    ],
+            child: SafeArea(
+              child: AnimatedContainer(
+                padding: const EdgeInsets.all(32),
+                curve: Curves.fastLinearToSlowEaseIn,
+                duration: const Duration(milliseconds: 1000),
+                transform: Matrix4.translationValues(0, _loginYOffset, 1),
+                decoration: const BoxDecoration(
+                  color: white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      InputWithIcon(
-                        btnIcon: Icons.email_outlined,
-                        hintText: emailHintText,
-                        myController: emailController,
-                        validateFunc: (value) {
-                          if (value!.isEmpty) {
-                            return emailFieldEmpty;
-                          } else if (!value.contains(RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
-                            return invalidEmailFormat;
-                          }
-                          return null;
-                        },
-                        obscure: false,
-                        keyboardType: TextInputType.name,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InputWithIcon(
-                        btnIcon: Icons.vpn_key,
-                        hintText: passwordHintText,
-                        myController: passwordController,
-                        obscure: true,
-                        validateFunc: (value) {
-                          if (value!.isEmpty) {
-                            return passwordFieldEmpty;
-                          } else if (value.length < 6) {
-                            return passwordLengthWarning;
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.name,
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          Navigator.pushNamed(context, "/forgotPassword");
-                        },
-                        child: Text(
-                          forgotPasswordText,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Theme.of(context).primaryColor,
+                ),
+                child: Column(
+                  children: [
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          child: const Text(
+                            loginPageHeading,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        InputWithIcon(
+                          btnIcon: Icons.email_outlined,
+                          hintText: emailHintText,
+                          myController: emailController,
+                          validateFunc: (value) {
+                            if (value!.isEmpty) {
+                              return emailFieldEmpty;
+                            } else if (!value.contains(RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
+                              return invalidEmailFormat;
+                            }
+                            return null;
+                          },
+                          obscure: false,
+                          keyboardType: TextInputType.name,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        InputWithIcon(
+                          btnIcon: Icons.vpn_key,
+                          hintText: passwordHintText,
+                          myController: passwordController,
+                          obscure: true,
+                          validateFunc: (value) {
+                            if (value!.isEmpty) {
+                              return passwordFieldEmpty;
+                            } else if (value.length < 6) {
+                              return passwordLengthWarning;
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.name,
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            Navigator.pushNamed(context, "/forgotPassword");
+                          },
+                          child: Text(
+                            forgotPasswordText,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      AuthButtonWidget(
-                        btnTxt: loginButtonText,
-                        onPress: () async {
-                          // Act only after the form fields are validated
-                          if (loginFormKey.currentState!.validate()) {
-                            // Trigger Login functionality
-                            var userResult =
-                                await AuthController().loginWithEmailPassword(
-                              emailController.text.trim(),
-                              passwordController.text.trim(),
-                            );
-                            // Show error messages if any
-                            if (mounted) {
-                              debugPrint(userResult.toString());
-                              if (userResult!.authStatusMessage != null) {
-                                showBottomNotificationMessage(
-                                  context,
-                                  userResult.authStatusMessage!,
-                                );
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        AuthButtonWidget(
+                          btnTxt: loginButtonText,
+                          onPress: () async {
+                            // Act only after the form fields are validated
+                            if (loginFormKey.currentState!.validate()) {
+                              // Trigger Login functionality
+                              var userResult =
+                                  await AuthController().loginWithEmailPassword(
+                                emailController.text.trim(),
+                                passwordController.text.trim(),
+                              );
+                              // Show error messages if any
+                              if (mounted) {
+                                debugPrint(userResult.toString());
+                                if (userResult!.authStatusMessage != null) {
+                                  showBottomNotificationMessage(
+                                    context,
+                                    userResult.authStatusMessage!,
+                                  );
+                                }
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, "/", (route) => false);
                               }
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomOutlineButton(
+                          buttonText: googleLoginButtonText,
+                          imageUrl: "assets/google_logo.png",
+                          onPressed: () async {
+                            // Trigger Google Sign in
+                            await AuthController().loginWithGoogle();
+                            if (mounted) {
                               Navigator.pushNamedAndRemoveUntil(
                                   context, "/", (route) => false);
                             }
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomOutlineButton(
-                        buttonText: googleLoginButtonText,
-                        imageUrl: "assets/google_logo.png",
-                        onPressed: () async {
-                          // Trigger Google Sign in
-                          await AuthController().loginWithGoogle();
-                          if (mounted) {
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, "/", (route) => false);
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomOutlineButton(
-                        buttonText: signUpRedirectText,
-                        onPressed: () {
-                          setState(
-                            () {
-                              _pageState = 2;
-                              emailController.clear();
-                              passwordController.clear();
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomOutlineButton(
+                          buttonText: signUpRedirectText,
+                          onPressed: () {
+                            setState(
+                              () {
+                                _pageState = 2;
+                                emailController.clear();
+                                passwordController.clear();
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -345,159 +347,161 @@ class _LoginPageViewState extends State<LoginPageView> {
           // SignUp Section
           Form(
             key: signUpFormKey,
-            child: AnimatedContainer(
-              padding: const EdgeInsets.all(32),
-              curve: Curves.fastLinearToSlowEaseIn,
-              duration: const Duration(milliseconds: 1000),
-              transform: Matrix4.translationValues(0, _registerYOffset, 1),
-              decoration: const BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 0, vertical: 10),
-                        child: const Text(
-                          signUpPageHeading,
-                          style: TextStyle(
-                            fontSize: 20,
+            child: SafeArea(
+              child: AnimatedContainer(
+                padding: const EdgeInsets.all(32),
+                curve: Curves.fastLinearToSlowEaseIn,
+                duration: const Duration(milliseconds: 1000),
+                transform: Matrix4.translationValues(0, _registerYOffset, 1),
+                decoration: const BoxDecoration(
+                    color: white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 0, vertical: 10),
+                          child: const Text(
+                            signUpPageHeading,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  InputWithIcon(
-                    obscure: false,
-                    btnIcon: Icons.account_circle_rounded,
-                    hintText: nameHintText,
-                    myController: nameController,
-                    keyboardType: TextInputType.name,
-                    validateFunc: (val) {
-                      val = val?.trim();
-                      String pattern = r'^[a-zA-Z]+[\s]+[a-zA-Z]+$';
-                      RegExp regExp = RegExp(pattern);
-                      if (val!.isEmpty) {
-                        return nameEmptyWarning;
-                      } else if (!regExp.hasMatch(val)) {
-                        return invalidNameWarning;
-                      }
-                      return null;
-                    },
-                  ),
-                  InputWithIcon(
-                    btnIcon: Icons.phone,
-                    hintText: phoneHintText,
-                    myController: phoneController,
-                    keyboardType: TextInputType.phone,
-                    validateFunc: (value) {
-                      String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                      RegExp regExp = RegExp(pattern);
-                      if (value!.isEmpty) {
-                        return phoneEmptyWarning;
-                      } else if (!regExp.hasMatch(value)) {
-                        return invalidPhoneWarning;
-                      }
-                      return null;
-                    },
-                    obscure: false,
-                  ),
-                  InputWithIcon(
-                    btnIcon: Icons.email_outlined,
-                    hintText: emailHintText,
-                    myController: emailController,
-                    validateFunc: (value) {
-                      if (value!.isEmpty) {
-                        return emailFieldEmpty;
-                      } else if (!value.contains(RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
-                        return invalidEmailFormat;
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.name,
-                    obscure: false,
-                  ),
-                  InputWithIcon(
-                    btnIcon: Icons.vpn_key,
-                    hintText: passwordHintText,
-                    obscure: true,
-                    myController: passwordController,
-                    keyboardType: TextInputType.name,
-                    validateFunc: (value) {
-                      if (value!.isEmpty) {
-                        return passwordFieldEmpty;
-                      } else if (value.length < 6) {
-                        return passwordLengthWarning;
-                      }
-                      return null;
-                    },
-                  ),
-                  InputWithIcon(
-                    btnIcon: Icons.vpn_key,
-                    hintText: confirmPasswordHintText,
-                    obscure: true,
-                    myController: confirmPassController,
-                    validateFunc: (val) {
-                      if (val!.isEmpty) {
-                        return confirmPasswordFieldEmpty;
-                      }
-                      if (val != passwordController.text) {
-                        return confirmPasswordNotMatchingText;
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.name,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  AuthButtonWidget(
-                    btnTxt: signUpButtonText,
-                    onPress: () async {
-                      // Act only after the form fields are validated
-                      if (signUpFormKey.currentState!.validate()) {
-                        // Trigger SingUp functionality
-                        var userResult = await AuthController()
-                            .registerWithEmailPassword(
-                                emailController.text.trim(),
-                                confirmPassController.text.trim(),
-                                nameController.text.trim(),
-                                phoneController.text.trim(),);
-                        // Show error messages if any
-                        if (mounted) {
-                          debugPrint(userResult.toString());
-                          if (userResult?.authStatusMessage != null) {
-                            showBottomNotificationMessage(
-                              context,
-                              userResult!.authStatusMessage!,
-                            );
-                          }
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "/setProfileImage", (route) => false);
+                        )
+                      ],
+                    ),
+                    InputWithIcon(
+                      obscure: false,
+                      btnIcon: Icons.account_circle_rounded,
+                      hintText: nameHintText,
+                      myController: nameController,
+                      keyboardType: TextInputType.name,
+                      validateFunc: (val) {
+                        val = val?.trim();
+                        String pattern = r'^[a-zA-Z]+[\s]+[a-zA-Z]+$';
+                        RegExp regExp = RegExp(pattern);
+                        if (val!.isEmpty) {
+                          return nameEmptyWarning;
+                        } else if (!regExp.hasMatch(val)) {
+                          return invalidNameWarning;
                         }
-                      }
-                    },
-                  ),
-                  CustomOutlineButton(
-                    buttonText: loginRedirectText,
-                    onPressed: () {
-                      setState(
-                        () {
-                          _pageState = 1;
-                          emailController.clear();
-                          passwordController.clear();
-                        },
-                      );
-                    },
-                  ),
-                ],
+                        return null;
+                      },
+                    ),
+                    InputWithIcon(
+                      btnIcon: Icons.phone,
+                      hintText: phoneHintText,
+                      myController: phoneController,
+                      keyboardType: TextInputType.phone,
+                      validateFunc: (value) {
+                        String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                        RegExp regExp = RegExp(pattern);
+                        if (value!.isEmpty) {
+                          return phoneEmptyWarning;
+                        } else if (!regExp.hasMatch(value)) {
+                          return invalidPhoneWarning;
+                        }
+                        return null;
+                      },
+                      obscure: false,
+                    ),
+                    InputWithIcon(
+                      btnIcon: Icons.email_outlined,
+                      hintText: emailHintText,
+                      myController: emailController,
+                      validateFunc: (value) {
+                        if (value!.isEmpty) {
+                          return emailFieldEmpty;
+                        } else if (!value.contains(RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
+                          return invalidEmailFormat;
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.name,
+                      obscure: false,
+                    ),
+                    InputWithIcon(
+                      btnIcon: Icons.vpn_key,
+                      hintText: passwordHintText,
+                      obscure: true,
+                      myController: passwordController,
+                      keyboardType: TextInputType.name,
+                      validateFunc: (value) {
+                        if (value!.isEmpty) {
+                          return passwordFieldEmpty;
+                        } else if (value.length < 6) {
+                          return passwordLengthWarning;
+                        }
+                        return null;
+                      },
+                    ),
+                    InputWithIcon(
+                      btnIcon: Icons.vpn_key,
+                      hintText: confirmPasswordHintText,
+                      obscure: true,
+                      myController: confirmPassController,
+                      validateFunc: (val) {
+                        if (val!.isEmpty) {
+                          return confirmPasswordFieldEmpty;
+                        }
+                        if (val != passwordController.text) {
+                          return confirmPasswordNotMatchingText;
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.name,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    AuthButtonWidget(
+                      btnTxt: signUpButtonText,
+                      onPress: () async {
+                        // Act only after the form fields are validated
+                        if (signUpFormKey.currentState!.validate()) {
+                          // Trigger SingUp functionality
+                          var userResult = await AuthController()
+                              .registerWithEmailPassword(
+                                  emailController.text.trim(),
+                                  confirmPassController.text.trim(),
+                                  nameController.text.trim(),
+                                  phoneController.text.trim(),);
+                          // Show error messages if any
+                          if (mounted) {
+                            debugPrint(userResult.toString());
+                            if (userResult?.authStatusMessage != null) {
+                              showBottomNotificationMessage(
+                                context,
+                                userResult!.authStatusMessage!,
+                              );
+                            }
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/setProfileImage", (route) => false);
+                          }
+                        }
+                      },
+                    ),
+                    CustomOutlineButton(
+                      buttonText: loginRedirectText,
+                      onPressed: () {
+                        setState(
+                          () {
+                            _pageState = 1;
+                            emailController.clear();
+                            passwordController.clear();
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           )

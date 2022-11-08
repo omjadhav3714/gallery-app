@@ -1,14 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import '../../constants/colors.dart';
 import '../../constants/constants.dart';
-import '../../constants/profile_list_items.dart';
-import '../../constants/strings.dart';
 import '../../entities/User.dart';
-import '../../models/authentication/FirebaseAuthServiceModel.dart';
 import 'profile_list_items.dart';
 
 class UserProfileView extends StatefulWidget {
@@ -120,12 +115,23 @@ class AvatarImage extends StatelessWidget {
       height: 150,
       padding: const EdgeInsets.all(8),
       decoration: avatarDecoration,
-      child: Container(
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-        ),
-        child: isNetworkImage ? Image.network(image) : Image.asset(image),
-      ),
+      child: isNetworkImage
+          ? Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage(image), fit: BoxFit.cover),
+              ),
+            )
+          : Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage(image),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
     );
   }
 }

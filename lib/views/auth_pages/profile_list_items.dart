@@ -52,7 +52,6 @@ class _ProfileListItemsState extends State<ProfileListItems> {
                       context, MaterialPageRoute(builder: (context) => CompleteBusinessProfile(data: snapshot.data)));
                 },
               ),
-    
               ProfileListItem(
                 icon: LineAwesomeIcons.edit_1,
                 text: 'Edit Profile',
@@ -61,9 +60,12 @@ class _ProfileListItemsState extends State<ProfileListItems> {
                       context, MaterialPageRoute(builder: (context) => EditProfileView(data: snapshot.data)));
                 },
               ),
-              const ProfileListItem(
+               ProfileListItem(
                 icon: LineAwesomeIcons.history,
                 text: 'Forget Password',
+                onTapFunction: () {
+                  Navigator.pushNamed(context, '/forgotPassword');
+                },
               ),
               // const ProfileListItem(
               //   icon: LineAwesomeIcons.cog,
