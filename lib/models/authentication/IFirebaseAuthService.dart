@@ -7,6 +7,7 @@ abstract class IFirebaseAuthServiceModel {
   Stream<UserData?> onAuthStateChanged();
   Future<UserData?> signInWithGoogle();
   Future signOutUser();
+  Future sendForgotPasswordEmail(String email);
   void dispose();
   Future<UserData?> signInWithEmailPassword(
     String email,
@@ -18,5 +19,9 @@ abstract class IFirebaseAuthServiceModel {
     String name,
     String phone,
   );
-  Future sendForgotPasswordEmail(String email);
+
+  Future<UserData?> updateUserData({
+    String? name,
+    String? photoURL,
+  });
 }

@@ -380,6 +380,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                     myController: nameController,
                     keyboardType: TextInputType.name,
                     validateFunc: (val) {
+                      val = val?.trim();
                       String pattern = r'^[a-zA-Z]+[\s]+[a-zA-Z]+$';
                       RegExp regExp = RegExp(pattern);
                       if (val!.isEmpty) {
@@ -468,7 +469,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                                 emailController.text.trim(),
                                 confirmPassController.text.trim(),
                                 nameController.text.trim(),
-                                phoneController.text.trim());
+                                phoneController.text.trim(),);
                         // Show error messages if any
                         if (mounted) {
                           debugPrint(userResult.toString());
@@ -479,10 +480,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                             );
                           }
                           Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            "/",
-                            (route) => false,
-                          );
+                              context, "/setProfileImage", (route) => false);
                         }
                       }
                     },

@@ -7,6 +7,7 @@ class UserData {
   String? displayName;
   String? authStatusMessage;
   String? phone;
+  bool? isNewUser;
 
   UserData({
     required this.uid,
@@ -15,6 +16,7 @@ class UserData {
     this.photoUrl,
     this.authStatusMessage,
     this.phone,
+    this.isNewUser,
   }) {
     // notifyListeners();
   }
@@ -25,8 +27,8 @@ class UserData {
     String? photoUrl,
     String? displayName,
     String? authStatusMessage,
-    bool? loggedIn,
     String? phone,
+    bool? isNewUser,
   }) {
     if (uid != null) {
       this.uid = uid;
@@ -45,6 +47,9 @@ class UserData {
     }
     if (phone != null) {
       this.phone = phone;
+    }
+    if (isNewUser != null) {
+      this.isNewUser = isNewUser;
     }
     // notifyListeners();
   }

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/controllers/AuthRedirectController.dart';
+import 'package:greetings_app/views/auth_pages/add_profile_image_view.dart';
 import 'package:greetings_app/views/auth_pages/login_page_view.dart';
 import 'package:greetings_app/views/auth_pages/forgot_password_page_view.dart';
 import 'package:greetings_app/views/auth_pages/user_profile_view.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) => const AuthRedirectController(),
           "/login": (context) => const LoginPageView(),
+          "/setProfileImage" : (context) => const AddProfileImageView(),
           "/forgotPassword":(context) =>  const ForgotPasswordView(),
           "/home": (context) => const HomePageView(),
           "/userProfile" : (context) => const UserProfileView(),

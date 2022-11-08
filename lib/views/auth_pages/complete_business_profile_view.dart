@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
+import '../../constants/constants.dart';
 import '../../constants/strings.dart';
 import '../../models/authentication/FirebaseAuthServiceModel.dart';
 import '../../utils/scafffold_message_handler.dart';
@@ -122,7 +123,10 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        AvatarImage(image: user!.photoUrl ?? ""),
+                        AvatarImage(
+                          image: user?.photoUrl ?? defaultProfileImageURL,
+                          isNetworkImage: user?.photoUrl != null ? true : false,
+                        ),
                         Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 0, vertical: 10),
@@ -204,7 +208,7 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
                       validateFunc: (val) {
                         if (val!.isEmpty) {
                           return nameEmptyWarning;
-                        } 
+                        }
                         return null;
                       },
                       keyboardType: TextInputType.name,

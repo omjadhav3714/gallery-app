@@ -78,11 +78,17 @@ const String contactP = "Your contact no.";
 const String submit = "Submit";
 const String backto = "Back to login";
 
-//stream builder
+//Stream Builder
 const String wentWrong = 'Something went wrong';
 const String noData = 'Oops No data';
 
-// 
+// Profile Image Edit Text
+const String setProfileImageHeading = "Set Profile Image";
+const String selectFromGalleryText = "Gallery";
+const String selectFromCameraText = "Camera";
+const String finaliseImageText = "Done";
+
+// Edit Image Appbar Text
 const String editImageText = 'Edit';
 const String shareImageText = "Share";
 

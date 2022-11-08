@@ -22,54 +22,53 @@ class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserData?>(context)!;
-      final Stream<DocumentSnapshot> _userStream = FirebaseFirestore.instance
+    final Stream<DocumentSnapshot> _userStream = FirebaseFirestore.instance
         .collection('Users')
         .doc(user.email)
         .snapshots(includeMetadataChanges: true);
     return Scaffold(
       bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 3),
-      body:Stack(
+      body: Stack(
+        children: <Widget>[
+          Column(
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        AppBarButton(
-                          icon: Icons.arrow_back,
-                        ),
-                        // SvgPicture.asset("assets/icons/menu.svg"),
-                      ],
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    AppBarButton(
+                      icon: Icons.arrow_back,
                     ),
-                  ),
-                  AvatarImage(
-                    image: user.photoUrl ?? "",
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const SocialIcons(),
-                  const SizedBox(height: 30),
-                  Text(
-                    user.displayName ?? "",
-                    style: const TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Poppins"),
-                  ),
-                  Text(
-                    user.email ?? "",
-                    style: const TextStyle(fontWeight: FontWeight.w300),
-                  ),
-                  
-                  const ProfileListItems(),
-                ],
-              )
+                    // SvgPicture.asset("assets/icons/menu.svg"),
+                  ],
+                ),
+              ),
+              AvatarImage(
+                image: user.photoUrl ?? defaultProfileImageURL,
+                isNetworkImage: user.photoUrl != null ? true : false,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const SocialIcons(),
+              const SizedBox(height: 30),
+              Text(
+                user.displayName ?? "",
+                style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: "Poppins"),
+              ),
+              Text(
+                user.email ?? "",
+                style: const TextStyle(fontWeight: FontWeight.w300),
+              ),
+              const ProfileListItems(),
             ],
-          ),
-
+          )
+        ],
+      ),
     );
   }
 }
@@ -109,7 +108,10 @@ class AppBarButton extends StatelessWidget {
 
 class AvatarImage extends StatelessWidget {
   final String image;
-  const AvatarImage({Key? key, required this.image}) : super(key: key);
+  final bool isNetworkImage;
+  const AvatarImage(
+      {Key? key, required this.image, required this.isNetworkImage})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +131,7 @@ class AvatarImage extends StatelessWidget {
               image: NetworkImage(image),
             ),
           ),
+          child: isNetworkImage ? Image.network(image) : Image.asset(image),
         ),
       ),
     );
@@ -194,4 +197,3 @@ class SocialIcon extends StatelessWidget {
     );
   }
 }
-

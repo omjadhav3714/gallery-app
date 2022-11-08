@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../../entities/User.dart';
 
@@ -44,11 +45,11 @@ class UserHandlerModel {
         debugPrint("Failed to add user details to database: $error"));
   }
 
-  // Future<void> updateSingleUserDetail(BuildContext context, {required String key, required dynamic value}){
-  //   var user = Provider.of<UserData?>(context, listen: false);
-  //   return users.doc(user!.email).update({
-  //     key : value
-  //   }).catchError((error) =>
-  //       debugPrint("Failed to update user details to database: $error"));
-  // }
+  Future<void> updateSingleUserDetail(BuildContext context, {required String key, required dynamic value}){
+    var user = Provider.of<UserData?>(context, listen: false);
+    return users.doc(user!.email).update({
+      key : value
+    }).catchError((error) =>
+        debugPrint("Failed to update user details to database: $error"));
+  }
 }

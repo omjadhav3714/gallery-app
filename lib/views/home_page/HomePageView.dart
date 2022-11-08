@@ -19,18 +19,15 @@ class _HomePageViewState extends State<HomePageView> {
   Widget build(BuildContext context) {
 
     var user = FirebaseAuthServiceModel().getUserDetails();
-    debugPrint("################ ${user!.displayName} ################");
     Widget getAppBarTitleForHomePage() {
       return Row(
         children: [
-          const Text("Welcome ", style: TextStyle(color: Colors.black,fontFamily: "Poppins", fontWeight: FontWeight.w600)),
-          Text(user.displayName ?? "to Gallery App!",
+          const Text("Welcome to ", style: TextStyle(color: Colors.black,fontFamily: "Poppins", fontWeight: FontWeight.w600)),
+          Text(user?.displayName ?? "Gallery App!",
               style: const TextStyle(color: primaryColor,fontFamily: "Poppins", fontWeight: FontWeight.w600)),
         ],
       );
     }
-
-    // Provider.of<UserData?>(context, listen: false)?.updateUserUsingObject(user);
 
     return Scaffold(
         // endDrawer: const NavBarView(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 String defaultProfileImageURL =
-    "https://firebasestorage.googleapis.com/v0/b/gallery-app-41f69.appspot.com/o/users_profile_images%2Fdefault_user_avatar.png?alt=media&token=deb66487-b983-47cc-999e-9d1278ea7ff9";
+    "assets/default_user_avatar.png";
 
 Color kAppPrimaryColor = Colors.grey.shade200;
 Color kWhite = Colors.white;

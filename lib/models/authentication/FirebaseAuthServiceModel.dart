@@ -15,14 +15,15 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
 
   // UserModel is a custom Class which we made in user.dart
   // User is a firebase Auth class which comes inbuilt with firebase_auth package.
-  UserData? _userFromFirebase(User? user, {String? phone, String? name}) {
+  UserData? _userFromFirebase(User? user, {String? phone, String? name, bool? isNewUser}) {
     if (user != null) {
       return UserData(
         uid: user.uid,
         email: user.email,
         displayName: user.displayName ?? name,
-        photoUrl: user.photoURL ?? defaultProfileImageURL,
+        photoUrl: user.photoURL,
         phone: phone,
+        isNewUser : isNewUser,
       );
     }
     return null;
@@ -103,7 +104,7 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
           email: email, password: password);
       final user = authResult.user;
       await user!.updateDisplayName(name);
-      return _userFromFirebase(user, phone: phone, name: name);
+      return _userFromFirebase(user, phone: phone, name: name, );
     } on FirebaseAuthException catch (error) {
       debugPrint(
           "********************************Registration Failed with error code : ${error.code}");
@@ -126,6 +127,32 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
           "******************************** Send password reset link failed with error code : ${error.code}");
       debugPrint(error.message);
       throw Exception(error.message);
+    }
+  }
+
+  @override
+  Future<UserData?> updateUserData({
+    String? name,
+    String? photoURL,
+  }) async {
+    try {
+      User? user = _firebaseAuth.currentUser!;
+      if (name != null) {
+        await user.updateDisplayName(photoURL);
+      }
+      if (photoURL != null) {
+        await user.updatePhotoURL(photoURL);
+      }
+      return _userFromFirebase(user);
+    } on FirebaseAuthException catch (error) {
+      debugPrint("Data update failed with error code : ${error.code}");
+      debugPrint(error.message);
+      return UserData(
+        uid: null,
+        email: null,
+        displayName: null,
+        authStatusMessage: error.message,
+      );
     }
   }
 }

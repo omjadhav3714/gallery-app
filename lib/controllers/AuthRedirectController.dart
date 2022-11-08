@@ -41,11 +41,13 @@ class AuthRedirectController extends StatelessWidget {
           debugPrint("****** YO2 ${user?.displayName} - ${user?.email}");
           if (user != null) {
             debugPrint("*************** HELLO HOMEPAGE *****************");
+            if (user.photoUrl == null) {
+              return const AddProfileImageView();
+            }
             // Go to HomePage
             return const HomePageView();
           }
-          // return  const LoginPageView();
-          return  const AddProfileImageView();
+          return const LoginPageView();
         }
       },
     );

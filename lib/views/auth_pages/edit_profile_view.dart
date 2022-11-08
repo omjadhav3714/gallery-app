@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/utils/scafffold_message_handler.dart';
 import 'package:greetings_app/views/auth_pages/user_profile_view.dart';
+import 'package:provider/provider.dart';
+import '../../constants/constants.dart';
 import '../../constants/strings.dart';
+import '../../entities/User.dart';
 import '../../models/authentication/FirebaseAuthServiceModel.dart';
 import '../widgets/authbutton_widget_view.dart';
 import '../widgets/input_with_icon.dart';
@@ -20,7 +23,6 @@ class _EditProfileViewState extends State<EditProfileView> {
   // Declaring Necessary Variables
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
@@ -33,7 +35,6 @@ class _EditProfileViewState extends State<EditProfileView> {
   @override
   void dispose() {
     // Clean up the controllers when the widget is disposed.
-    emailController.dispose();
     nameController.dispose();
     phoneController.dispose();
     super.dispose();
@@ -42,10 +43,6 @@ class _EditProfileViewState extends State<EditProfileView> {
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController(
-        text: widget.data!.data()!.containsKey('email')
-            ? widget.data!['email']
-            : null);
     nameController = TextEditingController(
         text: widget.data!.data()!.containsKey('name')
             ? widget.data!['name']
@@ -60,17 +57,17 @@ class _EditProfileViewState extends State<EditProfileView> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       users.doc(user!.email).update({
-        "email": emailController.text,
-        "name": nameController.text,
-        "phone": phoneController.text
-      }).then((value) => {
-            MessageHandler.showSnackBar(_scaffoldKey, "Profile Updated"),
-            setState((() {
-              nameController.clear();
-              phoneController.clear();
-              emailController.clear();
-            }))
-          });
+        "name": nameController.text.trim(),
+        "phone": phoneController.text.trim()
+      }).then((value) async {
+        await Provider.of<FirebaseAuthServiceModel?>(context, listen: false)
+            ?.updateUserData(name: nameController.text.trim());
+        MessageHandler.showSnackBar(_scaffoldKey, "Profile Updated");
+        setState((() {
+          nameController.clear();
+          phoneController.clear();
+        }));
+      });
     }
   }
 
@@ -110,7 +107,10 @@ class _EditProfileViewState extends State<EditProfileView> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        AvatarImage(image: user!.photoUrl ?? ""),
+                        AvatarImage(
+                          image: user?.photoUrl ?? defaultProfileImageURL,
+                          isNetworkImage: user?.photoUrl != null ? true : false,
+                        ),
                         Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 0, vertical: 10),
@@ -165,22 +165,6 @@ class _EditProfileViewState extends State<EditProfileView> {
                     ),
                     const SizedBox(
                       height: 20,
-                    ),
-                    InputWithIcon(
-                      btnIcon: Icons.email_outlined,
-                      hintText: emailHintText,
-                      myController: emailController,
-                      validateFunc: (value) {
-                        if (value!.isEmpty) {
-                          return emailFieldEmpty;
-                        } else if (!value.contains(RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
-                          return invalidEmailFormat;
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.name,
-                      obscure: false,
                     ),
                     const SizedBox(
                       height: 30,
