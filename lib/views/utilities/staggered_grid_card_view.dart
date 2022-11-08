@@ -1,24 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class StaggeredGridCardView extends StatelessWidget {
   const StaggeredGridCardView(
-      {Key? key, required this.networkImageUrl, this.onTap})
+      {Key? key,required this.data})
       : super(key: key);
-  final String networkImageUrl;
-  final Function()? onTap;
+  final QueryDocumentSnapshot? data;
+
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 8,
       child: GestureDetector(
-        onTap: onTap,
+        onTap: (){},
         child: ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: CachedNetworkImage(
-            imageUrl: networkImageUrl,
+            imageUrl: data!['img'],
             placeholder: (context, url) => Shimmer.fromColors(
               period: const Duration(milliseconds:500),
               baseColor: Colors.grey[400]!,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/models/authentication/FirebaseAuthServiceModel.dart';
 import 'package:greetings_app/views/widgets/appbar_view.dart';
-import '../../entities/User.dart';
 import '../../fakes/fakeData.dart';
 import '../utilities/bottom_navigation_bar.dart';
 import '../widgets/categories_grid_view.dart';
@@ -35,18 +34,18 @@ class _HomePageViewState extends State<HomePageView> {
         appBar:
             AppBarView().getCustomAppBar(title: getAppBarTitleForHomePage()),
         body: Column(
-          children: [
+          children: const [
             // Initial GridView for Featured Cards
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: StaggeredGridView(gridCardsList: gridCardList),
+              padding:  EdgeInsets.all(8.0),
+              child: StaggeredGridView(),
             ),
-            const Text(
+             Text(
               "Categories",
               textAlign: TextAlign.start,
               style: TextStyle(fontSize: 20,fontFamily: "Poppins", fontWeight: FontWeight.w600 ),
             ),
-            const Expanded(
+             Expanded(
               child: CategoriesGridView(),
             ),
           ],
