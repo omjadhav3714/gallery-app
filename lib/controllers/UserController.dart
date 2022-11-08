@@ -25,7 +25,7 @@ class UserController {
       String uploadedFileURL = await profileImagesRef.getDownloadURL();
       return uploadedFileURL;
     } on FirebaseException catch (e) {
-      throw Exception("Image upload failed");
+      throw Exception("Image upload failed ${e.message}");
     }
   }
 
@@ -36,11 +36,8 @@ class UserController {
 
   // Returns a String URL of the file selected from Gallery
   Future<String?> selectProfileImage({required bool captureFromCamera}) async {
-    Directory tempDir = await getTemporaryDirectory();
-    String tempDirPath = tempDir.path;
 
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
+
 
     final ImagePicker picker = ImagePicker();
     // Get the source of the image

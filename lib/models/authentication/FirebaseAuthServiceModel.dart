@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../../constants/constants.dart';
 import '../../entities/User.dart';
 import '../user/UserHandlerModel.dart';
 import 'IFirebaseAuthService.dart';
@@ -15,7 +13,8 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
 
   // UserModel is a custom Class which we made in user.dart
   // User is a firebase Auth class which comes inbuilt with firebase_auth package.
-  UserData? _userFromFirebase(User? user, {String? phone, String? name, bool? isNewUser}) {
+  UserData? _userFromFirebase(User? user,
+      {String? phone, String? name, bool? isNewUser}) {
     if (user != null) {
       return UserData(
         uid: user.uid,
@@ -23,7 +22,7 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
         displayName: user.displayName ?? name,
         photoUrl: user.photoURL,
         phone: phone,
-        isNewUser : isNewUser,
+        isNewUser: isNewUser,
       );
     }
     return null;
@@ -104,7 +103,11 @@ class FirebaseAuthServiceModel implements IFirebaseAuthServiceModel {
           email: email, password: password);
       final user = authResult.user;
       await user!.updateDisplayName(name);
-      return _userFromFirebase(user, phone: phone, name: name, );
+      return _userFromFirebase(
+        user,
+        phone: phone,
+        name: name,
+      );
     } on FirebaseAuthException catch (error) {
       debugPrint(
           "********************************Registration Failed with error code : ${error.code}");

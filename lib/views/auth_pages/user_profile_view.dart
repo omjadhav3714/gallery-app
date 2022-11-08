@@ -121,18 +121,10 @@ class AvatarImage extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: avatarDecoration,
       child: Container(
-        decoration: avatarDecoration,
-        padding: const EdgeInsets.all(3),
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(image),
-            ),
-          ),
-          child: isNetworkImage ? Image.network(image) : Image.asset(image),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
         ),
+        child: isNetworkImage ? Image.network(image) : Image.asset(image),
       ),
     );
   }

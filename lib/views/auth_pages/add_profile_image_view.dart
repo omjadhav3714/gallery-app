@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/constants.dart';
 import 'package:greetings_app/controllers/UserController.dart';
+import 'package:greetings_app/entities/ProfileImage.dart';
 import 'package:greetings_app/views/widgets/outlined_button_with_image.dart';
 import 'package:greetings_app/views/widgets/round_edge_filled_button.dart';
 import 'package:provider/provider.dart';
 import '../../constants/strings.dart';
 import '../../entities/User.dart';
+import '../../models/user/UserHandlerModel.dart';
 import '../utilities/show_error_view.dart';
 
 class AddProfileImageView extends StatefulWidget {
@@ -101,13 +103,22 @@ class _AddProfileImageViewState extends State<AddProfileImageView> {
                     final userID =
                         Provider.of<UserData?>(context, listen: false)?.uid ??
                             "12345";
+
                     String? newProfileImageUrl = await UserController()
                         .uploadImageToFirebaseStorage(
                             fileName: userID, file: profileImageFile!);
+
                     UserData? updatedUser = await UserController()
                         .updateUserProfile(photoURL: newProfileImageUrl);
+
+                    await UserHandlerModel().updateSingleUserDetail(context,
+                        key: 'photoUrl', value: newProfileImageUrl);
+
                     if (updatedUser?.photoUrl != null) {
                       if (mounted) {
+                        Provider.of<ProfileImage?>(context, listen: false)
+                            ?.setProfileImage(newProfileImageUrl);
+
                         Navigator.pushNamed(context, "/");
                       }
                     }

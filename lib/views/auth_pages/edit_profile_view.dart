@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
+import 'package:greetings_app/entities/ProfileImage.dart';
 import 'package:greetings_app/utils/scafffold_message_handler.dart';
 import 'package:greetings_app/views/auth_pages/user_profile_view.dart';
 import 'package:provider/provider.dart';
@@ -73,6 +74,9 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final String? profileImage =
+        Provider.of<ProfileImage?>(context)?.getProfileImage;
+
     // Size of the Screen
     windowHeight = MediaQuery.of(context).size.height;
     windowWidth = MediaQuery.of(context).size.width;
@@ -107,10 +111,16 @@ class _EditProfileViewState extends State<EditProfileView> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        AvatarImage(
-                          image: user?.photoUrl ?? defaultProfileImageURL,
-                          isNetworkImage: user?.photoUrl != null ? true : false,
-                        ),
+                        (profileImage != null)
+                            ? AvatarImage(
+                                image: profileImage,
+                                isNetworkImage: true,
+                              )
+                            : AvatarImage(
+                                image: user?.photoUrl ?? defaultProfileImageURL,
+                                isNetworkImage:
+                                    user?.photoUrl != null ? true : false,
+                              ),
                         Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 0, vertical: 10),
