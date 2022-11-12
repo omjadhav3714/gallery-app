@@ -209,6 +209,8 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
                             businessProfileButtonText,
                             style: TextStyle(
                               fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Poppins',
                             ),
                           ),
                         )

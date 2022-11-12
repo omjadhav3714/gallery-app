@@ -35,10 +35,10 @@ const String signUpPageHeading = "Create a New Account";
 const String signUpButtonText = "Create Account";
 
 const String editProfileText = "Edit your Profile";
-const String editProfileButtonText = "Edit Profile";
+const String editProfileButtonText = "Save Profile";
 
 const String businessProfileText = "Complete your Business Profile";
-const String businessProfileButtonText = "Complete Business Profile";
+const String businessProfileButtonText = "Save Business Profile";
 
 // Name TextField
 const String nameHintText = "Full Name";

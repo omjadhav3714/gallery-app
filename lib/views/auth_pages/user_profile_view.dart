@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';

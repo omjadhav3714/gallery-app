@@ -45,13 +45,23 @@ class _InputWithIconState extends State<InputWithIcon> {
               child: TextFormField(
                 key: widget.key,
                 decoration: InputDecoration(
-                    errorStyle: const TextStyle(
-                      fontSize: 9,
-                      fontFamily: "Poppins"
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                    border: InputBorder.none,
-                    hintText: widget.hintText),
+                  errorStyle: const TextStyle(
+                    fontSize: 9,
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w500,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                  border: InputBorder.none,
+                  hintText: widget.hintText,
+                  hintStyle: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins',
+                ),
                 autocorrect: false,
                 controller: widget.myController,
                 validator: widget.validateFunc,

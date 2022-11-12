@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, prefer_adjacent_string_concatenation
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +49,8 @@ class _TemplateFooterState extends State<TemplateFooter> {
                   title: Text(user.displayName ?? 'No name'),
                   isThreeLine: true,
                   subtitle: Text(
-                    "${snapshot.data!['email']}" + "\n" +
+                    "${snapshot.data!['email']}" +
+                        "\n" +
                         ((snapshot.data!.data()!.containsKey('phone')
                             ? (snapshot.data!['phone'] ?? '')
                             : '')),
@@ -66,7 +67,7 @@ class _TemplateFooterState extends State<TemplateFooter> {
                   fit: BoxFit.contain,
                   width: 80,
                   errorBuilder: (context, exception, stackTrack) => SizedBox(
-                    height: 100,  
+                    height: 100,
                     width: 150,
                     child: Center(
                       child: Column(
@@ -78,7 +79,7 @@ class _TemplateFooterState extends State<TemplateFooter> {
                             color: Theme.of(context).primaryColor,
                           ),
                           const Text(
-                            "Image cannot be loaded!",
+                            "Not loaded!",
                             style: TextStyle(fontSize: 10),
                           ),
                         ],
@@ -95,7 +96,7 @@ class _TemplateFooterState extends State<TemplateFooter> {
                         highlightColor: Colors.grey[100]!,
                         child: Container(
                           color: Colors.white,
-                          width: 150,
+                          width: 100,
                           height: 100,
                         ),
                       ),

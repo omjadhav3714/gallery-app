@@ -6,7 +6,8 @@ class AuthButtonWidget extends StatefulWidget {
   final String? btnTxt;
   final void Function()? onPress;
   final Color? backgroundColor;
-  const AuthButtonWidget({Key? key, this.btnTxt, this.onPress, this.backgroundColor})
+  const AuthButtonWidget(
+      {Key? key, this.btnTxt, this.onPress, this.backgroundColor})
       : super(key: key);
 
   @override
@@ -36,6 +37,8 @@ class _AuthButtonWidgetState extends State<AuthButtonWidget> {
             style: const TextStyle(
               fontSize: 18,
               color: white,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Poppins',
             ),
           ),
         ),

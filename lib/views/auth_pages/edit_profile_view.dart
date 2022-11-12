@@ -188,6 +188,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                             editProfileText,
                             style: TextStyle(
                               fontSize: 20,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w500
                             ),
                           ),
                         )

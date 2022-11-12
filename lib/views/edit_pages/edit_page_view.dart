@@ -51,6 +51,10 @@ class _EditPageViewState extends State<EditPageView> {
         elevation: 0,
         title: const Text(
           shareImageText,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Poppins',
+          ),
         ),
         backgroundColor: darkBackgroundColor,
         actions: [

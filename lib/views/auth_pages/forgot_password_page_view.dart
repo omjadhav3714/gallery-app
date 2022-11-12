@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greetings_app/views/widgets/backbutton_widget_view.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
@@ -27,6 +28,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: white,
+        elevation: 0,
+        leading: const BackButtonWidget(),
+      ),
       body: Form(
         key: _formKey,
         child: AnimatedContainer(
@@ -48,6 +54,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 forgotPasswordText,
                 style: TextStyle(
                   fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
                 ),
               ),
               const SizedBox(
@@ -58,6 +66,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
                 ),
               ),
               const SizedBox(
@@ -88,7 +98,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     if (_formKey.currentState!.validate()) {
                       try {
                         // Trigger Google Sign in
-                        await AuthController().forgotPassword(emailController.text.trim());
+                        await AuthController()
+                            .forgotPassword(emailController.text.trim());
 
                         if (mounted) {
                           showBottomNotificationMessage(

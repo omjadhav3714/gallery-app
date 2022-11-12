@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../../entities/User.dart';
@@ -72,14 +73,52 @@ class _BusinessTemplateFooterState extends State<BusinessTemplateFooter> {
                 ),
               ),
               snapshot.data!.data()!.containsKey('businessLogo')
-                  ? ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(100.0),
-                      ),
-                      child: Image.network(
-                        snapshot.data!['businessLogo'],
-                        fit: BoxFit.contain,
-                        width: 80,
+                  ? SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(
+                          snapshot.data!['businessLogo'],
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, exception, stackTrack) =>
+                              SizedBox(
+                            height: 100,
+                            width: 150,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.error,
+                                    size: 45,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  const Text(
+                                    "Not loaded!",
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return SizedBox(
+                              width: 150,
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[400]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  color: Colors.white,
+                                  width: 100,
+                                  height: 100,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     )
                   : const SizedBox()
