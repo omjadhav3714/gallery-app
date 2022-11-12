@@ -175,7 +175,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                                 ? CircleAvatar(
                                     radius: 60,
                                     backgroundColor: primaryColor,
-                                    backgroundImage: NetworkImage(widget.data!['photoUrl']),
+                                    backgroundImage:widget.data!['photoUrl']==null ? null :NetworkImage(widget.data!['photoUrl']),
                                   )
                                 : CircleAvatar(
                                     radius: 60,
