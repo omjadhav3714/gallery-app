@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
+import '../../constants/colors.dart';
 import '../../constants/constants.dart';
+import '../../constants/strings.dart';
 import '../../entities/ProfileImage.dart';
 import '../../entities/User.dart';
 import 'profile_list_items.dart';
@@ -22,61 +25,81 @@ class _UserProfileViewState extends State<UserProfileView> {
     //     .doc(user.email)
     //     .snapshots(includeMetadataChanges: true);
 
-    final String? profileImage =
-        Provider.of<ProfileImage?>(context)?.getProfileImage;
-
+    final Stream<DocumentSnapshot<Map>> _userStream = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user.email)
+        .snapshots(includeMetadataChanges: true);
     return Scaffold(
       bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 3),
-      body: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    AppBarButton(
-                      icon: Icons.arrow_back,
-                    ),
-                    // SvgPicture.asset("assets/icons/menu.svg"),
-                  ],
+      body: StreamBuilder<DocumentSnapshot<Map>>(
+          stream: _userStream,
+          builder: (BuildContext context,
+              AsyncSnapshot<DocumentSnapshot<Map>> snapshot) {
+            if (snapshot.hasError) {
+              return const Text(wentWrong);
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: primaryColor,
                 ),
-              ),
-              (profileImage != null)
-                  ? AvatarImage(
-                      image: profileImage,
-                      isNetworkImage: true,
-                    )
-                  : AvatarImage(
-                      image: user.photoUrl ?? defaultProfileImageURL,
-                      isNetworkImage: user.photoUrl != null ? true : false,
+              );
+            }
+            return Stack(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          AppBarButton(
+                            icon: Icons.arrow_back,
+                          ),
+                          // SvgPicture.asset("assets/icons/menu.svg"),
+                        ],
+                      ),
                     ),
-              // AvatarImage(
-              //   image: user.photoUrl ?? defaultProfileImageURL,
-              //   isNetworkImage: user.photoUrl != null ? true : false,
-              // ),
-              const SizedBox(
-                height: 30,
-              ),
-              const SocialIcons(),
-              const SizedBox(height: 30),
-              Text(
-                user.displayName ?? "",
-                style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "Poppins"),
-              ),
-              Text(
-                user.email ?? "",
-                style: const TextStyle(fontWeight: FontWeight.w300),
-              ),
-              const ProfileListItems(),
-            ],
-          )
-        ],
-      ),
+                    (snapshot.data!['photoUrl'] != null)
+                        ? AvatarImage(
+                            image: snapshot.data!['photoUrl'],
+                            isNetworkImage: true,
+                          )
+                        : AvatarImage(
+                            image: snapshot.data!['photoUrl'] ??
+                                defaultProfileImageURL,
+                            isNetworkImage: snapshot.data!['photoUrl'] != null
+                                ? true
+                                : false,
+                          ),
+                    // AvatarImage(
+                    //   image: user.photoUrl ?? defaultProfileImageURL,
+                    //   isNetworkImage: user.photoUrl != null ? true : false,
+                    // ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const SocialIcons(),
+                    const SizedBox(height: 30),
+                    Text(
+                      snapshot.data!['name'],
+                      style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "Poppins"),
+                    ),
+                    Text(
+                      snapshot.data!['email'],
+                      style: const TextStyle(fontWeight: FontWeight.w300),
+                    ),
+                    const ProfileListItems(),
+                  ],
+                )
+              ],
+            );
+          }),
     );
   }
 }

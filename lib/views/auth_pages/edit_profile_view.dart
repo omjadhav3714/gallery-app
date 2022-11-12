@@ -35,6 +35,7 @@ class _EditProfileViewState extends State<EditProfileView> {
   XFile? _imageFile;
   String? profileImg;
   late String _id;
+  bool photoUrl = true;
 
   var user = FirebaseAuthServiceModel().getUserDetails();
   CollectionReference users = FirebaseFirestore.instance.collection("Users");
@@ -82,6 +83,7 @@ class _EditProfileViewState extends State<EditProfileView> {
           nameController.clear();
           phoneController.clear();
           _imageFile = null;
+          photoUrl = false;
         }));
       });
     }
@@ -121,7 +123,6 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   @override
   Widget build(BuildContext context) {
-
     // Size of the Screen
     windowHeight = MediaQuery.of(context).size.height;
     windowWidth = MediaQuery.of(context).size.width;
@@ -163,14 +164,19 @@ class _EditProfileViewState extends State<EditProfileView> {
                                 ? CircleAvatar(
                                     radius: 60,
                                     backgroundColor: primaryColor,
-                                    backgroundImage:widget.data!['photoUrl']==null ? null :NetworkImage(widget.data!['photoUrl']),
+                                    backgroundImage: widget.data!
+                                            .data()!
+                                            .containsKey('photoUrl') && photoUrl == true
+                                        ? NetworkImage(
+                                            widget.data!['photoUrl'])
+                                        : null,
                                   )
                                 : CircleAvatar(
                                     radius: 60,
                                     backgroundColor: primaryColor,
                                     backgroundImage: FileImage(
-                                            File(_imageFile!.path),
-                                          ),
+                                      File(_imageFile!.path),
+                                    ),
                                   ),
                             const SizedBox(
                               width: 30,
@@ -187,10 +193,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                           child: const Text(
                             editProfileText,
                             style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: "Poppins",
-                              fontWeight: FontWeight.w500
-                            ),
+                                fontSize: 20,
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w500),
                           ),
                         )
                       ],
