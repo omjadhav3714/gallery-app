@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
+import '../../entities/ProfileImage.dart';
 import '../../entities/User.dart';
 import 'profile_list_items.dart';
 
@@ -17,10 +18,14 @@ class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserData?>(context)!;
-    final Stream<DocumentSnapshot> _userStream = FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user.email)
-        .snapshots(includeMetadataChanges: true);
+    // final Stream<DocumentSnapshot> _userStream = FirebaseFirestore.instance
+    //     .collection('Users')
+    //     .doc(user.email)
+    //     .snapshots(includeMetadataChanges: true);
+
+    final String? profileImage =
+        Provider.of<ProfileImage?>(context)?.getProfileImage;
+
     return Scaffold(
       bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 3),
       body: Stack(
@@ -39,10 +44,19 @@ class _UserProfileViewState extends State<UserProfileView> {
                   ],
                 ),
               ),
-              AvatarImage(
-                image: user.photoUrl ?? defaultProfileImageURL,
-                isNetworkImage: user.photoUrl != null ? true : false,
-              ),
+              (profileImage != null)
+                  ? AvatarImage(
+                      image: profileImage,
+                      isNetworkImage: true,
+                    )
+                  : AvatarImage(
+                      image: user.photoUrl ?? defaultProfileImageURL,
+                      isNetworkImage: user.photoUrl != null ? true : false,
+                    ),
+              // AvatarImage(
+              //   image: user.photoUrl ?? defaultProfileImageURL,
+              //   isNetworkImage: user.photoUrl != null ? true : false,
+              // ),
               const SizedBox(
                 height: 30,
               ),

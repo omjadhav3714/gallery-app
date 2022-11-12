@@ -121,8 +121,6 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    // final String? profileImage =
-    //     Provider.of<ProfileImage?>(context)?.getProfileImage;
 
     // Size of the Screen
     windowHeight = MediaQuery.of(context).size.height;
@@ -158,16 +156,6 @@ class _EditProfileViewState extends State<EditProfileView> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        // (profileImage != null)
-                        //     ? AvatarImage(
-                        //         image: profileImage,
-                        //         isNetworkImage: true,
-                        //       )
-                        //     : AvatarImage(
-                        //         image: user?.photoUrl ?? defaultProfileImageURL,
-                        //         isNetworkImage:
-                        //             user?.photoUrl != null ? true : false,
-                        //       ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
