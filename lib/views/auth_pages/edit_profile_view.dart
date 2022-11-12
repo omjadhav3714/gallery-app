@@ -74,10 +74,12 @@ class _EditProfileViewState extends State<EditProfileView> {
       users.doc(user!.email).update({
         "name": nameController.text.trim(),
         "phone": phoneController.text.trim(),
-        "photoUrl": profileImg ?? user?.photoUrl,
+        "photoUrl": profileImg ??
+            (widget.data!.data()!.containsKey('photoUrl')
+                ? widget.data!['photoUrl']
+                : ""),
       }).then((value) async {
-        await Provider.of<FirebaseAuthServiceModel?>(context, listen: false)
-            ?.updateUserData(name: nameController.text.trim());
+       
         MessageHandler.showSnackBar(_scaffoldKey, "Profile Updated");
         setState((() {
           nameController.clear();
@@ -210,13 +212,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                       myController: nameController,
                       keyboardType: TextInputType.name,
                       validateFunc: (val) {
-                        String pattern = r'^[a-zA-Z]+[\s]+[a-zA-Z]+$';
-                        RegExp regExp = RegExp(pattern);
                         if (val!.isEmpty) {
                           return nameEmptyWarning;
-                        } else if (!regExp.hasMatch(val)) {
-                          return invalidNameWarning;
-                        }
+                        } 
                         return null;
                       },
                     ),

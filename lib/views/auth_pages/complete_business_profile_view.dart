@@ -37,6 +37,7 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
   XFile? _imageFile;
   String? profileImg;
   late String _id;
+  bool photoUrl = true;
 
   var user = FirebaseAuthServiceModel().getUserDetails();
   CollectionReference users = FirebaseFirestore.instance.collection("Users");
@@ -56,7 +57,7 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
       if (_imageFile != null) {
         // upload profile pic to firebase storage
         firebase_storage.Reference ref =
-            firebase_storage.FirebaseStorage.instance.ref('users/$_id.jpg');
+            firebase_storage.FirebaseStorage.instance.ref('business/$_id.jpg');
         await ref.putFile(File(_imageFile!.path));
         profileImg = await ref.getDownloadURL();
       }
@@ -78,6 +79,7 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
               businessEmailController.clear();
               businessWebsiteController.clear();
               _imageFile = null;
+              photoUrl = false;
             }))
           });
     }
@@ -181,7 +183,7 @@ class _CompleteBusinessProfileState extends State<CompleteBusinessProfile> {
                                     backgroundColor: primaryColor,
                                     backgroundImage: widget.data!
                                             .data()!
-                                            .containsKey('businessLogo')
+                                            .containsKey('businessLogo') && photoUrl == true
                                         ? NetworkImage(
                                             widget.data!['businessLogo'])
                                         : null,

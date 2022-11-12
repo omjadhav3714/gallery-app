@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
-
 import '../../entities/User.dart';
 import '../user/UserHandlerModel.dart';
 import 'FirebaseAuthServiceModel.dart';
