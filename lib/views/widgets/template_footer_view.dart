@@ -49,9 +49,9 @@ class _TemplateFooterState extends State<TemplateFooter> {
                   title: Text(user.displayName ?? 'No name'),
                   isThreeLine: true,
                   subtitle: Text(
-                    "${snapshot.data!['email']}" +
+                    "${snapshot.data!['email']}" + "\n" +
                         ((snapshot.data!.data()!.containsKey('phone')
-                            ? snapshot.data!['phone']
+                            ? (snapshot.data!['phone'] ?? '')
                             : '')),
                     style: const TextStyle(fontSize: 12),
                   ),
@@ -66,7 +66,7 @@ class _TemplateFooterState extends State<TemplateFooter> {
                   fit: BoxFit.contain,
                   width: 80,
                   errorBuilder: (context, exception, stackTrack) => SizedBox(
-                    height: 100,
+                    height: 100,  
                     width: 150,
                     child: Center(
                       child: Column(
