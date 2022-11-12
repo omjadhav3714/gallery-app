@@ -359,7 +359,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
         child: IconButton(
           icon: Icon(Icons.undo,
               color:
-                  layers.length > 1 || removedLayers.isNotEmpty ? white : grey),
+                  layers.length > 1 || removedLayers.isNotEmpty ? white : greyDark),
           onPressed: () {
             if (removedLayers.isNotEmpty) {
               layers.add(removedLayers.removeLast());
@@ -378,7 +378,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: IconButton(
-          icon: Icon(Icons.redo, color: undoLayers.isNotEmpty ? white : grey),
+          icon: Icon(Icons.redo, color: undoLayers.isNotEmpty ? white : greyDark),
           onPressed: () {
             if (undoLayers.isEmpty) return;
 
