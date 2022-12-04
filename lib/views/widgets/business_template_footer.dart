@@ -48,23 +48,23 @@ class _BusinessTemplateFooterState extends State<BusinessTemplateFooter> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ListTile(
-                  title: Text("Name : " +
+                  title: Text("NAME  : " +
                       (snapshot.data!.data()!.containsKey('businessName')
                           ? snapshot.data!['businessName']
                           : '')),
                   isThreeLine: true,
                   subtitle: Text(
-                    "Phone : " +
+                    "PHONE    : " +
                         (snapshot.data!.data()!.containsKey('businessPhone')
                             ? snapshot.data!['businessPhone']
                             : '') +
                         "\n" +
-                        "Website : " +
+                        "WEBSITE : " +
                         (snapshot.data!.data()!.containsKey('businessWebsite')
                             ? snapshot.data!['businessWebsite']
                             : '') +
                         "\n" +
-                        "Email : " +
+                        "EMAIL  " "    : " +
                         (snapshot.data!.data()!.containsKey('businessEmail')
                             ? snapshot.data!['businessEmail']
                             : ''),

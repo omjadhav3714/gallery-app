@@ -38,7 +38,7 @@ class CategoriesGridView extends StatelessWidget {
           crossAxisCount: 3,
           crossAxisSpacing: 2.0,
           mainAxisSpacing: 2.0,
-          children: List.generate(4, (index) {
+          children: List.generate(snapshot.data!.docs.length >= 6 ? 6 : snapshot.data!.docs.length, (index) {
             return Center(
               child: CategoryGridCardView(
                 data: snapshot.data!.docs[index],

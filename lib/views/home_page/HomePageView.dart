@@ -31,7 +31,7 @@ class _HomePageViewState extends State<HomePageView> {
             return Row(
               children: [
                 const Text(
-                  "Welcome to ",
+                  "Welcome ",
                   style: TextStyle(
                     color: Colors.black,
                     fontFamily: "Poppins",

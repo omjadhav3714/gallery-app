@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
 import '../../constants/constants.dart';
 import '../../constants/strings.dart';
-import '../../entities/ProfileImage.dart';
 import '../../entities/User.dart';
 import 'profile_list_items.dart';
 
@@ -83,12 +82,16 @@ class _UserProfileViewState extends State<UserProfileView> {
                     ),
                     const SocialIcons(),
                     const SizedBox(height: 30),
-                    Text(
-                      snapshot.data!['name'],
-                      style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: "Poppins"),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        snapshot.data!['name'],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "Poppins"),
+                      ),
                     ),
                     Text(
                       snapshot.data!['email'],

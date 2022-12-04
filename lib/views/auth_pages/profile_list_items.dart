@@ -62,7 +62,7 @@ class _ProfileListItemsState extends State<ProfileListItems> {
               ),
                ProfileListItem(
                 icon: LineAwesomeIcons.history,
-                text: 'Forget Password',
+                text: 'Forgot Password',
                 onTapFunction: () {
                   Navigator.pushNamed(context, '/forgotPassword');
                 },
