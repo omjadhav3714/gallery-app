@@ -48,6 +48,25 @@ dependencies:
   colorfilter_generator: ^0.0.8
   hand_signature: ^2.3.0+1
   image_cropper: ^3.0.1
+  url_launcher: ^6.1.7
+  flutter_native_splash: ^2.2.14
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/logo.jpg
+  color_dark: "#ffffff"
+  image_dark: assets/logo.jpg
+
+  android_12:
+    image: assets/logo.jpg
+    icon_background_color: "#ffffff"
+    image_dark: assets/logo.jpg
+    icon_background_color_dark: "#ffffff"
+
+  web: true
+  ios: true
+  android: true
+
 
 dev_dependencies:
   flutter_test:

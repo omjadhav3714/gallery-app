@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../constants/colors.dart';
 import '../../constants/constants.dart';
 import '../../constants/strings.dart';
@@ -98,6 +100,29 @@ class _UserProfileViewState extends State<UserProfileView> {
                       style: const TextStyle(fontWeight: FontWeight.w300),
                     ),
                     const ProfileListItems(),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Link(
+                        uri: Uri.parse(
+                          'https://docs.google.com/document/d/1XWg1Qj93ZM0CziafH1FzgClrt_6Kagg-a_0WKyj1FrU/edit?usp=sharing',
+                        ),
+                        target: LinkTarget.blank,
+                        builder: (BuildContext ctx, FollowLink? openLink) {
+                          return TextButton.icon(
+                            onPressed: openLink,
+                            label: const Text(
+                              'Terms and Conditions',
+                              style: TextStyle(
+                                color: greyDark,
+                                fontSize: 15,
+                                fontFamily: "Poppins",
+                              ),
+                            ),
+                            icon: const Icon(Icons.info),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 )
               ],
