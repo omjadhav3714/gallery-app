@@ -1,6 +1,6 @@
+// ignore_for_file: file_names
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:greetings_app/entities/User.dart';
-import 'FirebaseAuthServiceModel.dart';
 
 abstract class IFirebaseAuthServiceModel {
   User? getFirebaseUser();

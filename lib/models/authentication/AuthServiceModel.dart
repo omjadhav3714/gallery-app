@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import '../../entities/User.dart';
 import '../user/UserHandlerModel.dart';
 import 'FirebaseAuthServiceModel.dart';

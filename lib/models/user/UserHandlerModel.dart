@@ -1,36 +1,12 @@
+// ignore_for_file: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-
 import '../../entities/User.dart';
 
 class UserHandlerModel {
   final CollectionReference users =
   FirebaseFirestore.instance.collection("Users");
-
-  /// Checks if the user exists and returns the data filled [UserData] instance or else null
-  // Future<UserData?> tryToGetUserDetails(BuildContext context) async {
-  //   var user = Provider.of<UserData?>(context);
-  //   debugPrint(user!.email);
-  //   var userDoc = await FirebaseFirestore.instance
-  //       .collection("Users")
-  //       .doc(user.email)
-  //       .get();
-  //   debugPrint(userDoc.data().toString());
-  //   var data = userDoc.data();
-  //   if (data != null) {
-  //     user.updateData(
-  //       uid: data["uid"],
-  //       email: data["email"],
-  //       isContentCreator: data["isContentCreator"],
-  //       isNewUser: false,
-  //       displayName: data["displayName"],
-  //       accessToken: data["accessToken"],
-  //     );
-  //     return user;
-  //   }
-  //   return null;
-  // }
 
   /// Creates a document in database with the user data
   Future<void> storeUserDetails(UserData? user) async {

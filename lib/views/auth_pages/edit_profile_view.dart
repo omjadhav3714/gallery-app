@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:greetings_app/constants/colors.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:greetings_app/utils/scafffold_message_handler.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 import '../../constants/strings.dart';
 import '../../models/authentication/FirebaseAuthServiceModel.dart';
 import '../widgets/authbutton_widget_view.dart';

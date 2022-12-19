@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, invalid_return_type_for_catch_error
 
 import 'dart:io';
 import 'dart:typed_data';

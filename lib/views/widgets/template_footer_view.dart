@@ -19,13 +19,13 @@ class _TemplateFooterState extends State<TemplateFooter> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserData?>(context);
-    final Stream<DocumentSnapshot<Map>> _userStream = FirebaseFirestore.instance
+    final Stream<DocumentSnapshot<Map>> userStream = FirebaseFirestore.instance
         .collection('Users')
         .doc(user!.email)
         .snapshots(includeMetadataChanges: true);
 
     return StreamBuilder<DocumentSnapshot<Map>>(
-      stream: _userStream,
+      stream: userStream,
       builder: (BuildContext context,
           AsyncSnapshot<DocumentSnapshot<Map>> snapshot) {
         if (snapshot.hasError) {

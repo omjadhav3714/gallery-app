@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greetings_app/constants/colors.dart';
@@ -19,13 +20,13 @@ class _HomePageViewState extends State<HomePageView> {
   Widget build(BuildContext context) {
     var user = Provider.of<UserData?>(context)!;
     Widget getAppBarTitleForHomePage() {
-      final Stream<DocumentSnapshot<Map>> _userStream = FirebaseFirestore
+      final Stream<DocumentSnapshot<Map>> userStream = FirebaseFirestore
           .instance
           .collection('Users')
           .doc(user.email)
           .snapshots(includeMetadataChanges: true);
       return StreamBuilder<DocumentSnapshot<Map>>(
-          stream: _userStream,
+          stream: userStream,
           builder: (BuildContext context,
               AsyncSnapshot<DocumentSnapshot<Map>> snapshot) {
             return Row(

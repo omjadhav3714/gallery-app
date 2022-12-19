@@ -1,11 +1,10 @@
+// ignore_for_file: file_names
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:greetings_app/constants/colors.dart';
 import 'package:greetings_app/models/authentication/FirebaseAuthServiceModel.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../entities/User.dart';
 
 class UserController {

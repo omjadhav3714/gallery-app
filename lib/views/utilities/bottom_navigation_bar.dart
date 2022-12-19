@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:greetings_app/constants/colors.dart';
-import 'package:greetings_app/models/authentication/FirebaseAuthServiceModel.dart';
-import 'package:provider/provider.dart';
-
-import '../category_pages/subcategory_view.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({Key? key, required this.selectedIndex})

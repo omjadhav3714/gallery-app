@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:greetings_app/views/utilities/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/link.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../constants/colors.dart';
 import '../../constants/constants.dart';
 import '../../constants/strings.dart';
@@ -26,14 +25,14 @@ class _UserProfileViewState extends State<UserProfileView> {
     //     .doc(user.email)
     //     .snapshots(includeMetadataChanges: true);
 
-    final Stream<DocumentSnapshot<Map>> _userStream = FirebaseFirestore.instance
+    final Stream<DocumentSnapshot<Map>> userStream = FirebaseFirestore.instance
         .collection('Users')
         .doc(user.email)
         .snapshots(includeMetadataChanges: true);
     return Scaffold(
       bottomNavigationBar: const CustomBottomNavigationBar(selectedIndex: 3),
       body: StreamBuilder<DocumentSnapshot<Map>>(
-          stream: _userStream,
+          stream: userStream,
           builder: (BuildContext context,
               AsyncSnapshot<DocumentSnapshot<Map>> snapshot) {
             if (snapshot.hasError) {
